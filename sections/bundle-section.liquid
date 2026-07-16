@@ -17,21 +17,22 @@
             <h4>{{ product.title }}</h4>
             <button class="button button--full-width button--secondary btn-bg-border">Add Bundle</button>
           </div>
+          {% assign product_handle = product.handle %}
         {% endfor %}
       {% endif %}
-      {% assign product = all_products['your-product-handle'] %}
+      {% assign product = all_products[product_handle] %}
 
-{% if product != blank %}
-  {% for option in product.options_with_values %}
-    {% if option.name == 'Color' %}
-      <div class="color-swatches">
-        {% for value in option.values %}
-          <span class="color-item">{{ value }}</span>
+      {% if product != blank %}
+        {% for option in product.options_with_values %}
+          {% if option.name == 'Color' %}
+            <div class="color-swatches">
+              {% for value in option.values %}
+                <span class="color-item">{{ value }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
         {% endfor %}
-      </div>
-    {% endif %}
-  {% endfor %}
-{% endif %}
+      {% endif %}
     </div>
   </div>
 </div>
