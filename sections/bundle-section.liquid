@@ -20,7 +20,6 @@
           {% assign product_handle = product.handle %}
         {% endfor %}
       {% endif %}
-      
     </div>
     {% assign product = all_products[product_handle] %}
     {% if product != blank %}
@@ -28,7 +27,11 @@
         {% if option.name == 'Color' %}
           <div class="color-swatches">
             {% for value in option.values %}
-              <span style="backgroud-color:${value}" class="color-item">{{ value }}</span>
+              <span
+                class="color-item"
+                style="background-color: {{ value }};"
+              >
+              </span>
             {% endfor %}
           </div>
         {% endif %}
