@@ -6,13 +6,16 @@
       {% if collection != blank %}
         {% for product in collection.products limit: 4 %}
           <div class="product-card">
-            <img
-              src="{{ product.featured_image | image_url: width: 500 }}"
-              alt="{{ product.title }}"
-              width="" height=""
-            >
+            <a href="{{product.url }}" class="link">
+              <img
+                src="{{ product.featured_image | image_url: width: 500 }}"
+                alt="{{ product.title }}"
+                width=""
+                height=""
+              >
+            </a>
             <h4>{{ product.title }}</h4>
-            <button>Add Bundle</button>    
+            <button>Add Bundle</button>
           </div>
         {% endfor %}
       {% endif %}
@@ -80,7 +83,7 @@
         object-fit: cover;
         width: 150px;
     }
-    
+
     .custom-product-section .product-card h4 {
         margin: 16px 0 10px;
         font-size: 18px;
