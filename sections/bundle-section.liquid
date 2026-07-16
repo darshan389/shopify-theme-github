@@ -9,7 +9,7 @@
             <img
               src="{{ product.featured_image | image_url: width: 500 }}"
               alt="{{ product.title }}"
-              width="150px" height=""
+              width="" height=""
             >
             <h3>{{ product.title }}</h3>
           </div>
@@ -77,6 +77,7 @@
         height: auto;
         border-radius: 8px;
         object-fit: cover;
+        width: 150px;
     }
 
     .custom-product-section .product-card h3 {
