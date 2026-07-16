@@ -24,7 +24,7 @@
       "type": "bundle-section",
       "name": "Bundle Product",
       "settings": {
-        "collection_one": "",
+        "collection_one": "product",
         "collection_two": ""
       }
     }
