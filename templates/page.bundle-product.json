@@ -20,28 +20,18 @@
       "name": "Subscripition Product",
       "settings": {}
     },
-    "collection_list_UHBkgM": {
-      "type": "collection-list",
-      "name": "Collection List",
+    "bundle_section_G3H3YK": {
+      "type": "bundle-section",
+      "name": "Bundle Product",
       "settings": {
-        "section_heading": "",
-        "heading_url": "",
-        "header_show": "Horizon",
-        "heading_size": 18,
-        "heading_position_horizon": "Left",
-        "heading_position_vertical": "Start",
-        "heading_margin": 15,
-        "product_range": 4,
-        "btn_position": "Left",
-        "background_color": "",
-        "section_padding_top": 0,
-        "section_padding_bottom": 0
+        "collection_one": "",
+        "collection_two": ""
       }
     }
   },
   "order": [
     "main",
     "subscription_product_YKh48N",
-    "collection_list_UHBkgM"
+    "bundle_section_G3H3YK"
   ]
 }
