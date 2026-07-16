@@ -1,0 +1,267 @@
+{% capture insta_images %}
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'img_list' %}
+        {% if block.settings.feed_images != blank %}
+          <div {{ block.shopify_attributes }} class="insta-items">
+            <a href="#">
+              <img
+                src="{{ block.settings.feed_images | image_url  }}"
+                alt="{{ block.settings.feed_images }}"
+                width=""
+                height=""
+              >
+              {% if section.settings.feed_btn_text != blank %}
+                <div class="insta-btn">
+                  <div class="btn-bg-border">
+                    <span>{{ section.settings.feed_btn_text }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 14">
+                      <g><g><path d="M.593 7.724h16.78l.026.071c-.279.27-.558.542-.84.808-1.552 1.488-3.108 2.97-4.66 4.454l-.048.043.588.494a1689.81 1689.81 0 0 0 3.927-3.747c.728-.694 1.456-1.385 2.18-2.083.326-.314.326-.479-.005-.797C16.532 5.045 14.27 2.922 12.261 1l-.558.444c1.765 1.687 3.779 3.66 5.544 5.348.056.055.135.102.17.223H.593"></path><path fill="none" stroke="#000" stroke-miterlimit="20" stroke-width=".3" d="M.593 7.724h16.78l.026.071c-.279.27-.558.542-.84.808-1.552 1.488-3.108 2.97-4.66 4.454l-.048.043v0l.588.494a1689.81 1689.81 0 0 0 3.927-3.747c.728-.694 1.456-1.385 2.18-2.083.326-.314.326-.479-.005-.797C16.532 5.045 14.27 2.922 12.261 1v0l-.558.444v0c1.765 1.687 3.779 3.66 5.544 5.348.056.055.135.102.17.223H.593"></path></g></g>
+                    </svg>
+                  </div>
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 13">
+                      <g><g><g><g><path d="M11.976 9.248a2.265 2.265 0 0 1-2.263 2.263H4.131A2.265 2.265 0 0 1 1.87 9.248V3.667A2.265 2.265 0 0 1 4.13 1.404h5.582a2.265 2.265 0 0 1 2.263 2.263zM4.131.348A3.324 3.324 0 0 0 .812 3.667v5.581c0 1.83 1.49 3.32 3.32 3.32h5.581c1.83 0 3.32-1.49 3.32-3.32V3.667c0-1.83-1.49-3.32-3.32-3.32z"></path></g></g><g><g><path d="M6.923 8.373A1.916 1.916 0 0 1 5.01 6.459c0-1.057.858-1.915 1.914-1.915a1.916 1.916 0 0 1 0 3.829zm0-4.885a2.974 2.974 0 0 0-2.97 2.97 2.974 2.974 0 0 0 2.97 2.971 2.974 2.974 0 0 0 2.971-2.97 2.974 2.974 0 0 0-2.97-2.97z"></path></g></g><g><g><path d="M9.313 3.318a.75.75 0 1 1 1.498 0 .75.75 0 0 1-1.498 0z"></path></g></g></g></g>
+                    </svg>
+                  </span>
+                </div>
+              {% endif %}
+            </a>
+          </div>
+        {% endif %}
+    {% endcase %}
+  {% endfor %}
+{% endcapture %}
+
+<!-- INSTA SECTION START -->
+{% if section.settings.section_heading != blank or section.blocks[0].settings.feed_images != blank %}
+  <section class="insta-section">
+    <div class="container">
+      <div class="new-arrivals-inner">
+        {% if section.settings.section_heading != blank %}
+          <div class="new-ar-btn">
+            <a href="{{ section.settings.heading_url }}" class="arrow-btn">
+              <span>{{ section.settings.section_heading }}</span>
+              {% render 'icons', icon: 'right_arrow' %}
+            </a>
+          </div>
+        {% endif %}
+
+        {% if insta_images %}
+          <div class="new-ar-product">
+            <div class="insta-wrapper">
+              {{ insta_images }}
+            </div>
+            {% if section.settings.mobile_btn_text %}
+              <div class="mob-shop-all-btn">
+                <a href="#" class="btn-bg-border">
+                  <span>{{ section.settings.mobile_btn_text }}</span>
+                  {% render 'icons', icon: 'product_right_arrow' %}
+                </a>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endif %}
+<!-- INSTA SECTION START -->
+
+{% schema %}
+{
+  "name": "Instafeed",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "section_heading",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "header_show",
+      "label": "Header Show",
+      "options": [
+        {
+          "label": "Horizon",
+          "value": "Horizon"
+        },
+        {
+          "label": "Vertical",
+          "value": "Vertical"
+        }
+      ],
+      "visible_if": "{{ section.settings.section_heading }}"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Font Size",
+      "max": 50,
+      "min": 15,
+      "step": 1,
+      "unit": "px",
+      "default": 18,
+      "visible_if": "{{ section.settings.section_heading }}"
+    },
+    {
+      "type": "select",
+      "id": "heading_position_horizon",
+      "label": "Heading Position",
+      "options": [
+        {
+          "label": "Left",
+          "value": "Left"
+        },
+        {
+          "label": "Center",
+          "value": "Center"
+        },
+        {
+          "label": "Right",
+          "value": "Right"
+        }
+      ],
+      "visible_if": "{{ section.settings.header_show == 'Horizon' }}"
+    },
+    {
+      "type": "select",
+      "id": "heading_position_vertical",
+      "label": "Heading Position",
+      "options": [
+        {
+          "label": "Start",
+          "value": "Start"
+        },
+        {
+          "label": "Center",
+          "value": "Center"
+        },
+        {
+          "label": "End",
+          "value": "End"
+        }
+      ],
+      "visible_if": "{{ section.settings.header_show == 'Vertical' and section.settings.section_heading}}"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin",
+      "label": "Heading Margin Bottom",
+      "max": 50,
+      "min": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 15,
+      "visible_if": "{{section.settings.header_show == 'Horizon' }}"
+    },
+    {
+      "type": "text",
+      "id": "feed_btn_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "heading_url",
+      "label": "Url"
+    },
+    {
+      "type": "color_background",
+      "id": "section_bg_color",
+      "label": "Color"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "text",
+      "id": "mobile_btn_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "section_top_padding",
+      "label": "Top",
+      "max": 100,
+      "min": 0,
+      "step": 1,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_padding",
+      "label": "Bottom",
+      "max": 100,
+      "min": 0,
+      "step": 1,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Images",
+      "type": "img_list",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "feed_images",
+          "label": "Images"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instafeed"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .insta-section{
+      padding-top:{{section.settings.section_top_padding}}px;
+      padding-bottom:{{section.settings.section_bottom_padding}}px;
+      background:{{ section.settings.section_bg_color }}
+  }
+
+  .insta-section .new-arrivals-inner{
+    {% if section.settings.header_show == 'Horizon' %}
+    display:block;
+    {% endif %}
+  }
+
+  .insta-section .new-arrivals-inner .new-ar-btn{
+    {% if section.settings.header_show == 'Horizon' %}
+    margin-bottom:{{ section.settings.heading_margin }}px;
+    text-align:{{ section.settings.heading_position_horizon }};
+    {% endif %}
+    {% if section.settings.header_show == 'Vertical' %}
+    display: flex;
+    align-items: {{section.settings.heading_position_vertical}};
+    {% endif %}
+  }
+
+  .insta-section .new-arrivals-inner .new-ar-btn span{
+    font-size:{{section.settings.heading_size }}px;
+  }
+
+  {% if section.settings.section_heading == blank or section.settings.header_show == 'Horizon' %}
+      .insta-section .new-arrivals-inner .new-ar-product{
+          width:100%;
+          margin: 0 auto;
+      }
+  {% endif %}
+
+  .insta-section .new-arrivals-inner .new-ar-product .new-ar-inner .product-card .product-content{
+    justify-content:{{ section.settings.btn_position }};
+  }
+{% endstyle %}

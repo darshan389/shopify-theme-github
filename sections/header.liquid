@@ -1,0 +1,603 @@
+{% assign product_form_id = 'product-form-' | append: section.id %}
+
+<header>
+  <div class="header">
+    <div class="header-top">
+      <div class="container">
+        <div class="head-top-inner">
+          {% if section.settings.follow_icon != blank or section.settings.follow_text != blank %}
+            <div class="ht-left">
+              <a href="{{ section.settings.follow_url }}">
+                {% if section.settings.follow_text != blank %}
+                  <span>{{ section.settings.follow_text }}</span>
+                {% endif %}
+
+                {% if section.settings.follow_icon != blank %}
+                  {{
+                    section.settings.follow_icon
+                    | image_url: width: 13
+                    | image_tag: alt: section.settings.main_logo.alt
+                  }}
+                {% endif %}
+              </a>
+            </div>
+          {% endif %}
+
+          {% if section.settings.main_logo != blank %}
+            <div class="ht-center">
+              <a href="{{ routes.root_url }}">
+                {{
+                  section.settings.main_logo
+                  | image_url: width: 253
+                  | image_tag: alt: section.settings.main_logo.alt
+                }}
+              </a>
+            </div>
+          {% endif %}
+
+          {% if section.settings.currency_icon
+            or section.settings.wishlist_icon
+            or section.settings.sign_in_icon
+            or section.settings.main_cart
+          %}
+            <div class="ht-right">
+              <ul>
+                {% if section.settings.currency_icon %}
+                  <li class="currency">
+                    {% for currency in shop.enabled_currencies %}
+                      <option value="{{ currency.iso_code }}">
+                        {{ currency.iso_code -}}
+                        {{- currency.symbol }}
+                      </option>
+                    {% endfor %}
+                  </li>
+                {% endif %}
+
+                {% if section.settings.wishlist_icon %}
+                  <li class="wishlist">
+                    <a role="link" aria-disabled="true">{{ section.settings.wishlist_text }}</a>
+                  </li>
+                {% endif %}
+
+                {% if section.settings.sign_in_icon %}
+                  <li class="signin">
+                    <a href="{{ routes.account_login_url }}">{{ 'layout.customer.log_in' | t }}</a>
+                  </li>
+                {% endif %}
+
+                {% if section.settings.main_cart %}
+                  <li class="cart">
+                    <a href="{{ routes.cart_url }}">
+                      {% if section.settings.cart_logo != blank %}
+                        <img
+                          src="{{ section.settings.cart_logo | image_url }}"
+                          width="15"
+                          height="18"
+                          alt="{{section.settings.cart_logo.alt }}"
+                        >
+                      {% else %}
+                        {% render 'icons', icon: 'cart_icon' %}
+                      {% endif %}
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="header-bottom">
+      <div class="container">
+        <div class="head-bottom-inner">
+          {% if section.settings.menu_link_list != blank %}
+            <div class="hb-left">
+              <ul>
+                {%- for link in section.settings.menu_link_list.links -%}
+                  <li>
+                    <a href="{{ link.url }}" data-text="{{link.title }}">
+                      <span>{{ link.title }}</span>
+                    </a>
+
+                    {%- assign link_title = link.title | handle -%}
+                    {% for block in section.blocks %}
+                      {% if block.type == 'megamenu' %}
+                        {% assign block_title = block.settings.mega_menu_title | handle %}
+                        {% if block_title == link_title %}
+                          {% render 'mega-menu', block: block %}
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+
+          {% if section.settings.search_icon %}
+            <div class="hb-right">
+              <div class="header-search">
+                <div class="header-search-inner">
+                  <div class="close-search" style="z-index: 111111;">
+                    {% render 'icons', icon: 'close_icon' %}
+                  </div>
+
+                  <predictive-search style="position:relative;display: block;">
+                    <form
+                      action="{{ routes.search_url }}"
+                      method="get"
+                      role="search"
+                    >
+                      <input
+                        id="Search"
+                        type="search"
+                        name="q"
+                        value="{{ search.terms | escape }}"
+                        role="combobox"
+                        aria-expanded="false"
+                        aria-owns="predictive-search-results"
+                        aria-controls="predictive-search-results"
+                        aria-haspopup="listbox"
+                        aria-autocomplete="list"
+                        placeholder="Search"
+                      >
+                      <button type="submit">
+                        {% render 'icons', icon: 'search' %}
+                      </button>
+                      <input name="options[prefix]" type="hidden" value="last">
+                      <div id="predictive-search" tabindex="-1" class="main_search_box" style="display:none"></div>
+                    </form>
+                  </predictive-search>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="mob-menu">
+          <div class="menu-hemburger">
+            <a role="link" aria-disabled="true">
+              <span></span>
+              <span></span>
+            </a>
+          </div>
+
+          {% if section.settings.mobile_icon %}
+            <div class="mob-controller">
+              <ul>
+                <li>
+                  {% render 'icons', icon: 'person_icon' %}
+                </li>
+                <li>
+                  <a href="#">
+                    {% render 'icons', icon: 'wishlist_brown' %}
+                  </a>
+                </li>
+                <li class="cart">
+                  {% render 'icons', icon: 'cart_icon' %}
+                </li>
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if section.settings.mobile_logo != blank %}
+    <div class="mobile-head-logo">
+      <div class="mob-head-top">
+        <a href="{{ routes.root_url }}">
+          <img
+            src="{{ section.settings.mobile_logo | image_url }}"
+            alt="{{ section.settings.main_logo.alt }}"
+            width="195"
+            height=""
+          >
+        </a>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if section.settings.main_cart %}
+    {% render 'cart-notification', product_form_id: product_form_id %}
+  {% endif %}
+
+  <div class="mobile-menu">
+    <div class="menu-overlay"></div>
+    <div class="mob-menu-inner">
+      <div class="close-menu">
+        {% render 'icons', icon: 'big_close_icon' %}
+      </div>
+
+      <div class="cm-menu-inner">
+        <div class="cm-menu-inner-sl">
+          {% if section.settings.mobile_search_btn
+            or section.settings.mobile_my_account_btn
+            or section.settings.mobile_wishlist_btn
+            or section.settings.mobile_shopping_bag_btn
+          %}
+            <div class="menu-controller">
+              {% if section.settings.mobile_search_btn %}
+                <a href="{{ routes.search_url }}" class="btn-bg-border">
+                  <span>search</span>
+                  {% render 'icons', icon: 'search' %}
+                </a>
+              {% endif %}
+
+              {% if section.settings.mobile_my_account_btn %}
+                <a href="{{routes.account_profile_url }}" class="btn-bg-border">
+                  <span>my account</span>
+                  {% render 'icons', icon: 'product_right_arrow' %}
+                </a>
+              {% endif %}
+
+              {% if section.settings.mobile_wishlist_btn %}
+                <a href="#" class="btn-bg-border">
+                  <span>My Wishlist</span>
+                  {% render 'icons', icon: 'product_right_arrow' %}
+                </a>
+              {% endif %}
+
+              {% if section.settings.mobile_shopping_bag_btn %}
+                <a href="#" class="btn-bg-border">
+                  <span>my shopping bag</span>
+                  {% render 'icons', icon: 'product_right_arrow' %}
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if section.settings.menu_link_list %}
+            <div class="cm-mob-menu">
+              <ul>
+                {%- for link in section.settings.menu_link_list.links -%}
+                  <li
+                    {% if forloop.index == 2 or forloop.index == 4 %}
+                      class="has-children"
+                    {% endif %}
+                  >
+                    <a
+                      href="{% if forloop.index == 2 or forloop.index == 4 %}#{% else %}{{ link.url }}{% endif %}"
+                      class="{% if forloop.index == 2 or forloop.index == 4 %}acnav__label{% endif %}"
+                    >
+                      <span>{{ link.title }}</span>
+                      {% if forloop.index == 2 or forloop.index == 4 or forloop.last %}
+                        {% render 'icons', icon: 'down_arrow' %}
+                      {% endif %}
+                    </a>
+                    {% if forloop.index == 2 or forloop.index == 4 %}
+                      <div class="mob-sub-menu acnav__list">
+                        <div class="cm-menu-mob-inner">
+                          <a href="#" class="back-menu">
+                            <h4>
+                              {% render 'icons', icon: 'left_arrow' %}
+                              <span>{{ link.title }}</span>
+                            </h4>
+                          </a>
+                          <div class="menu-list">
+                            <div class="menu-items main-link">
+                              <ul>
+                                <li>
+                                  <a href="#">New Arrivals</a>
+                                </li>
+                                <li>
+                                  <a href="#">Exclusives</a>
+                                </li>
+                                <li>
+                                  <a href="#">Accessories</a>
+                                </li>
+                                <li>
+                                  <a href="#">Shop Insta</a>
+                                </li>
+                                <li>
+                                  <a href="#">Gift Cards</a>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="menu-items">
+                              <h4>Dresses</h4>
+                              <ul>
+                                <li>
+                                  <a href="#">Mini Dresses</a>
+                                </li>
+                                <li>
+                                  <a href="#">Party Dresses</a>
+                                </li>
+                                <li>
+                                  <a href="#">Midi & Maxi Dresses</a>
+                                </li>
+                                <li>
+                                  <a href="#">Formal Dresses</a>
+                                </li>
+                                <li>
+                                  <a href="#">Long Sleeve Dresses</a>
+                                </li>
+                                <li>
+                                  <a href="#">Bodycon Dresses</a>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="menu-items">
+                              <h4>Playsuits & Rompers</h4>
+                              <ul>
+                                <li>
+                                  <a href="#">All Playsuits & Rompers</a>
+                                </li>
+                                <li>
+                                  <a href="#">Jumpsuits</a>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="menu-items">
+                              <h4>Tops</h4>
+                              <ul>
+                                <li>
+                                  <a href="#">All Tops</a>
+                                </li>
+                                <li>
+                                  <a href="#">Basics</a>
+                                </li>
+                                <li>
+                                  <a href="#">Crop Tops</a>
+                                </li>
+                                <li>
+                                  <a href="#">Camis & Tanks</a>
+                                </li>
+                                <li>
+                                  <a href="#">Long Sleeve Tops</a>
+                                </li>
+                                <li>
+                                  <a href="#">Short Sleeve Tops</a>
+                                </li>
+                                <li>
+                                  <a href="#">Cardigans</a>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="menu-items">
+                              <h4>Sets & Co-ords</h4>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+
+                {% if section.settings.mobile_currency %}
+                  <li class="currency">
+                    {% for currency in shop.enabled_currencies %}
+                      <option value="{{ currency.iso_code }}">
+                        {{ currency.iso_code -}}
+                        {{- currency.symbol }}
+                      </option>
+                      {% render 'icons', icon: 'down_arrow' %}
+                    {% endfor %}
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+          {% endif %}
+
+          {% if section.settings.social_icon %}
+            <div class="menu-social-media">
+              %}
+              <ul>
+                <li>
+                  {% render 'icons', icon: 'inst-icon', width: 25, height: 25 %}
+                </li>
+                <li>
+                  {% render 'icons', icon: 'face-icon', width: 13, height: 25 %}
+                </li>
+                <li>
+                  {% render 'icons', icon: 'picart-icon', width: 19, height: 25 %}
+                </li>
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "main_logo",
+      "label": "Logo"
+    },
+    {
+      "type": "checkbox",
+      "id": "main_cart",
+      "label": "Cart Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "cart_logo",
+      "label": "Cart Image",
+      "visible_if": "{{ section.settings.main_cart }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "sign_in_icon",
+      "label": "Sign In Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "wishlist_icon",
+      "label": "Wishlist Icon"
+    },
+    {
+      "type": "text",
+      "id": "wishlist_text",
+      "label": "Wishlist Text",
+      "visible_if": "{{ section.settings.wishlist_icon }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "currency_icon",
+      "label": "Currency"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_link_list",
+      "label": "Menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "search_icon",
+      "label": "Search"
+    },
+    {
+      "type": "header",
+      "content": "Social Media"
+    },
+    {
+      "type": "checkbox",
+      "id": "follow_check",
+      "label": "Search"
+    },
+    {
+      "type": "image_picker",
+      "id": "follow_icon",
+      "label": "Icon",
+      "visible_if": "{{ section.settings.follow_check }}"
+    },
+    {
+      "type": "text",
+      "id": "follow_text",
+      "label": "Text",
+      "visible_if": "{{ section.settings.follow_check }}"
+    },
+    {
+      "type": "url",
+      "id": "follow_url",
+      "label": "Url",
+      "visible_if": "{{ section.settings.follow_check }}"
+    },
+    {
+      "type": "header",
+      "content": "Moblie"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_logo",
+      "label": "Logo"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_icon",
+      "label": "Bottom Icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "social_icon",
+      "label": "Social Icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_search_btn",
+      "label": "Search button"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_my_account_btn",
+      "label": "My Account button"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_wishlist_btn",
+      "label": "Wishlist button"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_shopping_bag_btn",
+      "label": "Shopping button"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_currency",
+      "label": "Mobile Currency"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Mega Menu",
+      "type": "megamenu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "mega_menu_title",
+          "label": "Title",
+          "info": "Add Title to match with the menu title to appear the mega menu"
+        },
+        {
+          "type": "link_list",
+          "id": "megamuenu_pass",
+          "label": "Menu"
+        },
+        {
+          "type": "header",
+          "content": "Collection"
+        },
+        {
+          "type": "collection_list",
+          "id": "menu_collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "url",
+           "id": "url_1",
+           "label": "Url 1",
+           "info": "Choose Collection, Products, Pages or Article" 
+        },
+        {
+          "type": "url",
+           "id": "url_2",
+           "label": "Url 2",
+           "info": "Choose Collection, Products, Pages or Article" 
+        },
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  predictive-search form input[type=search]:focus {
+  outline: none;
+  }
+    /* mobile_display_currency */
+    header .mobile-menu .mob-menu-inner .cm-menu-inner .cm-menu-inner-sl .cm-mob-menu .currency{
+      display: flex;
+    }
+
+    header .mobile-menu .mob-menu-inner .cm-menu-inner .cm-menu-inner-sl .cm-mob-menu .currency svg{
+      margin-top: 4px;
+      margin-left: 6px;
+    }
+
+    /* cart_empty_text */
+    .cart_empty_text{
+      display: block;
+      text-align: center;
+    }
+
+    .cart_empty_text h3{
+      padding: 10px 15px;
+      background: black;
+      color: #fffcf7;
+      font-size: large;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      display: inline-block;
+      border-radius: 10px;
+    }
+{% endstylesheet %}

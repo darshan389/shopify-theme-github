@@ -1,0 +1,185 @@
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      {% if section.settings.text != blank
+        or section.settings.emile_show == true
+        or section.settings.moblie_image != blank
+        or section.settings.svg_icon == true
+      %}
+        <div class="newslatter">
+          {% if section.settings.text != blank or section.settings.emile_show %}
+            <div class="newslatter-form">
+              {% if section.settings.emile_show %}
+                {% if section.settings.text != blank %}
+                  <h3>{{ section.settings.text }}</h3>
+                {% endif %}
+
+                {% if section.settings.emile_show %}
+                  <form method="POST">
+                    <input type="email" placeholder="Email">
+                    <button>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14">
+                        <g><g><g><path d="M.593 7.724h16.78l.026.071c-.279.27-.558.542-.84.808-1.552 1.488-3.108 2.97-4.66 4.454l-.048.043.588.494a1689.81 1689.81 0 0 0 3.927-3.747c.728-.694 1.456-1.385 2.18-2.083.326-.314.326-.479-.005-.797C16.532 5.045 14.27 2.922 12.261 1l-.558.444c1.765 1.687 3.779 3.66 5.544 5.348.056.055.135.102.17.223H.593"/><path fill="none" stroke="#000" stroke-miterlimit="20" stroke-width=".3" d="M.593 7.724h16.78l.026.071c-.279.27-.558.542-.84.808-1.552 1.488-3.108 2.97-4.66 4.454l-.048.043v0l.588.494a1689.81 1689.81 0 0 0 3.927-3.747c.728-.694 1.456-1.385 2.18-2.083.326-.314.326-.479-.005-.797C16.532 5.045 14.27 2.922 12.261 1v0l-.558.444v0c1.765 1.687 3.779 3.66 5.544 5.348.056.055.135.102.17.223H.593"/></g></g></g>
+                      </svg>
+                    </button>
+                  </form>
+                {% endif %}
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if section.settings.moblie_image != blank %}
+            <div class="footer-insta">
+              <a href="{{ section.settings.moblie_url }}">
+                <img
+                  src="{{ section.settings.moblie_image  | image_url }}"
+                  alt="{{ section.settings.moblie_image.alt }}"
+                  width=""
+                  height=""
+                >
+                {% if section.settings.moblie_icon != blank %}
+                  <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 13">
+                      <g><g><g><g><path d="M11.976 9.248a2.265 2.265 0 0 1-2.263 2.263H4.131A2.265 2.265 0 0 1 1.87 9.248V3.667A2.265 2.265 0 0 1 4.13 1.404h5.582a2.265 2.265 0 0 1 2.263 2.263zM4.131.348A3.324 3.324 0 0 0 .812 3.667v5.581c0 1.83 1.49 3.32 3.32 3.32h5.581c1.83 0 3.32-1.49 3.32-3.32V3.667c0-1.83-1.49-3.32-3.32-3.32z"/></g></g><g><g><path d="M6.923 8.373A1.916 1.916 0 0 1 5.01 6.459c0-1.057.858-1.915 1.914-1.915a1.916 1.916 0 0 1 0 3.829zm0-4.885a2.974 2.974 0 0 0-2.97 2.97 2.974 2.974 0 0 0 2.97 2.971 2.974 2.974 0 0 0 2.971-2.97 2.974 2.974 0 0 0-2.97-2.97z"/></g></g><g><g><path d="M9.313 3.318a.75.75 0 1 1 1.498 0 .75.75 0 0 1-1.498 0z"/></g></g></g></g>
+                    </svg>
+                  </span>
+                {% endif %}
+              </a>
+            </div>
+          {% endif %}
+
+          {% if section.settings.svg_icon %}
+            <div class="social-icon">
+              <ul>
+                <li>
+                  {% render 'icons', icon: 'inst-icon', width: 13, height: 13 %}
+                </li>
+                <li>
+                  {% render 'icons', icon: 'face-icon', width: 8, height: 14 %}
+                </li>
+                <li>
+                  {% render 'icons', icon: 'picart-icon', width: 10, height: 14 %}
+                </li>
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <div class="footer-right">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'Menu' %}
+              <div class="footer-menu {% if forloop.index == 2 %}f-second-menu {% endif %}{% if forloop.index == 3 %}f-third-menu desk-show{% endif %}">
+                <h3>{{ block.settings.link_list.title }}</h3>
+                <ul>
+                  {%- for link in block.settings.link_list.links -%}
+                    <li>
+                      {{ link.title | link_to: link.url }}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+
+                {% if block.settings.list_bottom_text %}
+                  <div class="copy-rights">
+                    <div class="sh1">
+                      © {{ 'now' | date: '%Y' }}
+                      {{ shop.name }}
+                    </div>
+                    <div class="sh1">Creative by {{ shop.name }}</div>
+                  </div>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+
+        <div class="copy-rights mob-show">
+          <div class="sh1">
+            © {{ 'now' | date: '%Y' }}
+            {{ shop.name }}
+          </div>
+          <div class="sh1">Creative by {{ shop.name }}</div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "svg_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "header",
+      "content": "Email signup"
+    },
+    {
+      "type": "checkbox",
+      "id": "emile_show",
+      "label": "Email"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "label": "Heading",
+      "visible_if": "{{ section.settings.emile_show == true }}"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "moblie_image",
+      "label": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "moblie_icon",
+      "label": "Icon"
+    },
+    {
+      "type": "url",
+      "id": "moblie_url",
+      "label": "Url"
+    },
+    {
+      "type": "color_background",
+      "id": "moblie_color",
+      "label": "Image Color"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Menu",
+      "type": "Menu",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "link_list",
+          "label": "Menu"
+        },
+        {
+          "type": "checkbox",
+          "id": "list_bottom_text",
+          "label": "List Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .footer-insta a:before{
+      opacity: 0.6;
+      background: {{ section.settings.moblie_color }};
+  }
+{% endstyle %}

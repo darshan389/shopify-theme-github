@@ -1,0 +1,271 @@
+<cart-items id="main_cart_page" class="section-{{ section.id }}-padding">
+  <div class="container">
+    <div class="main_cart_inner" style="margin:50px 0">
+      <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
+        <div class="cart__items" id="main-cart" data-id="{{ section.id }}">
+          <div class="js-contents">
+            {% if cart.item_count > 0 %}
+              <h2>Cart ({{ cart.item_count }})</h2>
+              <div class="cart-items-container">
+                {% for line_item in cart.items %}
+                  <div class="cart-item">
+                    <!-- Product Image -->
+                    <div class="cart-item__image">
+                      {% if line_item.image %}
+                        <a href="{{ line_item.url }}">
+                          <img
+                            src="{{ line_item.image | img_url: 'small' }}"
+                            alt="{{ line_item.title | escape }}"
+                            width=""
+                            height=""
+                          >
+                        </a>
+                      {% endif %}
+                    </div>
+
+                    <!-- Product Details -->
+                    <div class="cart-item__details">
+                      <h3>
+                        <a href="{{ line_item.url }}">{{ line_item.title }}</a>
+                      </h3>
+
+                      <!-- Display line item properties if any -->
+                      {% for property in line_item.properties %}
+                        <p>{{ property.first }} : {{ property.last }}</p>
+                      {% endfor %}
+
+                      {% if line_item.line_level_discount_allocations.size > 0 %}
+                        <ul
+                          class="list-unstyled"
+                          role="list"
+                        >
+                          {%- for discount in line_item.line_level_discount_allocations -%}
+                            <li>{{ discount.discount_application.title | escape }}</li>
+                          {%- endfor -%}
+                        </ul>
+                      {% endif %}
+                    </div>
+
+                    <!-- Price -->
+                    <div class="cart-item__price">
+                      {{ line_item.final_price | money }}
+                    </div>
+
+                    <!-- Quantity Selector -->
+                    <div
+                      class="cart-item__quantity"
+                      style="display:flex;justify-content: space-between;align-items: center;"
+                    >
+                      <quantity-popover>
+                        <div class="cart-item__quantity-wrapper quantity-popover-wrapper">
+                          <div class="quantity-popover-container quantity-popover-container--hover">
+                            <quantity-input class="quantity cart-quantity qty-box">
+                              <button class="quantity__button qty-btn btn-minus" name="minus" type="button">-</button>
+                              <input
+                                class="quantity__input"
+                                data-quantity-variant-id="{{ line_item.variant.id }}"
+                                type="number"
+                                name="updates[]"
+                                value="{{ line_item.quantity }}"
+                                {% # theme-check-disable %}
+                                data-cart-quantity="{{ cart | item_count_for_variant: line_item.variant.id }}"
+                                min="1"
+                                data-min="{{ line_item.variant.quantity_rule.min }}"
+                                {% if line_item.variant.quantity_rule.max != null %}
+                                  max="{{ line_item.variant.quantity_rule.max }}"
+                                {% endif %}
+                                step="{{ line_item.variant.quantity_rule.increment }}"
+                                {% # theme-check-enable %}
+                                aria-label="{{  line_item.product.title | escape }}"
+                                id="Quantity-{{ line_item.index | plus: 1 }}"
+                                data-index="{{ line_item.index | plus: 1 }}"
+                              >
+                              <button class="quantity__button qty-btn btn-plus" name="plus" type="button">+</button>
+                            </quantity-input>
+                          </div>
+                        </div>
+                      </quantity-popover>
+
+                      <cart-remove-button
+                        id="Remove-{{ line_item.index | plus: 1 }}"
+                        data-index="{{ line_item.index | plus: 1 }}"
+                      >
+                        <a
+                          href="{{ line_item.url_to_remove }}"
+                          class="button button--tertiary"
+                          aria-label="{{  line_item.title | escape }}"
+                        >
+                          <span class="svg-wrapper">
+                            <i style="font-size: 22px;" class="fa-solid fa-trash-arrow-up"></i>
+                          </span>
+                        </a>
+                      </cart-remove-button>
+                    </div>
+
+                    <!-- Remove Item -->
+                    <div class="cart-item__remove">
+                      <p>
+                        <b> {{ line_item.final_line_price | money }} </b>
+                      </p>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="cart-empty text-center">
+                <h1 style="font-family: 'Bookmania-Semibold';">Shopping Cart</h1>
+                <p>Your cart is currently empty.</p>
+                {% comment %}
+                  <p>
+                    Click <a href="{{ routes.all_products_collection_url }}" style="color:blue">here</a> to continue
+                    shopping.
+                  </p>
+                {% endcomment %}
+              </div>
+              <div id="cart-items-container"></div>
+            {% endif %}
+          </div>
+        </div>
+        {% if cart.item_count > 0 %}
+          <div class="col-3 col-m-12" style="margin: 0 0 0 auto;text-align: end;width: 450px;margin: 24px 0 0 auto;">
+            <div style="border-radius: 10px;padding:10px;">
+              <h4>Shopping Cart</h4>
+              
+              <div class="cartTotal" style="margin: 20px 0;font-size: 20px;">
+                <span class="left"
+                  ><strong>{{ 'cart.label.total' | t }}:</strong></span
+                >&nbsp;&nbsp;
+                <span class="right">
+                  <strong>
+                    <span id="cart-total" class="csapps-cart-original-total">
+                      {{- cart.total_price | money -}}
+                    </span>
+                  </strong>
+                </span>
+              </div>
+              <p style="font-size:15px">Taxes, discounts and shipping calculated at checkout</p>
+
+              <div class=" text-center">
+                <button
+                  class="button button--full-width button--secondary btn-bg-border"
+                  type="submit"
+                  name="checkout"
+                  style=""
+                >
+                  {{ 'cart.general.checkout' | t }}
+                </button>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</cart-items>
+{% javascript %}
+  document.querySelector('.apply-button').addEventListener('click', function (e) {
+    e.preventDefault();
+    const code = document.querySelector('.discount-input').value;
+    console.log('this is code :: ', code);
+    const sectionsToUpdate = ['main-cart'];
+    const sectionsUrl = window.location.pathname;
+
+    fetch(
+      window.Shopify.routes.root + `cart/update.js?sections=${sectionsToUpdate.join(',')}&sections_url=${sectionsUrl}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          discount: code,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((cart) => {
+        console.log('this is cart cahnge call :: ', cart);
+        document.querySelector('#main_cart_page').innerHTML = cart.sections['main-cart'];
+      });
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "settings": []
+}
+{% endschema %}
+
+<style>
+  .containerrrr {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+  }
+  .counter-btn {
+      padding: 5px 10px;
+      font-size: 16px;
+      cursor: pointer;
+  }
+  .quantity-input {
+      width: 50px;
+      text-align: center;
+      font-size: 16px;
+  }
+
+  .cart-empty{
+    margin: 30px 0;
+    text-align: center;
+  }
+  .cart-empty p{
+    font-size: 22px;
+    font-family:"MuseoSans300";
+    margin: 0 0 20px;
+    line-height: 25px;
+  }
+  .click-here{
+    color:#337ab7;
+  }
+  .click-here:hover{
+    color:#23527c;
+  }
+</style>
+
+{% style %}
+    .cart-items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cart-item {
+    display: grid;
+        grid-template-columns: 100px 8fr 250px 165px 186px;
+    gap: 15px;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+  }
+
+  .cart-item__image img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .cart-item__details h3 {
+    margin: 0 0 5px;
+    font-size: 16px;
+  }
+
+  .cart-item__price {
+    font-weight: bold;
+  }
+
+  .cart-item__quantity input {
+    padding: 5px;
+  }
+
+  .cart-item__remove a {
+    color: #d9534f;
+    text-decoration: none;
+  }
+{% endstyle %}

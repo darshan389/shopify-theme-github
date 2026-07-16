@@ -1,0 +1,182 @@
+<section class="collection-page">
+  <div class="container">
+    {%- paginate collection.products by section.settings.product_renge -%}
+      <div class="collection-wrapper">
+        <div class="col-filter">
+          <div class="filter-wrapper">
+            <div class="sh3 filter-lable">
+              {{ 'products.facets.filter-sort' | t }}
+              <span></span>
+            </div>
+            <div class="filter-inner">
+            
+              <aside
+                aria-labelledby="verticalTitle"
+                id="main-collection-filters"
+                data-id="{{ section.id }}"
+              >
+                {% render 'facets',
+                  results: collection,
+                  enable_filtering: true,
+                  enable_sorting: true,
+                  filter_type: 'vertical',
+                  paginate: paginate
+                %}
+              </aside>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-collections" id="ProductGridContainer">
+          <div class="col-collection-inner" id="product-grid" data-id="{{ section.id }}">
+            {% for product in collection.products %}
+              {% comment %} {% if product.type == 'woman' %} {% endcomment %}
+                {% render 'main-collection-product-grid', product: product, section: section, section_id: section.id %}
+              {% comment %} {% endif %} {% endcomment %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="mob-size-selecter">
+          <div class="popup-bg"></div>
+          <div class="size-select-popup">
+            <div class="close-size-popup">
+              {% render 'icons', icon: 'big_close_icon' %}
+            </div>
+            <div class="select-size-inner">
+              <div class="sh3">Select a size</div>
+              <ul>
+                <li>
+                  <input type="radio" id="psize1" name="radio-group">
+                  <label for="psize1">6</label>
+                </li>
+                <li>
+                  <input type="radio" id="psize2" name="radio-group">
+                  <label for="psize2">8</label>
+                </li>
+                <li>
+                  <input type="radio" id="psize3" name="radio-group">
+                  <label for="psize3">10</label>
+                </li>
+                <li>
+                  <input type="radio" id="psize4" name="radio-group">
+                  <label for="psize4">12</label>
+                </li>
+              </ul>
+              <div class="select-size-add-btn">
+                <a href="#" class="btn-bg-border">
+                  <span>{{ 'products.product.add_to_cart' | t }}</span>
+                  {% render 'icons', icon: 'product_right_arrow' %}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        {% render 'pagination', paginate: paginate, anchor: '' %}
+      {%- endif -%}
+    {% endpaginate %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Section name",
+  "settings": [
+    {
+      "type": "range",
+      "id": "product_renge",
+      "label": "Products per page",
+      "max": 20,
+      "min": 0,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "product_columns",
+      "label": "Columns",
+      "max": 4,
+      "min": 2,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Product card"
+    },
+    {
+      "type": "checkbox",
+      "id": "grid_wishlist",
+      "label": "Product Wishlist"
+    },
+    {
+      "type": "select",
+      "id": "button_option",
+      "label": "Quick add",
+      "options": [
+        {
+          "label": "None",
+          "value": "None"
+        },
+        {
+          "label": "Standard",
+          "value": "Standard"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_filtering",
+      "label": "Filters"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "label": "Sorting"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .collection-page .collection-wrapper .col-collections .col-collection-inner .product-card{
+    {% if section.settings.product_columns == 2 %}
+      width:50%;
+    {%elsif section.settings.product_columns == 4 %}
+      width:25%;
+    {% endif %}
+  }
+
+  /* filter */
+
+  details{
+    padding: 0 0 12px;
+  }
+
+  .facets__summary div{
+    display:flex;
+  } 
+  
+  .value_box{  
+    font: var(--sh1);
+    text-transform: uppercase;
+    display: block;
+    text-align: center;
+    width: 100%;
+    border: 1px solid var(--Dark-Gray);
+    cursor: pointer;
+    color: var(--Black);
+  }
+
+  ul li label span{
+    padding:2px;
+    display:block;
+  }
+
+  input:checked{
+    background:black;
+  }
+
+{% endstyle %}

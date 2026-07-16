@@ -1,0 +1,47 @@
+{% if cart.item_count != 0 %}
+  <div class="mini-cart-body">
+    <ul class="cart-notification-product" id="cart-notification-product">
+      {% for item in cart.items %}
+        <li id="cart-notification-product-{{ item.key }}" class="cart_notification_item">
+          <div class="mini-cart-item" style="display: flex;justify-content: space-between;">
+            <div
+              class="m-cart-pr-details"
+              style="
+                /* flex: 1 0 0; */
+                width: 177px;
+                padding-right: 15px;
+              "
+            >
+              <h3>{{ item.title }}</h3>
+              <h5>
+                SIZE: <span>{{ item.variant.title }}</span>
+              </h5>
+              <h5>
+                QTY: <span>{{ item.quantity }}</span>
+              </h5>
+              <h5>
+                Price: <span>{{ item.price | money }}</span>
+              </h5>
+              {% comment %} <div class="qty-box">
+                <button class="qty-btn btn-minus">-</button>
+                <input type="text" value="1">
+                <button class="qty-btn btn-minus">+</button>
+              </div> {% endcomment %}
+            </div>
+            <div class="m-cart-pr-image">
+              <a href="{{ item.url }}">
+                <img
+                  src="{{ item.image | image_url }}"
+                  alt="{{item.image.alt }}"
+                  width=""
+                  height=""
+                  style="width:140px;"
+                >
+              </a>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>  
+{% endif %}

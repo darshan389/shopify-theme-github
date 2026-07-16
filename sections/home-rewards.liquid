@@ -1,0 +1,401 @@
+{% capture list %}
+
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'list' %}
+        <div class="cm-st-block">
+          {% render 'icons', icon: 'heart_icon' %}
+
+          {% if block.settings.reward_icon != blank %}
+            <img
+              src="{{ block.settings.reward_icon | image_url }}"
+              alt="{{ block.settings.reward_icon.alt }}"
+              width="97"
+              height=""
+            >
+          {% endif %}
+
+          {% if block.settings.reward_text != blank %}
+            <div class="sh1">{{ block.settings.reward_text }}</div>
+          {% endif %}
+        </div>
+    {% endcase %}
+  {% endfor %}
+
+{% endcapture %}
+
+<!-- REWARD SECTION START -->
+<div class="container">
+  <div class="reward-wrapper">
+    
+    {% if section.settings.reward_btn_text != blank
+      or section.blocks[0].type == 'list'
+      or section.settings.main_title != blank
+      or section.settings.main_title_text != blank
+      or section.settings.main_btn_text != blank
+    %}
+      <div class="reward-left">
+        {% if section.settings.main_title != blank
+          or section.settings.main_title_text != blank
+          or section.settings.main_btn_text != blank
+        %}
+          <div class="cm-reward-login">
+            {% if section.settings.main_title != blank %}
+              <h1>{{ section.settings.main_title }}</h1>
+            {% endif %}
+
+            {% if section.settings.main_title_text %}
+              <h4>{{ section.settings.main_title_text }}</h4>
+            {% endif %}
+
+            {% if section.settings.main_btn_text != blank %}
+              <a href="{{ section.settings.main_btn_url }}" class="btn-bg-border">
+                <span>{{ section.settings.main_btn_text }}</span>
+                {% render 'icons', icon: 'product_right_arrow' %}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.reward_btn_text != blank or list != blank %}
+          <div class="log-in-steps">
+            {{ list }}
+
+            {% if section.settings.reward_btn_text != blank %}
+              <a href="{{ section.settings.reward_btn_url }}" class="btn-bg-border desk-btn">
+                <span>{{ section.settings.reward_btn_text }}</span>
+                {% render 'icons', icon: 'product_right_arrow' %}
+              </a>
+            {% endif %}
+
+            {% if section.settings.reward_btn_text != blank %}
+              <a href="{{ section.settings.reward_mobile_url }}" class="btn-bg-border mob-btn">
+                <span>{{ section.settings.reward_mobile_text }}</span>
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.main_symbols != blank or section.settings.rewards_image != blank %}
+      <div class="reeward-right">
+
+        {% if section.settings.main_symbols != blank %}
+          <div class="reward-circle">
+            <img
+              class="smile-image"
+              src="{{ section.settings.main_symbols | image_url }}"
+              alt="Smile Image"
+              width=""
+              height=""
+            >
+            {% if section.settings.circle_image != blank %}
+              <img
+                class="reward-circle-img"
+                src="{{ section.settings.circle_image | image_url }}"
+                alt="Circle"
+                width=""
+                height=""
+              >
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if section.settings.rewards_image != blank %}
+          <img
+            class="desk-img"
+            src="{{ section.settings.rewards_image | image_url  }}"
+            alt="{{ section.settings.rewards_image }}"
+            width=""
+            height=""
+          >
+        {% endif %}
+
+        {% if section.settings.rewards_image_mobile != blank %}
+          <img
+            class="mob-img"
+            src="{{ section.settings.rewards_image_mobile | image_url }}"
+            alt="{{ section.settings.rewards_image }}"
+            width=""
+            height=""
+          >
+        {% endif %}
+
+        {% if section.settings.image_btn_text != blank
+          and section.settings.rewards_image != blank
+          or section.settings.rewards_image_mobile != blank
+        %}
+          <div class="join-clube-btn-ho">
+            <a href="{{ section.settings.image_btn_url }}" class="btn-bg-border cursor-in">
+              <span>{{ section.settings.image_btn_text }}</span>
+            </a>
+          </div>
+        {% endif %}
+
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+<!-- REWARD SECTION END -->
+
+{% schema %}
+{
+  "name": "Reward Section",
+  "tag": "section",
+  "class": "reward-section section-space",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "main_title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "main_title_text",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "main_btn_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "main_btn_url",
+      "label": "Button Url"
+    },
+    {
+      "type": "select",
+      "id": "section_image_position",
+      "label": "Select Image Position",
+      "options": [
+        {
+          "label": "Left",
+          "value": "Left"
+        },
+        {
+          "label": "Right",
+          "value": "Right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Reward"
+    },
+    {
+      "type": "text",
+      "id": "reward_btn_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "reward_btn_url",
+      "label": "Url"
+    },
+    {
+      "type": "text",
+      "id": "reward_mobile_text",
+      "label": "Mobile Button Text"
+    },
+    {
+      "type": "url",
+      "id": "reward_mobile_url",
+      "label": "Mobile Button Url"
+    },
+    {
+      "type": "header",
+      "content": "Section Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "rewards_image",
+      "label": "Images"
+    },
+    {
+      "type": "text",
+      "id": "image_btn_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "image_btn_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Symbols"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_symbols",
+      "label": "Symbols Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "circle_image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "symbols_top",
+      "label": "Top",
+      "max": 100,
+      "min": -100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "symbols_right",
+      "label": "Right",
+      "max": 100,
+      "min": -100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "symbols_bottom",
+      "label": "Bottom",
+      "max": 100,
+      "min": -100,
+      "step": 5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "symbols_left",
+      "label": "Left",
+      "max": 100,
+      "min": -100,
+      "step": 5,
+      "unit": "px",
+      "default": 0,
+      "info": "Set as Per Image"
+    },
+    {
+      "type": "select",
+      "id": "Symbols_position_vertical",
+      "label": "Position Vertical",
+      "options": [
+        {
+          "label": "Top",
+          "value": "Top"
+        },
+        {
+          "label": "Middle",
+          "value": "Middle"
+        },
+        {
+          "label": "Bottom",
+          "value": "Bottom"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "Symbols_position_horizontal",
+      "label": "Position Horizontal",
+      "options": [
+        {
+          "label": "Left",
+          "value": "Left"
+        },
+        {
+          "label": "Center",
+          "value": "Center"
+        },
+        {
+          "label": "Right",
+          "value": "Right"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "rewards_image_mobile",
+      "label": "Images"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Reward",
+      "type": "list",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "reward_icon",
+          "label": "Select Icon"
+        },
+        {
+          "type": "richtext",
+          "id": "reward_text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reward Section"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  {% if section.settings.section_image_position == "Right" %}
+    .reward-section .reward-wrapper{
+      flex-direction: row-reverse;
+    }
+  {% endif %}
+
+  @media screen and (min-width: 991px) {
+    .reward-section .reward-wrapper .reeward-right .reward-circle{
+
+      {% if section.settings.Symbols_position_horizontal == "Left" and section.settings.Symbols_position_vertical == "Top" %}
+          top:{{ section.settings.symbols_top }}px;
+          left:{{ section.settings.symbols_left }}px;
+      {% elsif section.settings.Symbols_position_horizontal == "Left" and section.settings.Symbols_position_vertical == "Middle" %}
+          left:{{ section.settings.symbols_left }}px;
+          top: 50%;
+          transform: translate(0, -50%);
+      {% elsif section.settings.Symbols_position_horizontal == "Left" and section.settings.Symbols_position_vertical == "Bottom" %}
+          left:{{ section.settings.symbols_left }}px;
+          bottom:{{ section.settings.symbols_bottom }}px;
+      {% elsif section.settings.Symbols_position_horizontal == "Center" and section.settings.Symbols_position_vertical == "Top" %}
+          top:{{ section.settings.symbols_top }}px;
+          left: 50%;
+          transform: translate(-50%, 0);
+      {% elsif section.settings.Symbols_position_horizontal == "Center" and section.settings.Symbols_position_vertical == "Middle" %}
+          top:50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+      {% elsif section.settings.Symbols_position_horizontal == "Center" and section.settings.Symbols_position_vertical == "Bottom" %}
+          bottom:{{ section.settings.symbols_bottom }}px;
+          left: 50%;
+          transform: translate(-50%, 0);
+      {% elsif section.settings.Symbols_position_horizontal == "Right" and section.settings.Symbols_position_vertical == "Top" %}
+          right: {{ section.settings.symbols_right }}px;
+          top:{{ section.settings.symbols_top }}px;
+      {% elsif section.settings.Symbols_position_horizontal == "Right" and section.settings.Symbols_position_vertical == "Middle" %}
+          right:{{ section.settings.symbols_right }}px;
+          top:50%;
+          transform: translate(0, -50%);
+      {% elsif section.settings.Symbols_position_horizontal == "Right" and section.settings.Symbols_position_vertical == "Bottom" %}
+          right:{{ section.settings.symbols_right }}px;
+          bottom:{{ section.settings.symbols_bottom }}px;
+      {% endif %}
+    }
+  }
+{% endstyle %}

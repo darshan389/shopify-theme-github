@@ -1,0 +1,256 @@
+<section class="complate-look you-might-also-like">
+  <div class="container">
+    <div class="new-arrivals-inner you-might-also-like_inner">
+      <product-recommendations
+        class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+        data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.product_show }}"
+        data-section-id="{{ section.id }}"
+        data-product-id="{{ product.id }}"
+      >
+        {% if recommendations.performed and recommendations.products_count > 0 %}
+          
+          {% if section.settings.section_heading != blank %}
+            <div class="new-ar-btn">
+              <a role="link" class="arrow-btn">
+                <span>{{ section.settings.section_heading }}</span>
+                {% render 'icons', icon: 'right_arrow' %}
+              </a>
+            </div>
+          {% endif %}
+
+          <div class="new-ar-product product-card-main">
+            <div class="new-ar-inner cm-mob-card-slider">
+              {% for product in recommendations.products %}
+                {% render 'product-grid', product: product, section: section %}
+              {% endfor %}
+            </div>
+          </div>
+
+        {% endif %}
+      </product-recommendations>
+    </div>
+  </div>
+</section>
+
+{% comment %}
+  <div class="color gradient">
+    <product-recommendations
+      class="related-products page-width"
+      data-url="{{ routes.product_recommendations_url }}?limit=2"
+      data-section-id="{{ section.id }}"
+      data-product-id="{{ product.id }}"
+    >
+      {% if recommendations.performed and recommendations.products_count > 0 %}
+        <h2 class="related-products__heading inline-richtext">
+          You May also Like
+        </h2>
+          {% for product in recommendations.products %}
+              {% render 'product-grid', product: product, section: section %}
+          {% endfor %}
+      {% endif %}
+    </product-recommendations>
+
+  </div>
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Related Products",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "section_heading",
+      "label": "Title"
+    },
+    {
+      "type": "range",
+      "id": "product_show",
+      "label": "Column Product",
+      "max": 4,
+      "min": 2,
+      "default":4,
+      "step": 1,
+    },
+    {
+      "type": "checkbox",
+      "id": "addto_btn",
+      "label": "Add To Cart Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "pro_title_show",
+      "label": "Title",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "header_show",
+      "label": "Header Show",
+      "options": [
+        {
+          "label": "Horizon",
+          "value": "Horizon"
+        },
+        {
+          "label": "Vertical",
+          "value": "Vertical"
+        }
+      ],
+      "visible_if": "{{ section.settings.section_heading }}"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Font Size",
+      "max": 50,
+      "min": 15,
+      "step": 1,
+      "unit": "px",
+      "default": 18,
+      "visible_if": "{{ section.settings.section_heading }}"
+    },
+    {
+      "type": "select",
+      "id": "heading_position_horizon",
+      "label": "Heading Position",
+      "options": [
+        {
+          "label": "Left",
+          "value": "Left"
+        },
+        {
+          "label": "Center",
+          "value": "Center"
+        },
+        {
+          "label": "Right",
+          "value": "Right"
+        }
+      ],
+      "visible_if": "{{ section.settings.header_show == 'Horizon' }}"
+    },
+    {
+      "type": "select",
+      "id": "heading_position_vertical",
+      "label": "Heading Position",
+      "options": [
+        {
+          "label": "Start",
+          "value": "Start"
+        },
+        {
+          "label": "Center",
+          "value": "Center"
+        },
+        {
+          "label": "End",
+          "value": "End"
+        }
+      ],
+      "visible_if": "{{ section.settings.header_show == 'Vertical' and section.settings.section_heading}}"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin",
+      "label": "Heading Margin Bottom",
+      "max": 50,
+      "min": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 15,
+      "visible_if": "{{section.settings.header_show == 'Horizon' }}"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top",
+      "max": 100,
+      "min": 0,
+      "step": 1,
+      "default": 78,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Top",
+      "max": 100,
+      "min": 0,
+      "step": 1,
+      "default": 78,
+      "unit": "px"
+    },
+  ],
+  "presets": [
+    {
+      "name": "Related Products"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .you-might-also-like product-recommendations .new-ar-product .cm-ar-pr{
+    {% if section.settings.product_show == 3 %}
+      width:33.33%;
+    {% elsif section.settings.product_show == 4 %}
+      width:25%;  
+    {% else %}
+      width: 50%;  
+    {% endif %}
+  }
+
+  .you-might-also-like_inner{
+        display:block;
+  }
+
+  .you-might-also-like{
+    padding-top:{{section.settings.section_padding_top}}px;
+    padding-bottom:{{section.settings.section_padding_bottom}}px;
+    background:{{ section.settings.background_color }}
+  }
+
+  .you-might-also-like product-recommendations{
+    {% if section.settings.header_show == 'Horizon' %}
+      display:block;
+    {% else %}
+      display:flex;
+      width:100%
+      {% endif %}
+
+    }
+
+  .you-might-also-like product-recommendations .new-ar-btn{
+    {% if section.settings.header_show == 'Horizon' %}
+      margin-bottom:{{ section.settings.heading_margin }}px;
+      text-align:{{ section.settings.heading_position_horizon }};
+    {% endif %}
+    {% if section.settings.header_show == 'Vertical' %}
+      display: flex;
+      align-items: {{section.settings.heading_position_vertical}};
+    {% endif %}
+  }
+
+
+  .you-might-also-like product-recommendations .new-ar-btn span{
+    font-size:{{section.settings.heading_size }}px;
+  }
+
+  
+  {% if section.settings.section_heading == blank or section.settings.header_show == 'Horizon' %}
+    .you-might-also-like product-recommendations .product-card-main{
+      width:100%;
+      margin: 0 auto;
+    }
+  {% endif %}
+
+  {% if section.settings.pro_title_show == false  %}
+    .product-content{
+      justify-content:{{ section.settings.btn_position }};
+    }
+  {% endif %}
+{% endstyle %}

@@ -1,0 +1,47 @@
+<!-- TRENDING NOW START -->
+{% if section.settings.section_heading != blank or section.settings.product_collection.all_products_count != 0 %}
+  <div class="container">
+    {% if section.settings.section_heading != blank %}
+      <div class="trending-inner">
+        <div class="trending-title">
+          <h2>{{ section.settings.section_heading }}</h2>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if section.settings.product_collection.all_products_count != 0 %}
+    <div class="trending-slider">
+      {% for product in section.settings.product_collection.products %}
+        {% render 'trending-product-grid', product: product%}
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endif %}
+<!-- TRENDING NOW END -->
+
+{% schema %}
+{
+  "name": "New Featured Collection",
+  "tag": "section",
+  "class": "trending-now",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "section_heading",
+      "label": "Heading"
+    },
+    {
+      "type": "collection",
+      "id": "product_collection",
+      "label": "Add Collection"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "New Featured Collection"
+    }
+  ]
+}
+{% endschema %}

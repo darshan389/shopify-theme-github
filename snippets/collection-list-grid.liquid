@@ -1,0 +1,28 @@
+<div class="cm-ar-pr" style="padding: 13px">
+  <div class="product-card">
+
+    {% if collection.featured_image %}
+      <div class="product-image">
+        <a href="{{ collection.url }}">
+          <img
+            src="{{ collection.featured_image | image_url  }}"
+            alt="{{ collection.featured_image.alt }}"
+            width=""
+            height=""
+          >
+        </a>
+      </div>
+    {% endif %}
+    
+    {% if collection.title %}
+      <div class="product-content">
+        <div class="pr-shop-btn">
+          <a href="{{ collection.url }}" class="btn-bg-border">
+            <span>{{ collection.title }}</span>
+            {% render 'icons', icon: 'product_right_arrow' %}
+          </a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>

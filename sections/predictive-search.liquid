@@ -1,0 +1,169 @@
+{%- if predictive_search.performed -%}
+  <div id="predictive-search-results">
+    <div class="item">
+      {%- assign total_results = predictive_search.resources.products.size
+        | plus: predictive_search.resources.collections.size
+        | plus: predictive_search.resources.pages.size
+        | plus: predictive_search.resources.articles.size
+      -%}
+      {% if total_results > 0 -%}
+        {% if predictive_search.resources.products.size > 0 or predictive_search.resources.articles.size > 0 %}
+          <div class="item_inner">
+            {%- if predictive_search.resources.products.size > 0 -%}
+              <h3 id="predictive-search-products">Products</h3>
+              <ul role="listbox" aria-labelledby="predictive-search-products">
+                {%- for product in predictive_search.resources.products -%}
+                  <li role="option">
+                    <a href="{{ product.url }}">
+                      {{ product | image_url: width: 50 | image_tag }}
+                      <span>{{ product.title }}</span>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+            {% if predictive_search.resources.articles.size > 0 %}
+              <h3 id="predictive-search-products">Articles</h3>
+              <ul ole="listbox" aria-labelledby="predictive-search-products">
+                {% for article in predictive_search.resources.articles %}
+                  <li role="option">
+                    <a href="{{ article.url }}">
+                      {{ article | image_url: width: 50 | image_tag }}
+                      <span>{{ article.title }}</span>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        {% endif %}
+        {% if predictive_search.resources.collections.size > 0 or predictive_search.resources.pages.size > 0 %}
+          <div class="item_inner">
+            {% if predictive_search.resources.collections.size > 0 %}
+              <h3 id="predictive-search-products">Collections</h3>
+              <ul role="listbox" aria-labelledby="predictive-search-products">
+                {%- for collection in predictive_search.resources.collections -%}
+                  <li role="option">
+                    <a href="{{ collection.url }}">
+                      {{ collection | image_url: width: 50 | image_tag }}
+                      <span>{{ collection.title }}</span>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {% endif %}
+            {% if predictive_search.resources.pages.size > 0 %}
+              <h3 id="predictive-search-products">Pages</h3>
+              <ul role="listbox" aria-labelledby="predictive-search-products">
+                {%- for page in predictive_search.resources.pages -%}
+                  <li role="option">
+                    <a href="{{ page.url }}">
+                      <span>{{ page.title }}</span>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% else %}
+        <p class="predictive-search-no-results" style="margin:15px">No items found for your search.</p>
+      {% endif %}
+    </div>
+
+    <a href="{{ routes.search_url }}" class="search_text"
+      >Search for “{{ predictive_search.terms }}”<span><i class="fa-solid fa-arrow-right"></i></span
+    ></a>
+  </div>
+{%- endif -%}
+
+{% style %}
+    /* Style for the main predictive search container */
+  #predictive-search-results {
+    background-color:rgb(255, 255, 255);
+    border: 2px solidrgb(0, 0, 0);
+    padding: 15px 0;
+    border-radius: 8px;
+    margin: 10px 0;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  }
+
+  #predictive-search-results .item{
+    display:flex;
+    flex-wrap: wrap;
+  }
+
+  #predictive-search-results .item .item_inner{
+    {% if predictive_search.resources.collections.size > 0 or predictive_search.resources.pages.size > 0 %}
+      width:50%;
+    {%  elsif predictive_search.resources.products.size == 0 or predictive_search.resources.articles.size == 0 %}
+        width:100%;
+    {% else %}
+        width:100%
+    {% endif %}
+    padding:0 15px 15px;
+    display:block;
+  }
+
+  #predictive-search-products {
+    /* color: #ecf0f1; */
+    font-size: 1.2em;
+    margin: 10px 0;
+    font-family: 'Karla-Bold';
+    font-size: 18px;
+  }
+
+  ul[role="listbox"] {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li[role="option"] {
+    padding: 10px;
+    /* border-bottom: 1px solidrgba(0, 0, 0, 0.2); */
+    border-bottom:1px solid rgba(179, 159, 151, 0.6);
+    transition:all 0.5s;
+  }
+
+  li[role="option"]:hover {
+    background-color:rgb(243, 243, 243);
+    cursor: pointer;
+  }
+
+  li[role="option"] a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    /* color: #ecf0f1; */
+  }
+
+  li[role="option"] img {
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+
+  li[role="option"] span {
+    font-family: 'Karla-Regular';
+    font-size : 14px;
+  }
+
+    .search_text {
+        background-color: #00000087;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 8px 12px;
+        margin: 0 15px;
+        font-size:15px;
+        font-family: 'Karla';
+        display:block;
+        display: flex;
+        justify-content: space-between;
+    }
+
+  button:hover {
+    background-color: #2980b9;
+  }
+{% endstyle %}

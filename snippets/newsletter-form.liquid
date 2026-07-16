@@ -1,0 +1,46 @@
+{% form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
+  
+  <input
+    id="NewsletterForm--{{ section.id }}"
+    type="email"
+    name="contact[email]"
+    class="field__input"
+    value="{{ form.email }}"
+    aria-required="true"
+    autocorrect="off"
+    autocapitalize="off"
+    autocomplete="email"
+    placeholder="E-mail"
+    {% if form.errors %}
+      autofocus
+      aria-invalid="true"
+      aria-describedby="ContactFooter-error"
+    {% elsif form.posted_successfully? %}
+      aria-describedby="ContactFooter-success"
+    {% endif %}
+  >
+  <button>
+    {% render 'icons', icon: 'right_arrow' %}
+  </button>
+
+  {%- if form.errors -%}
+    <small class="newsletter-form__message form__message" id="ContactFooter-error">
+      <span class="svg-wrapper">
+        {{- 'icon-error.svg' | inline_asset_content -}}
+      </span>
+      {{- form.errors.translated_fields.email | capitalize }}
+      {{ form.errors.messages.email -}}
+    </small>
+  {%- endif -%}
+
+  {%- if form.posted_successfully? -%}
+    <h4
+      class="newsletter-form__message newsletter-form__message--success form__message"
+      id="ContactFooter-success"
+      tabindex="-1"
+      autofocus
+    >
+      {{ 'customer.newsletter.form_success' | t }}
+    </h4>
+  {%- endif -%}
+{% endform %}

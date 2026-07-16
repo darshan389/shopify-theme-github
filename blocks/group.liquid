@@ -1,0 +1,48 @@
+
+{%- capture children %}
+  {% content_for 'blocks' %}
+{% endcapture %}
+
+{% render 'group', children: children, block:block  %}
+
+{% schema %}
+{
+  "name": "Group",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_direction",
+      "label": "Direction",
+      "options": [
+        {
+          "value": "column",
+          "label": "vertical"
+        },
+        {
+          "value": "row",
+          "label": "horizontal"
+        }
+      ],
+      "default": "column"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    },
+  ],
+  "presets": [
+    {
+        "name": "Group"
+    }
+  ]
+}
+{% endschema %}

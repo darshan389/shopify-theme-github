@@ -1,0 +1,100 @@
+<!-- NEWSLATTER START -->
+{% capture content %}
+
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'heading' %}
+          <div class="nl-title">
+            {% if block.settings.section_heading != blank %}
+              <h2>{{ block.settings.section_heading }}</h2>
+            {% endif %}
+            {% if block.settings.section_desc != blank %}
+              <h4>{{ block.settings.section_desc }}</h4>
+            {% endif %}
+          </div>
+        {% when 'Email' %}
+          <div class="newslatter-form">
+            {% render 'newsletter-form' %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+
+{% endcapture %}
+
+{% if content != blank %}
+<div class="container">
+  <div class="newslatter-inner">
+      {{ content }}
+    </div>
+  </div>
+{% endif %}
+  <!-- NEWSLATTER END -->
+
+{% schema %}
+{
+  "name": "Email Signup",
+  "tag": "section",
+  "class": "newslatter",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top",
+      "max": 100,
+      "min": 0,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Top",
+      "max": 100,
+      "min": 0,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Heading",
+      "type": "heading",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "section_heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "section_desc",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "name": "Email",
+      "type": "Email",
+      "settings": []
+    },
+  ],
+  "presets": [
+    {
+      "name": "Email Signup"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .newslatter{
+      margin-top:{{section.settings.section_padding_top}}px;
+      margin-bottom:{{section.settings.section_padding_bottom}}px;
+  }
+{% endstyle %}

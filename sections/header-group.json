@@ -1,0 +1,72 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "announcementbar_8Ry9CM": {
+      "type": "announcement-bar",
+      "name": "Announcement Bar",
+      "settings": {
+        "section_title": "Free shipping on all domestic orders",
+        "section_bg_color": "linear-gradient(0deg, rgba(213, 214, 224, 1) 100%, rgba(120, 196, 245, 1) 100%)"
+      }
+    },
+    "header_4yrN3g": {
+      "type": "header",
+      "blocks": {
+        "megamenu_UAhm9E": {
+          "type": "megamenu",
+          "settings": {
+            "mega_menu_title": "Clothing",
+            "megamuenu_pass": "mega-manu",
+            "menu_collection": [
+              "new-arrivals",
+              "summer-collection"
+            ],
+            "url_1": "shopify://products/bailey-pants-in-sage",
+            "url_2": "shopify://collections/new-arrivals"
+          }
+        }
+      },
+      "block_order": [
+        "megamenu_UAhm9E"
+      ],
+      "name": "header",
+      "settings": {
+        "main_logo": "shopify://shop_images/SundaeMuse-Logo-Primary-Black.svg",
+        "main_cart": true,
+        "cart_logo": "shopify://shop_images/Icon-Cart_copy.svg",
+        "sign_in_icon": true,
+        "wishlist_icon": true,
+        "wishlist_text": "Wishlist",
+        "currency_icon": false,
+        "menu_link_list": "header",
+        "search_icon": true,
+        "follow_check": true,
+        "follow_icon": "shopify://shop_images/Icon_Instagram_1.svg",
+        "follow_text": "Follow us",
+        "follow_url": "https://www.instagram.com/",
+        "mobile_logo": "shopify://shop_images/SundaeMuse-Logo-Primary-Black.svg",
+        "mobile_icon": true,
+        "social_icon": true,
+        "mobile_search_btn": true,
+        "mobile_my_account_btn": true,
+        "mobile_wishlist_btn": true,
+        "mobile_shopping_bag_btn": true,
+        "mobile_currency": true
+      }
+    }
+  },
+  "order": [
+    "announcementbar_8Ry9CM",
+    "header_4yrN3g"
+  ]
+}

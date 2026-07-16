@@ -1,0 +1,135 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collection_banner_cCtmmj": {
+      "type": "collection-banner",
+      "blocks": {
+        "banner_3iGkJX": {
+          "type": "banner",
+          "settings": {
+            "banner_img": "shopify://shop_images/onsale-banner-image.png",
+            "banner_mob_img": "shopify://shop_images/page-mob-image.png"
+          }
+        },
+        "banner_pie6UR": {
+          "type": "banner",
+          "settings": {
+            "banner_img": "shopify://shop_images/onsale-banner-image.png",
+            "banner_mob_img": "shopify://shop_images/page-mob-image.png"
+          }
+        }
+      },
+      "block_order": [
+        "banner_3iGkJX",
+        "banner_pie6UR"
+      ],
+      "name": "Collcation Banner",
+      "settings": {
+        "banner_btn_text": "On Sale",
+        "banner_btn_url": "shopify://collections"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "product_renge": 8,
+        "product_columns": 3,
+        "grid_wishlist": true,
+        "button_option": "Standard",
+        "enable_filtering": true,
+        "enable_sorting": true
+      }
+    },
+    "insta_section_LepNAp": {
+      "type": "insta-section",
+      "blocks": {
+        "img_list_PP7Mzx": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-1.png"
+          }
+        },
+        "img_list_9VewdT": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-2.png"
+          }
+        },
+        "img_list_TCXFYP": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-3.png"
+          }
+        },
+        "img_list_fYyKJk": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-4.png"
+          }
+        },
+        "img_list_GfXHpr": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-5.png"
+          }
+        },
+        "img_list_bCTHJa": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-6.png"
+          }
+        },
+        "img_list_yRBgRE": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-7.png"
+          }
+        },
+        "img_list_CUFhbR": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-8_01017de6-3746-4b5c-ac58-e475d8ee2b87.png"
+          }
+        }
+      },
+      "block_order": [
+        "img_list_PP7Mzx",
+        "img_list_9VewdT",
+        "img_list_TCXFYP",
+        "img_list_fYyKJk",
+        "img_list_GfXHpr",
+        "img_list_bCTHJa",
+        "img_list_yRBgRE",
+        "img_list_CUFhbR"
+      ],
+      "name": "Instafeed",
+      "settings": {
+        "section_heading": "Shop Insta",
+        "header_show": "Vertical",
+        "heading_size": 18,
+        "heading_position_horizon": "Left",
+        "heading_position_vertical": "Start",
+        "heading_margin": 15,
+        "feed_btn_text": "Shop the Look",
+        "heading_url": "",
+        "section_bg_color": "",
+        "mobile_btn_text": "Shop the Look",
+        "section_top_padding": 80,
+        "section_bottom_padding": 80
+      }
+    }
+  },
+  "order": [
+    "collection_banner_cCtmmj",
+    "main",
+    "insta_section_LepNAp"
+  ]
+}

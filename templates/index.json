@@ -1,0 +1,280 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_banner_JNcECA": {
+      "type": "hero-banner",
+      "blocks": {
+        "silder_7afQQE": {
+          "type": "silder",
+          "settings": {}
+        },
+        "silder_xrBwTq": {
+          "type": "silder",
+          "settings": {
+            "banner_silder_image": "shopify://shop_images/slide-two.jpg"
+          }
+        },
+        "silder_iyAUap": {
+          "type": "silder",
+          "settings": {
+            "banner_silder_image": "shopify://shop_images/slide-one.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "silder_7afQQE",
+        "silder_xrBwTq",
+        "silder_iyAUap"
+      ],
+      "name": "Hero Banner",
+      "settings": {
+        "hero_banner_image": "shopify://shop_images/banner-image-1.jpg",
+        "slider_position": "Right",
+        "hero_banner_mobile": "shopify://shop_images/hero-banner-mob.png"
+      }
+    },
+    "featured_collection_NCKLWq": {
+      "type": "featured-collection",
+      "name": "Featured Collection",
+      "settings": {
+        "section_heading": "New Arrivals",
+        "header_show": "Vertical",
+        "heading_size": 18,
+        "heading_position_horizon": "Center",
+        "heading_position_vertical": "Start",
+        "heading_margin": 18,
+        "title_url": "shopify://collections",
+        "product_collection": "summer-collection",
+        "product_range": 4,
+        "product_columns": 4,
+        "whishlist_icon": true,
+        "pro_title_show": true,
+        "btn_position": "Left",
+        "background_color": "",
+        "addto_btn": true,
+        "mobile_btn_text": "Shop all new arrivals",
+        "section_padding_top": 0,
+        "section_padding_bottom": 0
+      }
+    },
+    "trending_featured_collection_hKfTmB": {
+      "type": "trending-featured-collection",
+      "name": "New Featured Collection",
+      "settings": {
+        "section_heading": "Trending Right Now",
+        "product_collection": "trending-collection"
+      }
+    },
+    "home_rewards_GE4NPc": {
+      "type": "home-rewards",
+      "blocks": {
+        "list_8RNpCK": {
+          "type": "list",
+          "settings": {
+            "reward_text": "<p>Log in to start Earning points<br/><br/></p>"
+          }
+        },
+        "list_YT8htt": {
+          "type": "list",
+          "settings": {
+            "reward_text": "<p>earn points from Your purchases</p>"
+          }
+        },
+        "list_CVnPAT": {
+          "type": "list",
+          "settings": {
+            "reward_text": "<p>Receive all the exclusive perks.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "list_8RNpCK",
+        "list_YT8htt",
+        "list_CVnPAT"
+      ],
+      "name": "Reward Section",
+      "settings": {
+        "main_title": "Sundae Muse Rewards",
+        "main_title_text": "<h4>Become a muse and you’ll get access to exclusive offers, sales, discounts, and early access to giveaways!</h4>",
+        "main_btn_text": "Log in",
+        "main_btn_url": "shopify://pages/about-us",
+        "section_image_position": "Left",
+        "reward_btn_text": "Get the details",
+        "reward_btn_url": "shopify://pages/about-us",
+        "reward_mobile_text": "Join the club",
+        "reward_mobile_url": "shopify://pages/about-us",
+        "rewards_image": "shopify://shop_images/vip-landing-banner.png",
+        "image_btn_text": "Join the club",
+        "image_btn_url": "shopify://collections",
+        "main_symbols": "shopify://shop_images/smile_icon_9b483e6a-e368-4ca0-9dd3-201f8cf35c8a.svg",
+        "circle_image": "shopify://shop_images/round-shape.svg",
+        "symbols_top": 50,
+        "symbols_right": 0,
+        "symbols_bottom": 0,
+        "symbols_left": -55,
+        "Symbols_position_vertical": "Top",
+        "Symbols_position_horizontal": "Left",
+        "rewards_image_mobile": "shopify://shop_images/reward-mob-image.png"
+      }
+    },
+    "insta_section_hDngFX": {
+      "type": "insta-section",
+      "blocks": {
+        "img_list_ykzzR3": {
+          "type": "img_list",
+          "source": "{{ metaobjects.shop_insta[\"shop-insta-1uq79hmq\"] }}",
+          "settings": {
+            "feed_images": "{{ metaobjects.shop_insta[\"shop-insta-1uq79hmq\"].imgaes.value }}"
+          }
+        },
+        "img_list_YyhV4U": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-2.png"
+          }
+        },
+        "img_list_JwyATE": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-3.png"
+          }
+        },
+        "img_list_EJWg6r": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-4.png"
+          }
+        },
+        "img_list_zrPABF": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-5.png"
+          }
+        },
+        "img_list_TF7PEn": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-6.png"
+          }
+        },
+        "img_list_Qpz6ca": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-7.png"
+          }
+        },
+        "img_list_hVxQHN": {
+          "type": "img_list",
+          "settings": {
+            "feed_images": "shopify://shop_images/insta-img-8_01017de6-3746-4b5c-ac58-e475d8ee2b87.png"
+          }
+        }
+      },
+      "block_order": [
+        "img_list_ykzzR3",
+        "img_list_YyhV4U",
+        "img_list_JwyATE",
+        "img_list_EJWg6r",
+        "img_list_zrPABF",
+        "img_list_TF7PEn",
+        "img_list_Qpz6ca",
+        "img_list_hVxQHN"
+      ],
+      "name": "Instafeed",
+      "settings": {
+        "section_heading": "Shop Insta",
+        "header_show": "Vertical",
+        "heading_size": 18,
+        "heading_position_horizon": "Center",
+        "heading_position_vertical": "Start",
+        "heading_margin": 15,
+        "feed_btn_text": "Shop the look",
+        "heading_url": "https://www.instagram.com/",
+        "section_bg_color": "linear-gradient(270deg, rgba(242, 226, 168, 1) 100%, rgba(241, 120, 49, 1) 100%, rgba(249, 208, 163, 1) 100%, rgba(240, 138, 112, 1) 100%)",
+        "mobile_btn_text": "Shop insta looks",
+        "section_top_padding": 80,
+        "section_bottom_padding": 80
+      }
+    },
+    "newsletter_email_iLPPbA": {
+      "type": "newsletter-email",
+      "blocks": {
+        "heading_FVMCgc": {
+          "type": "heading",
+          "settings": {
+            "section_heading": "Join our Sundae Muse VIP club",
+            "section_desc": "<h4>for exclusive access to sales, rewards, discounts and giveaways!</h4>"
+          }
+        },
+        "email_mTe834": {
+          "type": "Email",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "heading_FVMCgc",
+        "email_mTe834"
+      ],
+      "name": "Email Signup",
+      "settings": {
+        "section_padding_top": 60,
+        "section_padding_bottom": 60
+      }
+    },
+    "collection_list_q4HWDz": {
+      "type": "collection-list",
+      "name": "Collection List",
+      "settings": {
+        "section_heading": "Shop All",
+        "heading_url": "shopify://collections",
+        "header_show": "Vertical",
+        "heading_size": 18,
+        "heading_position_horizon": "Left",
+        "heading_position_vertical": "Start",
+        "heading_margin": 15,
+        "product_range": 4,
+        "btn_position": "Center",
+        "background_color": "",
+        "section_padding_top": 0,
+        "section_padding_bottom": 0
+      }
+    },
+    "new_block_text_LNJHtU": {
+      "type": "new-block-text",
+      "blocks": {
+        "group_pYjTed": {
+          "type": "group",
+          "name": "Group",
+          "settings": {
+            "content_direction": "column"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "group_pYjTed"
+      ],
+      "disabled": true,
+      "name": "New Block Section",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero_banner_JNcECA",
+    "featured_collection_NCKLWq",
+    "trending_featured_collection_hKfTmB",
+    "home_rewards_GE4NPc",
+    "insta_section_hDngFX",
+    "newsletter_email_iLPPbA",
+    "collection_list_q4HWDz",
+    "new_block_text_LNJHtU"
+  ]
+}

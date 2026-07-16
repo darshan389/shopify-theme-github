@@ -1,0 +1,88 @@
+{% if block.settings.megamuenu_pass != blank %}
+  {% assign menu_link = block.settings.megamuenu_pass %}
+{% else %}
+  {% assign menu_link = link %}
+{% endif %}
+
+<div class="mega-menu-wp">
+  <div class="container">
+    <div class="mega-menu-inner">
+      <div class="menu-left">
+        <div class="menu-col hyper-link">
+          <ul>
+            {% for link in menu_link.links %}
+              <li>
+                <a href="{{ link.url }}">{{ link.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        {% for link in menu_link.links %}
+          {% if link.links.size > 0 %}
+            <div class="menu-col">
+              {% for child in link.links limit: 2 %}
+                <div class="menu-rows">
+                  <div class="sh3">{{ child.title }}</div>
+                  <ul>
+                    {% for grand_child in child.links %}
+                      <li>
+                        <a href="{{ grand_child.url }}">{{ grand_child.title }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if link.links.size > 2 %}
+            <div class="menu-col">
+              {% for child in link.links limit: 1 offset: 2 %}
+                <div class="menu-rows">
+                  <div class="sh3">{{ child.title }}</div>
+                  <ul>
+                    {% for grand_child in child.links %}
+                      <li>
+                        <a href="{{ grand_child.url }}">{{ grand_child.title }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if link.links.size > 3 %}
+            <div class="menu-col">
+              {% for child in link.links limit: 2 offset: 3 %}
+                <div class="menu-rows">
+                  <div class="sh3">{{ child.title }}</div>
+                  <ul>
+                    {% for grand_child in child.links %}
+                      <li>
+                        <a href="{{ grand_child.url }}">{{ grand_child.title }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="menu-right">
+        
+        
+  
+        {% if block.settings.url_1.object %}
+          {% render 'mega-menu-col', my_data:block.settings.url_1.object, block: block ,object: object  %}          
+        {% endif %}
+        {% if block.settings.url_2.object %}
+          {% render 'mega-menu-col', my_data:block.settings.url_2.object, block: block ,object: object  %}
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>

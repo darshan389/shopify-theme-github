@@ -1,0 +1,191 @@
+{% if product.compare_at_price > product.price %}
+  {% liquid
+    assign discount_amount = product.compare_at_price | minus: product.price
+    assign discount_percent = discount_amount | times: 100.0 | divided_by: product.compare_at_price | round
+  %}
+{% endif %}
+
+<div class="product-card col-product">
+  <div class="product-image">
+    {% if product.available == false %}
+      <div class="product-lable">
+        <div class="sh1">{{ 'products.product.sold_out' | t }}</div>
+      </div>
+    {% else %}
+      {% if product.compare_at_price > product.price %}
+        <div class="product-lable">
+          <div class="sh1">{{ 'products.product.on_sale' | t }}</div>
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <div class="product-slider-image" style="height: 405px;">
+      {% for images in product.media %}
+        <a href="{{ product.url }}">
+          <img src="{{ images | image_url }}" alt="{{ product.featured_image.alt }}" width="" height="">
+        </a>
+      {% endfor %}
+    </div>
+
+    {% unless product.has_only_default_variant %}
+      <div class="product-slide-var">
+        {% for option in product.options_with_values %}
+          {% assign forloop_index = forloop.index %}
+          <ul style="margin: 8px;">
+            {% for value in option.values %}
+              <li>
+                <label
+                  for="size{{ forloop.index }}"
+                  {% if option.name == 'Color' %}
+                    style="background-color: {{ value | downcase }}"
+                  {% endif %}
+                >
+                  <input type="radio" id="size{{ forloop.index}}" name="radio-group-{{ forloop_index }}">
+                  {% if option.name != 'Color' %}
+                    {{ value }}
+                  {% endif %}
+                </label>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
+
+      {% comment %} {% form 'product', product, id: 'product-form-{{ product.id }}' %}
+        {% for option in product.options_with_values %}
+          <div
+            class="variant-option-group"
+            name="id"
+            {{ block.shopify_attributes }}
+            data-inventory-policy="{{ option.inventory_policy }}"
+            data-inventory-quantity="{{ option.inventory_quantity }}"
+          >
+            <label class="variant-label">{{ option.name }}</label>
+            <div class="variant-options" id="variant-{{ product.id }}">
+              {% for value in option.values %}
+                <label class="variant-option">
+                  <input
+                    type="radio"
+                    name="options[{{ option.name }}]"
+                    value="{{ value }}"
+                    class="single-option-selector"
+                    main-var-id="{{ value }}"
+                    data-variant-id="{{ value }}"
+                    data-section-name="{{ section.location.size }}"
+
+                    {% if option.selected_value == value %}
+                      checked
+                    {% endif %}
+                  >
+                  {% if option.name == 'Color' %}
+                    <span
+                      class="text color"
+                      style="background-color: {{ value | downcase }}"
+                      main-var-id="{{ value }}"
+                    ></span>
+                  {% elsif option.name == 'Size' %}
+                    <span class="text size" main-var-id="{{ value }}">{{ value }}</span>
+                  {% else %}
+                    <span class="text material" main-var-id="{{ value }}">{{ value }}</span>
+                  {% endif %}
+                </label>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+        <input
+          type="hidden"
+          name="id"
+          id="demo"
+          class="inputvalue"
+          value="{{ product.selected_or_first_available_variant.id }}"
+          id="VariantId-{{ section.id }}"
+        >
+        <input type="hidden" name="selling_plan" value="" id="selling-plan-input">
+        <button
+          type="submit"
+          id="AddToCart"
+          {% comment %} class="btn-red text-center" {% endcomment %}
+          class="add-to-cart-button btn-red text-center"
+          data-product-id="{{ product.id }}"
+          {% if product.selected_or_first_available_variant.available == false %}
+            disabled
+          {% endif %}
+          name="add"
+          style="margin-bottom: 20px;display:block;"
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        >
+          {% if product.selected_or_first_available_variant.available %}
+            {% if product.selected_or_first_available_variant.inventory_policy == 'continue'
+              and product.selected_or_first_available_variant.inventory_quantity <= 0
+            %}
+              pro-order
+            {% else %}
+              {{ 'products.product.add_to_cart' | t }}
+            {% endif %}
+          {% else %}
+            {{ 'products.product.sold_out' | t }}
+          {% endif %}
+        </button>
+      {% endform %} {% endcomment %}
+
+    {% endunless %}
+
+  </div>
+
+  <div class="product-content">
+    <div class="product-details">
+      <h3 class="product-name">{{ product.title }}</h3>
+      <div class="price promo-price">
+        {% if product.price %}
+          {% if product.metafields.custom.discount_display %}
+            <div class="sh1 desk">
+              {{ product.price | money }} — <span>USE</span> <b>SALE25</b> <span>FOR 25% OFF</span>
+            </div>
+          {% else %}
+            {% if product.compare_at_price %}
+              <div class="sh1 desk">
+                <div class="old-price">{{ product.compare_at_price | money }}</div>
+                — <span>{{ discount_percent }}% OFF — {{ product.price | money }}</span>
+              </div>
+            {% else %}  
+              <div class="sh1 desk">
+                <div class="price">{{ product.price | money }}</div>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+
+        <div class="mob">
+          <div class="sh1">{{ product.price | money }}</div>
+          <div class="sh1">
+            <div class="old-price">{{ product.compare_at_price | money }}</div>
+            — <span>{{ discount_percent }}% OFF — {{ product.price | money }}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    {% if section.section.grid_wishlist %}
+      <div class="pr-shop-btn">
+        <a href="#" class="add-to-wishlist">
+          {% render 'icons', icon: 'wishlist_brown' %}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+
+  {% render 'add-to-cart-btn', product: product, section: section %}
+</div>
+
+{% style %}
+  .product-content .product-details .promo-price .mob .sh1{
+    display:inline-block;
+  } 
+  product-form button{
+    width: 100%;
+   }
+  modal-opener button{
+    width: 100%;
+   }
+{% endstyle %}

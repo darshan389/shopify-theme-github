@@ -1,0 +1,44 @@
+<div class="cm-ar-pr">
+  <div class="product-card">
+    {% if product.featured_image %}
+      <div class="product-image">
+        <a href="{{ product.url }}">
+          <img src="{{ product.featured_image | image_url }}" alt="{{ product.title }}" width="" height="">
+        </a>
+        {% if section.settings.whishlist_icon %}
+          <a role="link" aria-disabled="true" class="wishlist-icon">
+            {% render 'icons', icon: 'wishlist_white' %}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="product-content">
+      {% if section.settings.pro_title_show %}
+        <div class="product-details">
+          {% if product.title %}
+            <h3 class="product-name">{{ product.title }}</h3>
+          {% endif %}
+          {% if product.price %}
+            <div class="sh1 price">{{ product.price | money }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="pr-shop-btn">
+        {% if section.settings.addto_btn %}
+          {% render 'add-to-cart-btn', product: product, section: section %}
+        {% else %}
+          <a href="{{ product.url }}" class="pr-rout-arrow">
+            {% render 'icons', icon: 'product_right_arrow' %}
+          </a>
+        {% endif %}
+        {% comment %} {% if section.settings.whishlist_icon %} {% endcomment %}
+          <a role="link" aria-disabled="true" class="add-to-wishlist">
+            {% render 'icons', icon: 'wishlist_brown' %}
+          </a>
+        {% comment %} {% endif %} {% endcomment %}
+        
+      </div>
+    </div>
+  </div>
+</div>

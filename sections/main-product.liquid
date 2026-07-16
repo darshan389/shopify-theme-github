@@ -1,0 +1,652 @@
+<product-info
+  id="MainProduct-{{ section.id }}"
+  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+  data-section="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-update-url="true"
+  data-url="{{ product.url }}"
+  {% if section.settings.image_zoom == 'hover' %}
+    data-zoom-on-hover
+  {% endif %}
+>
+  {%- assign product_form_id = 'product-form-' | append: section.id %}
+  {%- assign cart_qty = cart | item_count_for_variant: product.selected_or_first_available_variant.id -%}
+
+  <div class="size-guide-popup">
+    <div class="size-overlay"></div>
+    <div class="cm-size-poup-inner">
+      <div class="guide-popup-close">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 11">
+          <g><g><g><path fill="none" stroke="#000" stroke-miterlimit="20" d="M.5.5l9 9"></path></g><g><path fill="none" stroke="#000" stroke-miterlimit="20" d="M.5 9.965L9.5.5"></path></g></g></g>
+        </svg>
+      </div>
+      <div class="size-guide-header">
+        <h2>Size Guide</h2>
+        <h4>
+          Please use the below as a general guide based on Australian standard sizing. Please see product description
+          for further sizing information or send us an email and we’ll be able to assist you.
+        </h4>
+      </div>
+      <div class="size-guide-body">
+        <div class="tabbedPanels">
+          <!-- begins the tabbed panels / wrapper -->
+
+          <ul class="tabs">
+            <li><a href="#panel1">Clothing</a></li>
+            <li><a href="#panel2">footwear</a></li>
+          </ul>
+
+          <div class="panelContainer">
+            <div id="panel1" class="panel">
+              <div class="size-chart-wrapper">
+                <div class="size-chart-left">
+                  <div class="mesure-list checkbox-mesure">
+                    <h5>SELECT REGION:</h5>
+                    <ul>
+                      <li>
+                        <input type="radio" id="au" name="redion">
+                        <label for="au">au</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="UK" name="redion">
+                        <label for="UK">UK</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="US" name="redion">
+                        <label for="US">US</label>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mesure-list checkbox-mesure">
+                    <h5>SELECT SIZE:</h5>
+                    <ul>
+                      <li>
+                        <input type="radio" id="AU-6" name="size">
+                        <label for="AU-6">AU 6</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="AU-8" name="size">
+                        <label for="AU-8">AU 8</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="AU-10" name="size">
+                        <label for="AU-10">AU 10</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="AU-12" name="size">
+                        <label for="AU-12">AU 12</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="AU-14" name="size">
+                        <label for="AU-14">AU 14</label>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mesure-list">
+                    <h5>SUNDAE MUSE SIZING:</h5>
+                    <div class="check-value">
+                      <h2>AU 8 — S</h2>
+                    </div>
+                  </div>
+                  <div class="mesure-list">
+                    <h5>SUNDAE MUSE SIZING:</h5>
+                    <div class="check-value">
+                      <h3>US 2 — UK 34</h3>
+                    </div>
+                  </div>
+                  <div class="mesure-list checkbox-mesure">
+                    <h5>MEASUREMENTS:</h5>
+                    <ul>
+                      <li>
+                        <input type="radio" id="cm" name="mesurements">
+                        <label for="cm">CM</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="in" name="mesurements">
+                        <label for="in">IN</label>
+                      </li>
+                    </ul>
+                    <div class="check-value multi-value">
+                      <h3>Bust 31.5”</h3>
+                      <h3>Waist 24”</h3>
+                      <h3>Hip 34”</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="size-chart-right">
+                  <div class="how-to-mesure">
+                    <div class="mesure-img">
+                      <img src="images/size-guide-poster.png" alt="">
+                    </div>
+                    <div class="mesure-content">
+                      <h5>HOW TO MEASURE:</h5>
+                      <div class="bottom-content">
+                        <div class="bt-content-inner">
+                          <h5>BUST</h5>
+                          <h5>Measured from underarm across the fullest part of the bust.</h5>
+                        </div>
+                        <div class="bt-content-inner">
+                          <h5>WAIST</h5>
+                          <h5>Measured across the smallest part of the waist.</h5>
+                        </div>
+                        <div class="bt-content-inner">
+                          <h5>HIP</h5>
+                          <h5>Measured across the widest part of the hip.</h5>
+                        </div>
+                        <div class="bt-content-inner">
+                          <h5>LENGTH</h5>
+                          <h5>Measured from the highest point of the shoulder to the hem.</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end panel 1 -->
+
+            <div id="panel2" class="panel">
+              <div class="size-chart-wrapper">
+                <div class="size-chart-left">
+                  <div class="mesure-list checkbox-mesure">
+                    <h5>SELECT REGION:</h5>
+                    <ul>
+                      <li>
+                        <input type="radio" id="au" name="redion">
+                        <label for="au">au</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="UK" name="redion">
+                        <label for="UK">UK</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="US" name="redion">
+                        <label for="US">US</label>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mesure-list checkbox-mesure">
+                    <h5>SELECT SIZE:</h5>
+                    <ul>
+                      <li>
+                        <input type="radio" id="AU-6" name="size">
+                        <label for="AU-6">AU 6</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="AU-8" name="size">
+                        <label for="AU-8">AU 8</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="AU-10" name="size">
+                        <label for="AU-10">AU 10</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="AU-12" name="size">
+                        <label for="AU-12">AU 12</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="AU-14" name="size">
+                        <label for="AU-14">AU 14</label>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mesure-list">
+                    <h5>SUNDAE MUSE SIZING:</h5>
+                    <div class="check-value">
+                      <h2>AU 8 — S</h2>
+                    </div>
+                  </div>
+                  <div class="mesure-list">
+                    <h5>SUNDAE MUSE SIZING:</h5>
+                    <div class="check-value">
+                      <h3>US 2 — UK 34</h3>
+                    </div>
+                  </div>
+                  <div class="mesure-list checkbox-mesure">
+                    <h5>MEASUREMENTS:</h5>
+                    <ul>
+                      <li>
+                        <input type="radio" id="cm" name="mesurements">
+                        <label for="cm">CM</label>
+                      </li>
+                      <li>
+                        <input type="radio" id="in" name="mesurements">
+                        <label for="in">IN</label>
+                      </li>
+                    </ul>
+                    <div class="check-value multi-value">
+                      <h3>Bust 31.5”</h3>
+                      <h3>Waist 24”</h3>
+                      <h3>Hip 34”</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="size-chart-right">
+                  <div class="how-to-mesure">
+                    <div class="mesure-img">
+                      <img src="images/size-guide-poster.png" alt="">
+                    </div>
+                    <div class="mesure-content">
+                      <h5>HOW TO MEASURE:</h5>
+                      <div class="bottom-content">
+                        <div class="bt-content-inner">
+                          <h5>BUST</h5>
+                          <h5>Measured from underarm across the fullest part of the bust.</h5>
+                        </div>
+                        <div class="bt-content-inner">
+                          <h5>WAIST</h5>
+                          <h5>Measured across the smallest part of the waist.</h5>
+                        </div>
+                        <div class="bt-content-inner">
+                          <h5>HIP</h5>
+                          <h5>Measured across the widest part of the hip.</h5>
+                        </div>
+                        <div class="bt-content-inner">
+                          <h5>LENGTH</h5>
+                          <h5>Measured from the highest point of the shoulder to the hem.</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <section class="product-details-section">
+      <div class="pdp-inner">
+        <div class="pdp-breadcrumb">
+          <ul>
+            <li>
+              <a href="#">Exclusives</a>
+            </li>
+            <li>
+              <a href="#">tops</a>
+            </li>
+            <li>
+              <a href="#">floral</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="product-details-slider">
+          <div class="pdp-slider">
+            {% for product in product.media %}
+              <div class="pdp-item">
+                <a href="#">
+                  <img src="{{ product.image | image_url }}" alt="{{ product.alt }}" width="" height="">
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="pdp-details">
+            <div class="pdp-detail-inner">
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {% when '@app' %}
+                    <div {{ block.shopify_attributes }} style="margin: 5px 0 0px;">
+                      {% render block %}
+                    </div>
+                  {% when 'Title' %}
+                    <h2 {{ block.shopify_attributes }}>{{ product.title }}</h2>
+
+                    {% comment %}
+                      <div class="reting-star">
+                        <div class="star">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7">
+                            <g><g><path d="M1.295 6.404l.08-.513c.093-.586.187-1.171.282-1.757.007-.041-.016-.061-.04-.082L.048 2.515C.032 2.499.01 2.486 0 2.455l.517-.083c.582-.092 1.163-.185 1.745-.274.043-.007.052-.034.066-.062L3.3.078 3.34 0c.016.03.03.052.04.075.33.646.66 1.295.989 1.943.023.044.048.07.1.076.546.079 1.091.16 1.636.24l.56.083c.012.002.025.007.039.01-.007.03-.032.043-.05.061-.517.516-1.031 1.033-1.55 1.548a.105.105 0 0 0-.033.103c.124.723.245 1.446.367 2.17.003.022.012.045.001.074a1.08 1.08 0 0 1-.064-.032c-.644-.33-1.29-.657-1.936-.989-.055-.028-.096-.026-.15.002-.639.337-1.278.67-1.92 1.005l-.074.035z"/></g></g>
+                          </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7">
+                            <g><g><path d="M1.295 6.404l.08-.513c.093-.586.187-1.171.282-1.757.007-.041-.016-.061-.04-.082L.048 2.515C.032 2.499.01 2.486 0 2.455l.517-.083c.582-.092 1.163-.185 1.745-.274.043-.007.052-.034.066-.062L3.3.078 3.34 0c.016.03.03.052.04.075.33.646.66 1.295.989 1.943.023.044.048.07.1.076.546.079 1.091.16 1.636.24l.56.083c.012.002.025.007.039.01-.007.03-.032.043-.05.061-.517.516-1.031 1.033-1.55 1.548a.105.105 0 0 0-.033.103c.124.723.245 1.446.367 2.17.003.022.012.045.001.074a1.08 1.08 0 0 1-.064-.032c-.644-.33-1.29-.657-1.936-.989-.055-.028-.096-.026-.15.002-.639.337-1.278.67-1.92 1.005l-.074.035z"/></g></g>
+                          </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7">
+                            <g><g><path d="M1.295 6.404l.08-.513c.093-.586.187-1.171.282-1.757.007-.041-.016-.061-.04-.082L.048 2.515C.032 2.499.01 2.486 0 2.455l.517-.083c.582-.092 1.163-.185 1.745-.274.043-.007.052-.034.066-.062L3.3.078 3.34 0c.016.03.03.052.04.075.33.646.66 1.295.989 1.943.023.044.048.07.1.076.546.079 1.091.16 1.636.24l.56.083c.012.002.025.007.039.01-.007.03-.032.043-.05.061-.517.516-1.031 1.033-1.55 1.548a.105.105 0 0 0-.033.103c.124.723.245 1.446.367 2.17.003.022.012.045.001.074a1.08 1.08 0 0 1-.064-.032c-.644-.33-1.29-.657-1.936-.989-.055-.028-.096-.026-.15.002-.639.337-1.278.67-1.92 1.005l-.074.035z"/></g></g>
+                          </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7">
+                            <g><g><path d="M1.295 6.404l.08-.513c.093-.586.187-1.171.282-1.757.007-.041-.016-.061-.04-.082L.048 2.515C.032 2.499.01 2.486 0 2.455l.517-.083c.582-.092 1.163-.185 1.745-.274.043-.007.052-.034.066-.062L3.3.078 3.34 0c.016.03.03.052.04.075.33.646.66 1.295.989 1.943.023.044.048.07.1.076.546.079 1.091.16 1.636.24l.56.083c.012.002.025.007.039.01-.007.03-.032.043-.05.061-.517.516-1.031 1.033-1.55 1.548a.105.105 0 0 0-.033.103c.124.723.245 1.446.367 2.17.003.022.012.045.001.074a1.08 1.08 0 0 1-.064-.032c-.644-.33-1.29-.657-1.936-.989-.055-.028-.096-.026-.15.002-.639.337-1.278.67-1.92 1.005l-.074.035z"/></g></g>
+                          </svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7">
+                            <g><g><path d="M1.295 6.404l.08-.513c.093-.586.187-1.171.282-1.757.007-.041-.016-.061-.04-.082L.048 2.515C.032 2.499.01 2.486 0 2.455l.517-.083c.582-.092 1.163-.185 1.745-.274.043-.007.052-.034.066-.062L3.3.078 3.34 0c.016.03.03.052.04.075.33.646.66 1.295.989 1.943.023.044.048.07.1.076.546.079 1.091.16 1.636.24l.56.083c.012.002.025.007.039.01-.007.03-.032.043-.05.061-.517.516-1.031 1.033-1.55 1.548a.105.105 0 0 0-.033.103c.124.723.245 1.446.367 2.17.003.022.012.045.001.074a1.08 1.08 0 0 1-.064-.032c-.644-.33-1.29-.657-1.936-.989-.055-.028-.096-.026-.15.002-.639.337-1.278.67-1.92 1.005l-.074.035z"/></g></g>
+                          </svg>
+                        </div>
+                        <h5>(10) reviews</h5>
+                      </div>
+                    {% endcomment %}
+
+                  {% when 'Price' %}
+                    <div class="pdp-price" {{ block.shopify_attributes }}>
+                      {% if product.compare_at_price %}
+                        <h4>
+                          {{ product.selected_or_first_available_variant.price | money }}
+                          <span>
+                            {{- product.selected_or_first_available_variant.compare_at_price | money -}}
+                          </span>
+                        </h4>
+                      {% else %}
+                        <h4>{{ product.price | money }}</h4>
+                      {% endif %}
+                    </div>
+
+                  {% when 'text' %}
+                    <div class="pdp-description" {{ block.shopify_attributes }}>
+                      <p>{{ block.settings.pro_text }}</p>
+                    </div>
+
+                  {% when 'discounts-label' %}
+                    {% if product.compare_at_price %}
+                      {% if product.compare_at_price > product.price %}
+                        {% liquid
+                          assign discount_amount = product.compare_at_price | minus: product.price
+                          assign discount_percent = discount_amount | times: 100.0 | divided_by: product.compare_at_price | round
+                        %}
+                      {% endif %}
+
+                      <div class="discounts-label" {{ block.shopify_attributes }}>
+                        <a href="#" class="btn-bg-border">
+                          {% if product.metafields.custom.discount_display %}
+                            <span
+                              >Use code <b>{{ product.metafields.custom.discount_display }}</b> for 25% off at checkout</span
+                            >
+                          {% else %}
+                            {% if product.compare_at_price %}
+                              <span>{{ discount_percent }}% OFF — {{ product.price | money }}</span>
+                            {% endif %}
+                          {% endif %}
+                        </a>
+                      </div>
+                    {% endif %}
+
+                  {% when 'Variant' %}
+                    {% render 'product-variant-picker',
+                      product: product,
+                      block: block,
+                      product_form_id: product_form_id
+                    %}
+                  {% when 'quantity' %}
+
+                    <div style="margin:20px 0;"{{block.shopify_attributes }}>
+                      <legend style="padding-bottom:5px">
+                        <h5>Quantity :</h5>
+                      </legend>
+                      <div class="qty-box">
+                        <button class="qty-btn btn-minus adjust minus" id="minus-btn">
+                          <i class="fa-solid fa-minus" style="color: #000000;padding-top: 5px;font-size: 12px;"></i>
+                        </button>
+                        <input
+                          type="text"
+                          class="count quantity__input"
+                          name="quantity"
+                        id="counter"
+                        data-cart-quantity="{{ cart_qty }}"
+                        data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                        min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                        {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+                          data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                          max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                        {% endif %}
+                        step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+                        value="1"
+                        form="{{ product_form_id }}"
+                        style="font-size:13px"
+                      >
+                        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                        <button class="qty-btn btn-minus adjust plus" id="plus-btn">
+                          <i class="fa-solid fa-plus" style="color: #000000;padding-top: 4px;font-size: 12px;"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                  {% when 'Button' %}
+                    <div class="pdp-add-cart" {{ block.shopify_attributes }}>
+                      {% render 'add-to-cart-btn',
+                        product: product,
+                        section: section,
+                        product_form_id: product_form_id
+                      %}
+                    </div>
+
+                  {% when 'description' %}
+                    <div class="pdp-description-acc" {{ block.shopify_attributes }}>
+                      <div class="pdp-ds-inner">
+                        <h2>Description/Details/Returns</h2>
+                        <div class="ds-accordion">
+                          <p class="h5">
+                            The perfect crop top that your wardrobe will love! She’s made from a pink floral print in a
+                            gorgeous peach hue. Features elastic shoulder sleeves, frill detailing and a tie-up bust.
+                            She’s also shirred through the body for a comfy and cute fit! Style her with mules and gold
+                            hoops for total French girl vibes!
+                          </p>
+                          <div class="acc-drop">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7">
+                              <defs><clipPath id="9ndka"><path fill="#fff" d="M4 0l4 7H0z"/></clipPath></defs><g><g transform="rotate(-180 4 3.5)"><path fill="none" stroke="#000" stroke-miterlimit="20" stroke-width="2" d="M4 0v0l4 7v0H0v0z" clip-path="url(&quot;#9ndka&quot;)"/></g></g>
+                            </svg>
+                          </div>
+                        </div>
+
+                        <div class="dc-inner-accordiopn">
+                          <div class="cm-acc-title">
+                            <div class="sh1">DETAILS</div>
+                            <div class="acc-drop">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7">
+                                <defs><clipPath id="9ndka"><path fill="#fff" d="M4 0l4 7H0z"/></clipPath></defs><g><g transform="rotate(-180 4 3.5)"><path fill="none" stroke="#000" stroke-miterlimit="20" stroke-width="2" d="M4 0v0l4 7v0H0v0z" clip-path="url(&quot;#9ndka&quot;)"/></g></g>
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="cm-acc-desc">
+                            <p class="h5">Peach, orange and pink floral print</p>
+                            <p class="h5">Elastic neckline and sleeves</p>
+                            <p class="h5">Tie-up detail in the bust</p>
+                            <p class="h5">Shirred elastic body</p>
+                            <p class="h5">Frill details</p>
+                            <p class="h5">Slip on style</p>
+                            <p class="h5">Lined through the bust</p>
+                            <p class="h5">Fabric is Polyester</p>
+                            <p class="h5">Tani is wearing size AU 6 / US 2</p>
+                          </div>
+                        </div>
+                        <div class="dc-inner-accordiopn">
+                          <div class="cm-acc-title">
+                            <div class="sh1">RETURNS</div>
+                            <div class="acc-drop">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7">
+                                <defs><clipPath id="9ndka"><path fill="#fff" d="M4 0l4 7H0z"/></clipPath></defs><g><g transform="rotate(-180 4 3.5)"><path fill="none" stroke="#000" stroke-miterlimit="20" stroke-width="2" d="M4 0v0l4 7v0H0v0z" clip-path="url(&quot;#9ndka&quot;)"/></g></g>
+                              </svg>
+                            </div>
+                          </div>
+                          <div class="cm-acc-desc">
+                            <p class="h5">
+                              We hope you absolutely love your new Sundae Muse goodies but totally understand things
+                              don’t always work out when you’re shopping online. If you’re not 100% happy with your
+                              purchase, we offer returns for store credit within 30 days of package delivery. We offer
+                              FREE returns on all Australian orders. See our returns page for more details.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                {% endcase %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</product-info>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "pro_image",
+      "label": "Images"
+    },
+    {
+      "type": "select",
+      "id": "image_select",
+      "label": "Select",
+      "options": [
+        {
+          "label": "Image Hover",
+          "value": "Image_Hover"
+        },
+        {
+          "label": "Image Click",
+          "value": "Image_Click"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    {
+      "name": "Title",
+      "type": "Title",
+      "limit": 1
+    },
+    {
+      "name": "Price",
+      "type": "Price",
+      "limit": 1
+    },
+    {
+      "name": "Rateing",
+      "type": "Rateing",
+      "limit": 1
+    },
+    {
+      "name": "Text",
+      "type": "text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "pro_text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "name": "Discounts Label",
+      "type": "discounts-label"
+    },
+    {
+      "name": "property",
+      "type": "property",
+      "limit": 1
+    },
+    {
+      "name": "Buy Button",
+      "type": "Button",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "pro_checkout_btn",
+          "label": "Checkout Button"
+        }
+      ]
+    },
+    {
+      "name": "Variant",
+      "type": "Variant",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            {
+              "value": "dropdown",
+              "label": "Dropdown"
+            },
+            {
+              "value": "button",
+              "label": "Pills"
+            }
+          ],
+          "default": "button",
+          "label": "Style"
+        },
+        {
+          "id": "swatch_shape",
+          "label": "Swatch",
+          "type": "select",
+          "options": [
+            {
+              "value": "circle",
+              "label": "circle"
+            },
+            {
+              "value": "square",
+              "label": "square"
+            },
+            {
+              "value": "none",
+              "label": "none"
+            }
+          ],
+          "default": "circle"
+        }
+      ]
+    },
+    {
+      "name": "Quantity",
+      "type": "quantity",
+      "limit": 1
+    },
+    {
+      "name": "Description",
+      "type": "description",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "pro_desc_text",
+          "label": "Text"
+        },
+        {
+          "type": "liquid",
+          "id": "pro_liquid",
+          "label": "Add Liuid"
+        }
+      ]
+    }
+  ],
+  "presets": []
+}
+{% endschema %}
+
+{% stylesheet %}
+  .qty-box .qty-btn, .qty-box input{
+    width: 38px;
+    height: 38px;
+  }
+
+  .pdp-details .pdp-detail-inner .pdp-price span{
+    font-size: 12px;
+    font-weight: 100;
+    margin-left: 10px;
+    text-decoration: line-through;
+    color: #858585;
+    letter-spacing: 0.5px;
+  }
+
+  .swym-atw-button-container.consent-given.default-position {
+    padding-left: 0;
+    justify-content: flex-start;
+  }
+  .swym-atw-button-container button{
+    display: contents;
+  }
+    .swym-atw-button-container.consent-given.default-position button svg{
+    margin-right: 4px;
+  }
+{% endstylesheet %}

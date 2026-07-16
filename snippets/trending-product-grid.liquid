@@ -1,0 +1,22 @@
+
+<div class="tr-slide-item">
+  <div class="slider-product-card">
+    {% if product.featured_image %}
+      <div class="sl-product-image">
+        <a href="{{ product.url }}">
+          <img src="{{ product.featured_image | image_url }}" alt="{{ product.title }}" width="" height="">
+        </a>
+      </div>
+    {% endif %}
+    {% if product.title or product.price %}
+      <div class="sl-product-details">
+        {% if product.title %}
+          <h3>{{ product.title }}</h3>
+        {% endif %}
+        {% if product.price %}
+          <div class="sh1 price">{{ product.price | money }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,188 @@
+<div class="main_collection_list">
+  <div class="container">
+    <div class="page_title">
+      <div class="section-title-container">
+        <h1 class="section-title">{{ section.settings.page_title }}</h1>
+      </div>
+    </div>
+    <div class="new-ar-product" style="margin: 0 auto;">
+      {%- liquid
+        case section.settings.sort
+          when 'products_high', 'products_low'
+            assign collections = collections | sort: 'all_products_count'
+          when 'date', 'date_reversed'
+            assign collections = collections | sort: 'published_at'
+        endcase
+
+        if section.settings.sort == 'products_high' or section.settings.sort == 'date_reversed' or section.settings.sort == 'alphabetical_reversed'
+          assign collections = collections | reverse
+        endif
+      -%}
+      {% paginate collections by section.settings.per_page_product -%}
+        <div class="new-ar-inner">
+          {% for collection in collections %}
+            {% render 'collection-list-grid', collection: collection %}
+          {% endfor %}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          {% render 'pagination', paginate: paginate, anchor: '' %}
+        {%- endif -%}
+      {% endpaginate %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection List",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "page_title",
+      "label": "Page Title"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Title Position",
+      "options": [
+        {
+          "label": "Left",
+          "value": "Left"
+        },
+        {
+          "label": "Center",
+          "value": "Center"
+        },
+        {
+          "label": "Right",
+          "value": "Right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "per_page_product",
+      "label": "Page Product",
+      "max": 20,
+      "min": 1,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "collection_grid_column",
+      "label": "Column",
+      "max": 4,
+      "min": 2,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "sort",
+      "options": [
+        {
+          "value": "alphabetical",
+          "label": "Alphabetical A-Z"
+        },
+        {
+          "value": "alphabetical_reversed",
+          "label": "Alphabetical Z-A"
+        },
+        {
+          "value": "date_reversed",
+          "label": "Data, New To Old"
+        },
+        {
+          "value": "date",
+          "label": "Data, Old To New"
+        },
+        {
+          "value": "products_high",
+          "label": "Product Count Low to hight"
+        },
+        {
+          "value": "products_low",
+          "label": "Product Count High to Low"
+        }
+      ],
+      "default": "alphabetical",
+      "label": "Sort collections"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "max": 100,
+      "min": 0,
+      "step": 1,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "max": 100,
+      "min": 0,
+      "step": 1,
+      "unit": "px",
+      "default": 50
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .main_collection_list{
+    margin-top:{{ section.settings.padding_top }}px;
+    margin-bottom:{{ section.settings.padding_bottom }}px;
+  }
+
+  .main_collection_list .new-ar-product .cm-ar-pr{
+    {% if section.settings.collection_grid_column == 2  %}
+      width:50%;
+    {% elsif section.settings.collection_grid_column == 4 %}
+      width:25%;
+    {% endif %}
+  }
+
+  .section-title-container {
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+    text-align:{{ section.settings.text_position }};
+  }
+
+  .section-title {
+    display: inline-block;
+    position: relative;
+    color: #333;
+    font-family: 'Karla-Regular';
+    font-weight: 500;
+    font-size: 35px;
+    margin: 13px 0;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #000;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.2s ease-out;
+  }
+
+  .section-title:hover::after {
+       width: 200px;
+       font-weight:700;
+  }
+{% endstyle %}

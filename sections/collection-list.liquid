@@ -1,0 +1,241 @@
+<!-- SHOP ALL -->
+{% if section.settings.section_heading != blank or collections != blank %}
+  <div class="container">
+    <div class="new-arrivals-inner">
+        
+      {% if section.settings.section_heading != blank %}
+        <div class="new-ar-btn">
+          <a href="{{section.settings.heading_url | default : routes.collections_url }}" class="arrow-btn">
+            <span>{{ section.settings.section_heading }}</span>
+            {% render 'icons', icon: 'right_arrow' %}
+          </a>
+        </div>
+      {% endif %}
+
+      {% if collections != blank %}
+        <div class="new-ar-product">
+          <div class="new-ar-inner">
+            {% assign name = 'Shop' %}
+            {% for collection in collections %}
+              {% if collection.title contains name %}
+                {% render 'collection-list-grid', collection: collection %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+      
+    </div>
+  </div>
+{% endif %}
+
+<!-- SHOP ALL -->
+
+{% schema %}
+{
+  "name": "Collection List",
+  "tag": "section",
+  "class": "shop-all",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "section_heading",
+      "label": "Heading"
+    },
+    {
+      "type": "url",
+      "id": "heading_url",
+      "label": "Url"
+    },
+    {
+      "type": "select",
+      "id": "header_show",
+      "label": "Header Show",
+      "options": [
+        {
+          "label": "Horizon",
+          "value": "Horizon"
+        },
+        {
+          "label": "Vertical",
+          "value": "Vertical"
+        }
+      ],
+      "visible_if": "{{ section.settings.section_heading }}"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Font Size",
+      "max": 50,
+      "min": 15,
+      "step": 1,
+      "unit": "px",
+      "default": 18,
+      "visible_if": "{{ section.settings.section_heading }}"
+    },
+    {
+      "type": "select",
+      "id": "heading_position_horizon",
+      "label": "Heading Position",
+      "options": [
+        {
+          "label": "Left",
+          "value": "Left"
+        },
+        {
+          "label": "Center",
+          "value": "Center"
+        },
+        {
+          "label": "Right",
+          "value": "Right"
+        }
+      ],
+      "visible_if": "{{ section.settings.header_show == 'Horizon' }}"
+    },
+    {
+      "type": "select",
+      "id": "heading_position_vertical",
+      "label": "Heading Position",
+      "options": [
+        {
+          "label": "Start",
+          "value": "Start"
+        },
+        {
+          "label": "Center",
+          "value": "Center"
+        },
+        {
+          "label": "End",
+          "value": "End"
+        }
+      ],
+      "visible_if": "{{ section.settings.header_show == 'Vertical' and section.settings.section_heading}}"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin",
+      "label": "Heading Margin Bottom",
+      "max": 50,
+      "min": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 15,
+      "visible_if": "{{section.settings.header_show == 'Horizon' }}"
+    },
+    {
+      "type": "header",
+      "content": "Collection layout"
+    },
+    {
+      "type": "range",
+      "id": "product_range",
+      "label": "Maximum products to show",
+      "max": 12,
+      "min": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "btn_position",
+      "label": "Btn Position",
+      "options": [
+        {
+          "label": "Left",
+          "value": "Left"
+        },
+        {
+          "label": "Center",
+          "value": "Center"
+        },
+        {
+          "label": "Right",
+          "value": "Right"
+        }
+      ]
+    },
+    {
+      "type": "color_background",
+      "id": "background_color",
+      "label": "Section Background Color"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Top",
+      "max": 100,
+      "min": 0,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Top",
+      "max": 100,
+      "min": 0,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Collection List"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .section-space{
+      padding-top:{{section.settings.section_padding_top}}px;
+      padding-bottom:{{section.settings.section_padding_bottom}}px;
+      background:{{ section.settings.background_color }}
+  }
+
+  .shop-all .new-arrivals-inner{
+      {% if section.settings.header_show == 'Horizon' %}
+      display:block;
+      {% endif %}
+  }
+
+  .shop-all .new-arrivals-inner .new-ar-btn{
+      {% if section.settings.header_show == 'Horizon' %}
+      margin-bottom:{{ section.settings.heading_margin }}px;
+      text-align:{{ section.settings.heading_position_horizon }};
+      {% endif %}
+      {% if section.settings.header_show == 'Vertical' %}
+      display: flex;
+      align-items: {{section.settings.heading_position_vertical}};
+      {% endif %}
+  }
+
+  .shop-all .new-arrivals-inner .new-ar-btn span{
+      font-size:{{section.settings.heading_size }}px;
+  }
+
+  {% if section.settings.section_heading == blank %}
+      .shop-all .new-arrivals-inner .new-ar-product{
+      width:100%;
+      margin: 0 auto;
+      }
+  {% endif %}
+
+  .shop-all .new-arrivals-inner .new-ar-product .new-ar-inner .product-card .product-content{
+      justify-content:{{ section.settings.btn_position }};
+  }
+{% endstyle %}

@@ -1,0 +1,125 @@
+<cart-notification>
+  <div class="mini-cart" id="cart-notification">
+    <div class="mini-cart-inner">
+      <div class="mini-cart-header">
+        <h5 id="cart-notification-button">
+          CART <span>({{ cart.item_count }})</span>
+        </h5>
+        <a role="link" aria-disabled="true" class="close-cart">
+          {% render 'icons', icon: 'big_close_icon' %}
+        </a>
+      </div>
+      <div id="cart-notification-product" class="cart-notification-product"></div>
+
+      {% comment %}
+        {% if cart.item_count != 0 %}
+          <div class="mini-cart-body">
+            <ul class="cart-notification-product" id="cart-notification-product">
+              {% for item in cart.items %}
+                <li id="cart-notification-product-{{ item.key }}" class="cart_notification_item">
+                  <div class="mini-cart-item">
+                    <div class="m-cart-pr-details">
+                      <h3>{{ item.title }}</h3>
+                      <h5>
+                        SIZE: <span>{{ item.variant.title }}</span>
+                      </h5>
+                      <h5>
+                        QTY: <span>{{ item.quantity }}</span>
+                      </h5>
+                      <h5>
+                        Price: <span>{{ item.price | money }}</span>
+                      </h5>
+                      <div class="qty-box">
+                        <button class="qty-btn btn-minus">-</button>
+                        <input type="text" value="1">
+                        <button class="qty-btn btn-minus">+</button>
+                      </div>
+                    </div>
+                    <div class="m-cart-pr-image">
+                      <a href="{{ item.url }}">
+                        <img src="{{ item.image | image_url }}" alt="{{item.image.alt }}" width="" height="">
+                      </a>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="mini-cart-footer">
+            <div class="cart-total">
+              <div class="total-wrapper">
+                <h5>{{ 'customer.orders.total' | t | upcase }}:</h5>
+                <h5>
+                  <b>{{ cart.total_price | money }}</b>
+                </h5>
+              </div>
+              <div class="total-wrapper">
+                <h5>{{ 'cart.general.express_shipping' | t }}:</h5>
+                <h5>
+                  <b>{{ 'cart.general.shipping_at_checkout' | t }}</b>
+                </h5>
+              </div>
+            </div>
+            <div class="checkout-btn">
+              <form action="{{ routes.cart_url }}" method="post" id="cart-notification-form">
+                <button
+                  type="submit"
+                  name="checkout"
+                  class="btn-bg-border"
+                  style="width: 100%;"
+                  form="{{product_form_id}}"
+                >
+                  <span>{{ 'cart.general.checkout' | t }}</span>
+                  {% render 'icons', icon: 'right_arrow' %}
+                </button>
+              </form>
+            </div>
+          </div>
+        {% else %}
+          <div class="cart_empty_text">
+            <h3>{{ 'cart.general.empty' | t }}</h3>
+          </div>
+        {% endif %}
+      {% endcomment %}       
+      <div class="mini-cart-footer" style="margin-top: 5%;">
+        <div class="cart-total">
+          <div class="total-wrapper">
+            <h5>{{ 'customer.orders.total' | t | upcase }}:</h5>
+            <h5>
+              <b>{{ cart.total_price | money }}</b>
+            </h5>
+          </div>
+          <div class="total-wrapper">
+            <h5>{{ 'cart.general.express_shipping' | t }}:</h5>
+            <h5>
+              <b>{{ 'cart.general.shipping_at_checkout' | t }}</b>
+            </h5>
+          </div>
+        </div>
+        <div class="checkout-btn">
+          <form action="{{ routes.cart_url }}" method="post" id="cart-notification-form">
+            <button
+              type="submit"
+              class="btn-bg-border"
+              style="width: 100%;margin-bottom:10px;"
+              form="cart-notification-form"
+            >
+              <span>Cart ({{ cart.item_count }})</span>
+              {% render 'icons', icon: 'right_arrow' %}
+            </button>
+            <button
+              type="submit"
+              name="checkout"
+              class="btn-bg-border"
+              style="width: 100%;"
+              form="cart-notification-form"
+            >
+              <span>{{ 'cart.general.checkout' | t }}</span>
+              {% render 'icons', icon: 'right_arrow' %}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</cart-notification>

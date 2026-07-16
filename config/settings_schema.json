@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Favicon"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon-Image"
+      }
+    ]
+  },
+  {
+    "name": "Social-icon",
+    "settings": [
+      {
+        "type": "url",
+        "id": "inst_link",
+        "label": "Instrgram"
+      },
+      {
+        "type": "url",
+        "id": "pin_link",
+        "label": "Pinterest"
+      },
+      {
+        "type": "url",
+        "id": "face_link",
+        "label": "FaceBook"
+      },
+    ]
+  },
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "predictive_search_enabled",
+        "label": "Predictive Search Enabled",
+        "default":true
+      }
+    ]
+  }
+]

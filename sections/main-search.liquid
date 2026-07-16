@@ -1,0 +1,284 @@
+<section class="collection-page">
+  <div class="container">
+    {%- paginate search.results by 9 -%}
+      <div class="search-container">
+        {% comment %} <h1>Search results</h1> {% endcomment %}
+        <div class="section-title-container">
+          <h1 class="section-title" style="font-weight:600;">Search results</h1>
+        </div>
+
+        <predictive-search>
+          <form action="{{ routes.search_url }}" method="get" role="search" class="search-box">
+            <input
+              id="Search"
+              type="search"
+              name="q"
+              value="{{ search.terms | escape }}"
+              role="combobox"
+              aria-expanded="false"
+              aria-owns="predictive-search-results"
+              aria-controls="predictive-search-results"
+              aria-haspopup="listbox"
+              aria-autocomplete="list"
+              class="search-input"
+            >
+            <button type="submit" class="search-button">
+              <i class="fas fa-search"></i>
+            </button>
+            <input name="options[prefix]" type="hidden" value="last">
+            <div id="predictive-search" tabindex="-1" class="main_search_box" style="display:none"></div>
+          </form>
+        </predictive-search>
+      </div>
+      {% if search.results != empty %}
+        <div class="collection-wrapper">
+          <div class="col-filter">
+            <div class="filter-wrapper">
+              <div class="sh3 filter-lable">
+                {{ 'products.facets.filter-sort' | t }}
+                <span></span>
+              </div>
+              <div class="filter-inner">
+                <aside
+                  aria-labelledby="verticalTitle"
+                  id="main-collection-filters"
+                  data-id="{{ section.id }}"
+                >
+                  {% render 'facets',
+                    results: search,
+                    enable_filtering: true,
+                    enable_sorting: true,
+                    filter_type: 'vertical',
+                    paginate: paginate
+                  %}
+                </aside>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-collections" id="ProductGridContainer">
+            <div class="col-collection-inner" id="product-grid" data-id="{{ section.id }}">
+              {% for product in search.results %}
+                {% comment %} {% if product.type == 'woman' %} {% endcomment %}
+                {% render 'main-collection-product-grid', product: product, section: section, section_id: section.id %}
+                {% comment %} {% endif %} {% endcomment %}
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="mob-size-selecter">
+            <div class="popup-bg"></div>
+            <div class="size-select-popup">
+              <div class="close-size-popup">
+                {% render 'icons', icon: 'big_close_icon' %}
+              </div>
+              <div class="select-size-inner">
+                <div class="sh3">Select a size</div>
+                <ul>
+                  <li>
+                    <input type="radio" id="psize1" name="radio-group">
+                    <label for="psize1">6</label>
+                  </li>
+                  <li>
+                    <input type="radio" id="psize2" name="radio-group">
+                    <label for="psize2">8</label>
+                  </li>
+                  <li>
+                    <input type="radio" id="psize3" name="radio-group">
+                    <label for="psize3">10</label>
+                  </li>
+                  <li>
+                    <input type="radio" id="psize4" name="radio-group">
+                    <label for="psize4">12</label>
+                  </li>
+                </ul>
+                <div class="select-size-add-btn">
+                  <a href="#" class="btn-bg-border">
+                    <span>{{ 'products.product.add_to_cart' | t }}</span>
+                    {% render 'icons', icon: 'product_right_arrow' %}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          {% render 'pagination', paginate: paginate, anchor: '' %}
+        {%- endif -%}
+      {% else %}
+        {%- if search.performed -%}
+          {%- if search.results_count == 0 and search.filters == empty -%}
+            <p role="status" style="font-family: 'Karla';text-align:center;margin:20px 0;">
+              No results found for “<span style="font-weight:700"> {{ search.terms }} </span>”. Check the spelling or
+              use a different word or phrase.
+            </p>
+          {%- endif -%}
+        {%- endif -%}
+        <p role="status" style="font-family: 'Karla';text-align:center;margin:20px 0;">
+              No Any Search Product
+            </p>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Section name",
+  "settings": []
+}
+{% endschema %}
+
+{% stylesheet %}
+  .main_search_box{
+    z-index: 1111;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+  }
+
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration {
+    display: none !important;
+  }
+{% endstylesheet %}
+
+{% style %}
+  .section-title-container {
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+    text-align:center;
+  }
+
+  .section-title {
+    display: inline-block;
+    position: relative;
+    color: #333;
+    font-family: 'Karla-Regular';
+    font-weight: 500;
+    font-size: 35px;
+    margin: 13px 0;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #000;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.2s ease-out;
+  }
+
+  .section-title:hover::after {
+       width: 200px;
+       font-weight:700;
+  }
+
+  .search-container predictive-search{
+    text-align: center;
+    position:relative;
+    display: block;
+  }
+
+  .main_search_box{
+    z-index: 1111;
+    position: absolute;
+    top: 100%;
+    /* left: 0; */
+    /* right: 0; */
+    width: 100%;
+  }
+
+    /* ------------ */
+
+    .search-container {
+        text-align: center;
+        width: 100%;
+        max-width: 600px;
+        padding: 0 20px 30px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #000000;
+        margin-bottom: 20px;
+    }
+
+    .search-box {
+        display: flex;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 11px;
+        overflow: hidden;
+    }
+
+    .search-input {
+        flex-grow: 1;
+        border: none;
+        padding: 15px;
+        font-size: 1rem;
+        outline: none;
+    }
+
+    .search-button {
+        background-color:rgba(0, 0, 0, 0.46);
+        border: none;
+        color: #ffffff;
+        padding: 15px 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .search-button:hover {
+      background-color: #000000;
+    }
+
+    .search-button i {
+        font-size: 1.25rem;
+    }
+    .search-button svg {
+        font-size: 1.25rem;
+        color: white;
+        width: 25px;
+    }
+
+     details{
+    padding: 0 0 12px;
+  }
+
+  .facets__summary div{
+    display:flex;
+  }
+
+  .value_box{
+    font: var(--sh1);
+    text-transform: uppercase;
+    display: block;
+    text-align: center;
+    width: 100%;
+    border: 1px solid var(--Dark-Gray);
+    cursor: pointer;
+    color: var(--Black);
+  }
+
+  ul li label span{
+    padding:2px;
+    display:block;
+  }
+
+  input:checked{
+    background:black;
+  }
+{% endstyle %}

@@ -1,0 +1,339 @@
+{%- liquid
+  assign sort_by = results.sort_by | default: results.default_sort_by
+  assign total_active_values = 0
+  assign default_presentation = 'text'
+  if results.url
+    assign results_url = results.url
+  else
+    assign terms = results.terms | escape
+    assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  endif
+-%}
+
+<div class="facets-container">
+  <facet-filters-form class="facets small-hide">
+    <form
+      id="FacetFiltersForm"
+      class="facets__form-vertical"
+    >
+      {%- if results.terms -%}
+        <input type="hidden" name="q" value="{{ results.terms | escape }}">
+        <input name="options[prefix]" type="hidden" value="last">
+      {%- endif -%}
+
+      {% if enable_filtering %}
+        {% comment %} Heading is the first tabbable element on filter type horizontal {% endcomment %}
+        <div
+          id="FacetsWrapperDesktop"
+        >
+          {% comment %} Pills are right below the title for filter type vertical {% endcomment %}
+          {%- if filter_type == 'vertical' -%}
+            <div class="active-facets active-facets-desktop">
+              {%- for filter in results.filters -%}
+                {%- for value in filter.active_values -%}
+                  <facet-remove>
+                    <a
+                      href="{{ value.url_to_remove }}"
+                      class="active-facets__button active-facets__button--light value_box"
+                      style="border-radius: 20px;margin:8px 0;padding: 2px;"
+                    >
+                      <span class="active-facets__button-inner button button--tertiary">
+                        {{ value.label | escape }}
+                        <span class="svg-wrapper">
+                          <i class="ri-close-circle-line"></i>
+                        </span>
+                        {% comment %} <span class="visually-hidden">clear_filter</span> {% endcomment %}
+                      </span>
+                    </a>
+                  </facet-remove>
+                {%- endfor -%}
+
+                {% if filter.type == 'price_range' %}
+                  {% assign min = filter.min_value.value %}
+                  {% assign max = filter.max_value.value %}
+                  {%- if min != null or max != null -%}
+                    <facet-remove>
+                      <a
+                        href="{{ filter.url_to_remove }}"
+                        class="active-facets__button active-facets__button--light value_box"
+                        style="border-radius: 20px;margin:8px 0"
+                      >
+                        <span class="active-facets__button-inner button button--tertiary">
+                          {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
+                          <span class="svg-wrapper">
+                            <i class="ri-close-circle-line"></i>
+                          </span>
+                        </span>
+                      </a>
+                    </facet-remove>
+                  {%- endif -%}
+                {% endif %}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          {% comment %} Filters for both horizontal and vertical filter {% endcomment %}
+          {%- for filter in results.filters -%}
+            {% liquid
+              assign total_active_values = total_active_values | plus: filter.active_values.size
+              assign presentation = filter.presentation | default: default_presentation
+
+              if presentation == 'image'
+                assign show_more_number = 12
+                assign visual_layout_class = 'facets-layout facets-layout-grid facets-layout-grid--' | append: presentation
+              else
+                assign show_more_number = 5
+                assign visual_layout_class = 'facets-layout facets-layout-list facets-layout-list--' | append: presentation
+              endif
+            %}
+
+            {% case filter.type %}
+              {% when 'boolean', 'list' %}
+                <details
+                  id="Details-{{ filter.param_name | escape }}-{{ section.id }}"
+                  class="facets__disclosure-vertical js-filter"
+                  data-index="{{ forloop.index }}"
+                >
+                  <summary
+                    class="facets__summary caption-large focus-offset"
+                    aria-label="{{ filter.label | escape }} ({{filter.active_values.size }})"
+                  >
+                    {% comment %}
+                      <div>
+                        <span class="facets__summary-label">
+                          {{- filter.label | escape }}
+                        </span>
+                        <span class="facets__selected{% if filter.active_values.size == 0 %} hidden{% endif %}">
+                          ({{ filter.active_values.size }})</span
+                        >
+                        {%- if filter_type == 'vertical' and filter.operator == 'AND' -%}
+                          <span class="facets__and-helptext"> filter_and_operator_subtitle </span>
+                        {%- endif -%}
+                      </div>
+                    {% endcomment %}
+                    <div class="sh3 filter-var-lable">
+                      {{- filter.label | escape -}}
+                      <span></span>
+                    </div>
+                  </summary>
+                  <div
+                    id="Facet-{{ forloop.index }}-{{ section.id }}"
+                    class="parent-display facets__display-vertical "
+                  >
+                    <fieldset class="facets-wrap parent-wrap facets-wrap-vertical" style="border:0;">
+                      {%- liquid
+                        assign sorted_values = filter.values
+                        # Keep the selected values grouped together when operator is AND
+                        if filter.operator == 'AND'
+                          assign active_filter_values = filter.values | where: 'active', true
+                          assign inactive_filter_values = filter.values | where: 'active', false
+                          assign sorted_values = active_filter_values | concat: inactive_filter_values
+                        endif
+                      -%}
+
+                      <ul
+                        class="{{ visual_layout_class }}facets__list list-unstyled"
+                        role="list"
+                        style="padding-top:8px;"
+                      >
+                        {%- for value in sorted_values -%}
+                          {% liquid
+                            assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-' | append: forloop.index
+                            assign is_disabled = false
+                            if value.count == 0 and value.active == false
+                              assign is_disabled = true
+                            endif
+                          %}
+
+                          {% comment %}
+                            {%- capture label_class -%}
+                            facets__label facet-checkbox{% if is_disabled %} disabled{% endif %}{% if value.active %} active{% endif %}
+                            {%- endcapture -%}
+                          {% endcomment %}
+
+                          {%- capture text_value -%}
+                            <span class="facet-checkbox__text" aria-hidden="true">
+                              {{- value.label | escape }} ({{- value.count -}})
+                            </span>
+                          {%- endcapture -%}
+
+                          <li class="list-menu__item facets__item" style="margin-bottom:5px;">
+                            {%- if presentation == 'swatch' -%}
+                              <div class="{{ label_class }}">
+                                <div class="swatch-input-wrapper">
+                                  {% render 'swatch-input',
+                                    id: input_id,
+                                    type: 'checkbox',
+                                    name: value.param_name,
+                                    value: value.value,
+                                    product_form_id: 'FacetFiltersForm',
+                                    swatch: value.swatch,
+                                    checked: value.active,
+                                    disabled: is_disabled
+                                  %}
+                                </div>
+
+                                {{ text_value }}
+                              </div>
+                            {%- else -%}
+                              <label for="{{ input_id }}" class="value_box">
+                                <input
+                                  style="display:none;"
+                                  type="checkbox"
+                                  name="{{ value.param_name }}"
+                                  value="{{ value.value }}"
+                                  id="{{ input_id }}"
+                                  {% if value.active %}
+                                    checked
+                                  {% endif %}
+                                  {% if is_disabled %}
+                                    disabled
+                                  {% endif %}
+                                >
+                                {{ text_value }}
+                              </label>
+                            {%- endif -%}
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </fieldset>
+                  </div>
+                </details>
+              {% when 'price_range' %}
+                <details
+                  id="Details-{{ filter.param_name | escape }}-{{ section.id }}"
+                  class="facets__disclosure-vertical js-filter"
+                  data-index="{{ forloop.index }}"
+                >
+                  <summary class="facets__summary caption-large focus-offset">
+                    <div class="sh3 filter-var-lable">
+                      {{- filter.label | escape -}}
+                      <span></span>
+                    </div>
+                  </summary>
+                  <div
+                    id="Facet-{{ forloop.index }}-{{ section.id }}"
+                    class="facets__display-vertical"
+                  >
+                    <price-range class="facets__price">
+                      <ul>
+                        {% render 'price-facet', filter: filter, id_prefix: 'Filter-', filter_type: filter_type %}
+                      </ul>
+                    </price-range>
+                  </div>
+                </details>
+            {% endcase %}
+          {%- endfor -%}
+        </div>
+      {% endif %}
+
+      {% if results.current_vendor or results.current_type %}
+        <input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+      {% endif %}
+
+      {% comment %} Sorting {% endcomment %}
+      <div class="facet-filters sorting caption">
+        <div class="facet-filters__field sort-by">
+          <h2 class="facet-filters__label caption-large text-body sh3">
+            <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
+          </h2>
+          <div class="select">
+            {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
+            <ul
+              name="sort_by"
+              class="facet-filters__sort select__select caption-large"
+              id="SortBy"
+              aria-describedby="a11y-refresh-page-message"
+            >
+              {%- for option in results.sort_options -%}
+                {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
+                <li>
+                  <label for="{{ option.name | split: ' ' }}" style="display: flex;flex-direction: row-reverse;justify-content: flex-end;">
+                    <span>{{- option.name}}</span>
+                    <input
+                      type="radio"
+                      id="{{ option.name | split : ' '}}"
+                      name="sort_by"
+                      value="{{ option.value | escape }}"
+                      style="display:block;margin-right: 10px;width:10px"
+                       {% if option.value == sort_by %}checked{% endif %}
+                    >
+                  </label>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {% comment %}
+        <div class="facet-filters sorting caption">
+          <div class="facet-filters__field">
+            <h2 class="facet-filters__label caption-large text-body">
+              <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
+            </h2>
+            <div class="select">
+              {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
+              <select
+                name="sort_by"
+                class="facet-filters__sort select__select caption-large"
+                id="SortBy"
+                aria-describedby="a11y-refresh-page-message"
+              >
+                {%- for option in results.sort_options -%}
+                  <option
+                    value="{{ option.value | escape }}"
+                    {% if option.value == sort_by %}
+                      selected="selected"
+                    {% endif %}
+                  >
+                    {{ option.name | escape }}
+                  </option>
+                {%- endfor -%}
+              </select>
+              <span class="svg-wrapper">
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </span>
+            </div>
+          </div>
+        </div>
+      {% endcomment %}
+
+      {% comment %} Remove Buttoon {% endcomment %}
+      <div class="active-facets-vertical-filter">
+        <facet-remove class="active-facets__button-wrapper">
+          <a href="{{ results_url }}" class="active-facets__button-remove underlined-link sh3" style="margin: 10px 0;">
+            Clear all
+          </a>
+        </facet-remove>
+      </div>
+
+      <h2 class="product-count__text text-body">
+        <span id="ProductCount">
+          {%- if results.results_count -%}
+            {{ results_with_count | t: terms: results.terms, count: results.results_count }}
+          {%- elsif results.products_count == results.all_products_count -%}
+            {{ product_count_simple | t: count: results.products_count }}
+          {%- else -%}
+            {{ product_count | t: product_count: results.products_count, count: results.all_products_count }}
+          {%- endif -%}
+        </span>
+      </h2>
+
+    </form>
+  </facet-filters-form>
+</div>
+
+
+{% style %}
+
+  label input:checked+span {
+    color: var(--White);
+    background: var(--Black);
+  }
+
+  .select ul li label:before input:checked{
+    background:black;
+  }
+  
+{% endstyle %}

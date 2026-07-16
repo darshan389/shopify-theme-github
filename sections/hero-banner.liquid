@@ -1,0 +1,132 @@
+{% capture image_block %}
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'silder' %}
+        {% if block.settings.banner_silder_image != blank %}
+        <div class="hero-sl-item">
+          <a role="link" aria-disabled="true">
+            <img
+              src="{{ block.settings.banner_silder_image | image_url }}"
+              alt="{{ block.settings.banner_silder_image }}"
+              width=""
+              height=""
+            >
+          </a>
+        </div>
+      {% endif %}
+    {% endcase %}
+  {% endfor %}
+{% endcapture %}
+
+<!-- HERO SECTION START -->
+{% if section.settings.hero_banner_image != blank or section.settings.hero_banner_mobile != blank %}
+  {% if section.settings.hero_banner_image != blank %}
+    <img
+      class="main-banner"
+      src="{{ section.settings.hero_banner_image | image_url  }}"
+      alt="{{ section.settings.hero_banner_image }}"
+      width=""
+      height=""
+    >
+  {% endif %}
+  {% assign mobile_image = section.settings.hero_banner_mobile | default: section.settings.hero_banner_image %}
+  {% if mobile_image != blank %}
+    <img
+      class="main-banner-mob"
+      src="{{ mobile_image | image_url  }}"
+      alt="{{ section.settings.hero_banner_mobile }}"
+      width=""
+      height=""
+    >
+  {% endif %}
+{% endif %}
+
+{% if image_block != blank %}
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-slider">
+        {{ image_block }}
+      </div>
+    </div>
+  </div>
+{% endif %}
+<!-- HERO SECTION END -->
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "hero-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_banner_image",
+      "label": "Main Banner Image"
+    },
+    {
+      "type": "select",
+      "id": "slider_position",
+      "label": "Slider Position",
+      "options": [
+        {
+          "label": "Left",
+          "value": "Left"
+        },
+        {
+          "label": "Center",
+          "value": "Center"
+        },
+        {
+          "label": "Right",
+          "value": "Right"
+        }
+      ],
+    },
+    {
+      "type": "header",
+      "content": "Mobile Layout"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_banner_mobile",
+      "label": "Mobile Banner Image"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Banner Silder",
+      "type": "silder",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "banner_silder_image",
+          "label": "Silder Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .hero-section .container .hero-inner .hero-slider{
+    {% if section.settings.slider_position == 'Left' %}
+        margin: auto 0;
+    {% elsif section.settings.slider_position == 'Center' %}
+        margin:auto;
+    {% else %}
+        margin:0 0 0 auto;
+    {% endif %}
+  }
+
+  @media only screen and (max-width: 991px) {
+    .hero-section .container .hero-inner .hero-slider{
+      margin : 0 auto; 
+    }
+  }
+{% endstyle %}

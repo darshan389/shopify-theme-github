@@ -1,0 +1,71 @@
+{%- unless product.has_only_default_variant -%}
+  <variant-selects
+    id="variant-selects-{{ section.id }}"
+    data-section="{{ section.id }}"
+    {{ block.shopify_attributes }}
+  >
+    <ul style="margin-top: 20PX;">
+      {%- for option in product.options_with_values -%}
+        {%- liquid
+          assign swatch_count = option.values | map: 'swatch' | compact | size
+          assign picker_type = block.settings.picker_type
+
+          if swatch_count > 0 and block.settings.swatch_shape != 'none'
+            if block.settings.picker_type == 'dropdown'
+              assign picker_type = 'swatch_dropdown'
+            else
+              assign picker_type = 'swatch'
+            endif
+          endif
+        -%}
+        {%- if picker_type == 'swatch' -%}
+          <li>
+            <fieldset
+              class="js product-form__input product-form__input--swatch pdp-color-selecter variant-part"
+              style="display:flex;border: 0;"
+            >
+              <legend class="form__label">
+                <h5>
+                  Selected {{ option.name }} :
+                  <div class="sh4">{{ option.selected_value }}</div>
+                </h5>
+              </legend>
+              <ul style="display:flex;">
+                {% render 'product-variant-options',
+                  product: product,
+                  option: option,
+                  block: block,
+                  picker_type: picker_type
+                %}
+              </ul>
+            </fieldset>
+          </li>
+
+        {%- elsif picker_type == 'button' -%}
+          <li>
+            <fieldset class="js product-form__input product-form__input--pill" style="border: 0;">
+              <legend class="form__label">
+                <h5>
+                  Selected {{ option.name }} :
+                  <span class="sh4">{{ option.selected_value }}</span>
+                </h5>
+              </legend>
+              <ul style="display:flex;flex-flow: wrap;margin: 0 -5px;">
+                {% render 'product-variant-options',
+                  product: product,
+                  option: option,
+                  block: block,
+                  picker_type: picker_type
+                %}
+              </ul>
+            </fieldset>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+
+      <script type="application/json" data-selected-variant>
+        {{ product.selected_or_first_available_variant | json }}
+      </script>
+    </ul>
+  </variant-selects>
+{%- endunless -%}

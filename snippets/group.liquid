@@ -1,0 +1,12 @@
+
+{% style %}
+    {% if block.settings.content_direction == "column"  %}      
+        .group_block{
+            display: flex;            
+  }
+{% endif %}
+{% endstyle %}
+
+<div class="group_block">
+    {{ children }}
+</div>

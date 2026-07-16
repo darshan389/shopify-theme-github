@@ -1,0 +1,84 @@
+@font-face {
+    font-family: 'Bookmania';
+    src: url('Bookmania-Regular.eot');
+    src: url('Bookmania-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Bookmania-Regular.woff2') format('woff2'),
+        url('Bookmania-Regular.woff') format('woff'),
+        url('Bookmania-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bookmania';
+    src: url('Bookmania-Bold.eot');
+    src: url('Bookmania-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Bookmania-Bold.woff2') format('woff2'),
+        url('Bookmania-Bold.woff') format('woff'),
+        url('Bookmania-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bookmania';
+    src: url('Bookmania-Black.eot');
+    src: url('Bookmania-Black.eot?#iefix') format('embedded-opentype'),
+        url('Bookmania-Black.woff2') format('woff2'),
+        url('Bookmania-Black.woff') format('woff'),
+        url('Bookmania-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bookmania';
+    src: url('Bookmania-Semibold.eot');
+    src: url('Bookmania-Semibold.eot?#iefix') format('embedded-opentype'),
+        url('Bookmania-Semibold.woff2') format('woff2'),
+        url('Bookmania-Semibold.woff') format('woff'),
+        url('Bookmania-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bookmania';
+    src: url('Bookmania-Light.eot');
+    src: url('Bookmania-Light.eot?#iefix') format('embedded-opentype'),
+        url('Bookmania-Light.woff2') format('woff2'),
+        url('Bookmania-Light.woff') format('woff'),
+        url('Bookmania-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Karla';
+    src: url('Karla-Regular.eot');
+    src: url('Karla-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Karla-Regular.woff2') format('woff2'),
+        url('Karla-Regular.woff') format('woff'),
+        url('Karla-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Karla';
+    src: url('Karla-Bold.eot');
+    src: url('Karla-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Karla-Bold.woff2') format('woff2'),
+        url('Karla-Bold.woff') format('woff'),
+        url('Karla-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

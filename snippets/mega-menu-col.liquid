@@ -1,0 +1,28 @@
+<div class="menu-img-wrap">
+  {% if my_data.image != blank or my_data.featured_image != blank %}
+    <a href="{{ my_data.url }}">
+      {% if block.settings.url_1.type == 'product_link' %}
+        <img
+          src="{{ my_data.featured_image | image_url }}"
+          alt="{{ my_data.title }}"
+          width="200px"
+          height=""
+        >
+      {% else %}
+        <img
+          src="{{ my_data.image | img_url: '100x'  }}"
+          alt="{{ my_data.title }}"
+          width="200px"
+          height=""
+        >
+      {% endif %}
+    </a>
+  {% endif %}
+
+  <div class="sh1">
+    {% if object == 'page_link' %}
+      Page :
+    {% endif -%}
+    {{- my_data.title }}
+  </div>
+</div>

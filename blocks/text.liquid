@@ -1,0 +1,21 @@
+{% render 'text',block:block %}
+
+{% schema %}
+{
+    "name": "Text",
+    "tag":null,
+    "settings": [
+        {
+            "type": "richtext",
+            "id": "text_block",
+            "label": "Enter Text",
+            "default": "<p>Abc...</p>"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Text"
+        }
+    ]
+}
+{% endschema %}

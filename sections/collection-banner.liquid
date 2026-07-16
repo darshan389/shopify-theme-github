@@ -1,0 +1,78 @@
+{% if section.settings.banner_btn_text != blank or section.blocks[0].settings.banner_img != blank %}
+  <section class="page-banner">
+    <div class="banner-img">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'banner' %}
+            <img
+              class="desk"
+              src="{{ block.settings.banner_img | image_url }}"
+              alt="{{ block.settings.banner_img.alt}}"
+              width=""
+              height=""
+            >
+            <img
+              class="mob"
+              src="{{ block.settings.banner_mob_img | image_url }}"
+              alt="{{ block.settings.banner_img.alt }}"
+              width=""
+              height=""
+            >
+        {% endcase %}
+      {% endfor %}
+      {% if section.settings.banner_btn_text != blank %}
+        <div class="page-banner-label">
+          <div class="sh1">
+            <a href="{{ section.settings.banner_btn_url }}" target="_blank"></a>{{ section.settings.banner_btn_text }}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+
+{% schema %}
+{
+  "name": "Collcation Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "banner_btn_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "banner_btn_url",
+      "label": "Url"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Add Banner",
+      "type": "banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "banner_img",
+          "label": "Add Banner"
+        },
+        {
+          "content": "Mobile",
+          "type": "header"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_mob_img",
+          "label": "Add Banner"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collcation Banner"
+    }
+  ]
+}
+{% endschema %}

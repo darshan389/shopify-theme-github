@@ -1,0 +1,465 @@
+<div class="page-width">
+  <!-- Subscripition Product -->
+  <div class="container">
+    <div class="subscripition_product_inner subscripition_product_page" id="subscripition_product_page">
+      <div class="page_title">
+        <h2>You’re about to become a Cirkle Member</h2>
+        <p>
+          Of course, you can change your designs and cancel your subscription at any time! So, what are you waiting for?
+          Choose your colors and enjoy beautiful nails pretty soon!
+        </p>
+      </div>
+      <div class="all_subscripition_product" style="display:flex;">
+        {% for product in collections.all.products %}
+          {% if product.selling_plan_groups != empty %}
+            {% if product.selling_plan_groups.size > 0 %}
+              {% if product.available %}
+                {% for group in product.selling_plan_groups %}
+                  {% for selling_plan in group.selling_plans %}
+                    {% assign selling_plan_id = selling_plan.id %}
+                  {% endfor %}
+                {% endfor %}
+                <subscripition-product class="subscripition_product">
+                  <div class="item">
+                    <div class="item_inner">
+                      <img
+                        src="{{ product.featured_image  | image_url }}"
+                        alt="{{ product.featured_image.alt }}"
+                        width="200"
+                        height=""
+                      >
+                      <div class="text">
+                        <h4>{{ product.title | capitalize }}</h4>
+                        <p>{{ product.price | money }}</p>
+
+                        <add-to-product
+                          data-title="{{ product.title | escape }}"
+                          data-image="{{ product.featured_image | image_url  }}"
+                          data-price="{{ product.price }}"
+                          data-id="{{ product.selected_or_first_available_variant.id }}"
+                          class="subscripition_product"
+                          data-sellingid="{{ selling_plan_id }}"
+                        >
+                          <button class="product_add_button" data-product-title="{{ product.title | escape }}">
+                            Add to cart
+                          </button>
+                        </add-to-product>
+                      </div>
+                    </div>
+                  </div>
+                </subscripition-product>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <!-- Normal Product -->
+    <div class="subscripition_product_inner normal_product_page hidden-element" id="normal_product_page">
+      <div class="page_title">
+        <h2>Hey Maniac Member, do you have all the essentials?</h2>
+        <p>
+          You need a Maniac Lamp, Top Coat and Nail & Cuticle Oil for a Maniac manicure. If you have none, we recommend
+          the starterset.
+        </p>
+      </div>
+      <div class="all_subscripition_product" style="display:flex">
+        {% for product in collections.all.products %}
+          {% if product.available %}
+            {% if product.selling_plan_groups == empty %}
+              <subscripition-product class="normal_product">
+                <div class="item">
+                  <div class="item_inner">
+                    <a href="{{ product.url }}">
+                      <img
+                        src="{{ product.featured_image  | image_url }}"
+                        alt="{{ product.featured_image.alt }}"
+                        width=""
+                        height=""
+                        style="width:100%;"
+                      >
+                    </a>
+                    <div class="text">
+                      <h4>{{ product.title }}</h4>
+                      <p>{{ product.price | money }}</p>
+
+                      <add-to-product
+                        data-title="{{ product.title | escape }}"
+                        data-image="{{ product.featured_image | image_url  }}"
+                        data-id="{{ product.selected_or_first_available_variant.id }}"
+                        data-price="{{ product.price }}"
+                        class="normal_product"
+                      >
+                        <button class="product_add_btn" data-product-title="{{ product.title | escape }}">
+                          Add to cart
+                        </button>
+                      </add-to-product>
+                    </div>
+                  </div>
+                </div>
+              </subscripition-product>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- subscripition_bottom_line -->
+<div class="subscripition_bottom_line">
+  <div class="page-width sub_bottom_line">
+    <div class="subscripition_title">Choose 2 products and pay for your bundle!</div>
+    <div class="subscripition_bottom_line_inner">
+      <div class="left_part">
+        <ul>
+          <li>
+            <div class="sub_item sub_item1">
+              <div class="sub_item_text">
+                <p>Product 1</p>
+              </div>
+            </div>
+          </li>
+          <li style="font-size: 31px;">+</li>
+          <li>
+            <div class="sub_item sub_item2">
+              <div class="sub_item_text">
+                <p>Product 2</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="right_part">
+        <div class="sub_item_total_prices">Total : $ <span>00.00</span></div>
+        <div class="next__button">
+          <button disabled>Next <i class="fa-solid fa-arrow-right-long"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-width normal_bottom_line hidden-element">
+    <div class="subscripition_bottom_line_inner">
+      <div class="left_part">
+        <ul>
+          <li><button>Back</button></li>
+          <li>
+            <div class="sub_item sub_item1">
+              <div class="sub_item_text">
+                <p style="text-align: center;">
+                  2<br>
+                  Products Picked
+                </p>
+              </div>
+            </div>
+          </li>
+          <li style="font-size: 31px;">+</li>
+          <li>
+            <div class="sub_item sub_item2">
+              <div class="sub_item_text">
+                <p style="text-align: center;">
+                  <span>0</span><br>
+                  extras
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="right_part">
+        <div class="normal_item_total_price">Total : $<span>00</span></div>
+        <div class="next__button">
+          <button class="all_product_add_tocart">Add To Cart<i class="fa-solid fa-arrow-right-long"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% javascript %}
+  var productid1 = '';
+  var sellingid1 = '';
+  var productid2 = '';
+  var sellingid2 = '';
+  let clickpro = 0;
+  let clickCount = 0;
+  const itemsToRemove = [];
+  const sellingplan = [];
+
+  const buttons = document.querySelectorAll('add-to-product');
+  buttons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      const parent = event.target.closest('[id]');
+      console.log(parent.id);
+      var image = button.dataset.image;
+      var title = button.dataset.title;
+      var price = button.dataset.price;
+
+      if (parent.id == 'subscripition_product_page') {
+        clickCount++;
+        if (clickCount === 1) {
+          productid1 = button.dataset.id;
+          sellingid1 = button.dataset.sellingid;
+          console.log('111', productid1);
+          console.log('111', sellingid1);
+
+          var item1 = document.querySelector('.sub_item1 .sub_item_text');
+          document.querySelector('.sub_item_total_prices span').innerHTML = price / 100;
+
+          item1.innerHTML = `<div><button class="sub_item_remove">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button><img src="${image}" alt="${title}" width="100px"></div></div>`;
+        } else if (clickCount === 2) {
+          var item2 = document.querySelector('.sub_item2 .sub_item_text');
+
+          productid2 = button.dataset.id;
+          sellingid2 = button.dataset.sellingid;
+          console.log('222', productid2);
+          console.log('22', sellingid2);
+
+          var total_price = document.querySelector('.sub_item_total_prices span').textContent;
+          let sum = parseInt(total_price) + parseInt(price); // Result: 15
+          document.querySelector('.sub_item_total_prices span').innerHTML = sum / 100;
+
+          item2.innerHTML = `<div><button class="sub_item_remove">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button><img src="${image}" alt="${title}" width="100px"></div></div>`;
+          const addbutton = document.querySelectorAll('.product_add_button');
+
+          if (addbutton) {
+            addbutton.forEach((btn) => (btn.disabled = true));
+          }
+          document.querySelector('.next__button button').removeAttribute('disabled');
+
+          console.log('itemsToRemove :: ', itemsToRemove);
+        }
+        button.querySelector('button').disabled = true;
+      } else {
+        clickpro++;
+        var productid = button.dataset.id;
+        itemsToRemove.push(productid);
+
+        var total_price1 = document.querySelector('.normal_item_total_price span').textContent * 100;
+        console.log('THis is total prices :: ', total_price1);
+        console.log('this is product Price :: ', price);
+        let sum1 = parseInt(total_price1) + parseInt(price);
+        console.log('THis is sum :: ', sum1);
+        document.querySelector('.normal_item_total_price span').innerHTML = sum1 / 100;
+
+        document.querySelector('.sub_item2 .sub_item_text p span').innerHTML = clickpro;
+        console.log('itemsToRemove :: ', itemsToRemove);
+        button.querySelector('button').disabled = true;
+      }
+    });
+  });
+
+  const nextbtn = document.querySelector('.next__button');
+  nextbtn.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    document.querySelector('.subscripition_product_page').classList.add('hidden-element');
+    document.querySelector('.normal_product_page').classList.remove('hidden-element');
+
+    document.querySelector('.sub_bottom_line').classList.add('hidden-element');
+    document.querySelector('.normal_bottom_line').classList.remove('hidden-element');
+  });
+  
+  const back_btn = document.querySelector(".subscripition_bottom_line_inner .left_part ul li button")
+  back_btn.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    document.querySelector('.normal_product_page').classList.add('hidden-element');
+    document.querySelector('.subscripition_product_page').classList.remove('hidden-element');
+
+    document.querySelector('.normal_bottom_line').classList.add('hidden-element');
+    document.querySelector('.sub_bottom_line').classList.remove('hidden-element');
+  });
+
+  const addtocart = document.querySelector('.all_product_add_tocart');
+  addtocart.addEventListener('click', function () {
+    let formData = {
+      items: itemsToRemove.map((id) => ({
+        id: id,
+        quantity: 1,
+      })),
+    };
+
+    formData.items.push({
+      id: productid1,
+      quantity: 1,
+      selling_plan: sellingid1,
+    });
+
+    formData.items.push({
+      id: productid2,
+      quantity: 1,
+      selling_plan: sellingid2,
+    });
+
+    console.log('This is Form Data :: ', formData);
+    const sectionsToUpdate = ['cart-notification-product'];
+    const sectionsUrl = '/cart';
+    fetch(
+      window.Shopify.routes.root + `cart/add.js?sections=${sectionsToUpdate.join(',')}&sections_url=${sectionsUrl}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Cart updated:', data);
+
+        document.querySelector('.cart-notification').classList.add('active');
+
+        document.querySelector('#cart-notification-product').innerHTML = data.sections['cart-notification-product'];
+      })
+      .catch((error) => {
+        console.error('Error updating cart:', error);
+      });
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Subscripition Product",
+  "tag": "section",
+  "class": "subscripition_product",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Subscripition Product"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+  #shopify-section-cart-notification-product{
+    height: 139px;
+    overflow: auto;
+  }
+  #shopify-section-cart-notification-product .cart-item{
+    display: flex;
+    padding: 10px
+  }
+
+  .hidden-element{
+    display: none;
+  }
+  .subscripition_product .subscripition_product_inner .page_title{
+    display: block;
+    text-align: center;
+  }
+  .subscripition_product .subscripition_product_inner .page_title h2{
+    font-size: 30px;
+  }
+  .subscripition_product .subscripition_product_inner .all_subscripition_product{
+      display:flex;
+      flex-wrap: wrap;
+  }
+  .subscripition_product .subscripition_product_inner .all_subscripition_product subscripition-product{
+    padding: 0 15px;
+    width: 25%;
+  }
+  .subscripition_product .subscripition_product_inner .all_subscripition_product subscripition-product .text h4{
+    margin-bottom: 0;
+  }
+  .subscripition_product .subscripition_product_inner .all_subscripition_product subscripition-product .text p{
+    margin-top: 0;
+  }
+  .subscripition_product .subscripition_product_inner .all_subscripition_product subscripition-product img{
+    width: 100%;
+  }
+  .subscripition_product .subscripition_product_inner .all_subscripition_product subscripition-product .text add-to-product{
+    display: block;
+  }
+  .subscripition_product .subscripition_product_inner .all_subscripition_product subscripition-product .text add-to-product button{
+    width: 100%;
+    background: transparent;
+    padding: 8px;
+    border: 1px solid gray;
+  }
+
+
+  /* ------ */
+
+  .subscripition_bottom_line {
+    position: fixed;
+    bottom: 0;
+    /* height: 200px; */
+    width: 100%;
+    background-color:white;
+    border: 1px solid gray;
+    z-index: 100;
+    box-shadow: -2px -1px 8px 0px gray;
+  }
+  .subscripition_bottom_line .subscripition_title{
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .subscripition_bottom_line .subscripition_bottom_line_inner{
+      display: flex;
+      padding: 10px;
+      justify-content: center;
+  }
+
+  .subscripition_bottom_line .subscripition_bottom_line_inner .left_part{
+      width: 35%;
+      padding: 0 15px;
+      display: block;
+  }
+
+  .subscripition_bottom_line .subscripition_bottom_line_inner .left_part ul{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+  }
+
+  .subscripition_bottom_line .subscripition_bottom_line_inner .left_part ul li{
+    display: flex;
+    width: 40%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .subscripition_bottom_line .subscripition_bottom_line_inner .left_part ul li .sub_item .sub_item_text .sub_item_remove{
+    position: absolute;
+    border: 0;
+    background: transparent;
+    left: 90%;
+  }
+
+  .subscripition_bottom_line .subscripition_bottom_line_inner .right_part{
+      width: 35%;
+      padding: 0 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+  }
+
+  .subscripition_bottom_line .subscripition_bottom_line_inner .right_part .next__button {
+      TEXT-ALIGN: center;
+  }
+
+  .subscripition_bottom_line .subscripition_bottom_line_inner .right_part .next__button  button{
+    font-size: 18px;
+    padding: 10px 87px;
+    border: 1px solid gray;
+  }
+{% endstylesheet %}
