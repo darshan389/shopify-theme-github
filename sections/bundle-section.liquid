@@ -4,12 +4,12 @@
       {% assign collection = section.settings.collection_one %}
 
       {% if collection != blank %}
-        {% for product in collection.products %}
+        {% for product in collection.products limit: 4 %}
           <div class="product-card">
             <img
               src="{{ product.featured_image | image_url: width: 500 }}"
               alt="{{ product.title }}"
-              width="" height=""
+              width="150" height=""
             >
             <h3>{{ product.title }}</h3>
           </div>
