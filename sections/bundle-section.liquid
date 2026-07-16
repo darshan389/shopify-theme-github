@@ -21,19 +21,19 @@
         {% endfor %}
       {% endif %}
       
-      {% assign product = all_products[product_handle] %}
-      {% if product != blank %}
-        {% for option in product.options_with_values %}
-          {% if option.name == 'Color' %}
-            <div class="color-swatches">
-              {% for value in option.values %}
-                <span class="color-item">{{ value }}</span>
-              {% endfor %}
-            </div>
-          {% endif %}
-        {% endfor %}
-      {% endif %}
     </div>
+    {% assign product = all_products[product_handle] %}
+    {% if product != blank %}
+      {% for option in product.options_with_values %}
+        {% if option.name == 'Color' %}
+          <div class="color-swatches">
+            {% for value in option.values %}
+              <span class="color-item">{{ value }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 </div>
 
