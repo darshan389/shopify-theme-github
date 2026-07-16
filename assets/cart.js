@@ -43,7 +43,7 @@ class CartItems extends HTMLElement {
         },
         ];
     }
-
+    
     updateQuantity(line, quantity, event, name, variantId) {
         // this.enableLoading(line);
         const body = JSON.stringify({
