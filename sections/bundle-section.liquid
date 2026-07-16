@@ -28,7 +28,7 @@
         {% if option.name == 'Color' %}
           <div class="color-swatches">
             {% for value in option.values %}
-              <span style="backgroud-color:" class="color-item">{{ value }}</span>
+              <span style="backgroud-color:${value}" class="color-item">{{ value }}</span>
             {% endfor %}
           </div>
         {% endif %}
