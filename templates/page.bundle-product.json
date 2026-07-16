@@ -11,16 +11,37 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {}
     },
     "subscription_product_YKh48N": {
       "type": "subscription-product",
+      "disabled": true,
       "name": "Subscripition Product",
       "settings": {}
+    },
+    "collection_list_UHBkgM": {
+      "type": "collection-list",
+      "name": "Collection List",
+      "settings": {
+        "section_heading": "",
+        "heading_url": "",
+        "header_show": "Horizon",
+        "heading_size": 18,
+        "heading_position_horizon": "Left",
+        "heading_position_vertical": "Start",
+        "heading_margin": 15,
+        "product_range": 4,
+        "btn_position": "Left",
+        "background_color": "",
+        "section_padding_top": 0,
+        "section_padding_bottom": 0
+      }
     }
   },
   "order": [
     "main",
-    "subscription_product_YKh48N"
+    "subscription_product_YKh48N",
+    "collection_list_UHBkgM"
   ]
 }
