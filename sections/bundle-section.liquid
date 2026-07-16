@@ -1,37 +1,45 @@
 <div class="custom-product-section">
-    <div class="container">
-        <div class="product-grid">
+  <div class="container">
+    <div class="product-grid">
+      {% assign collection = section.settings.collection_one %}
 
-            <div class="product-card">
-                <img src="https://via.placeholder.com/280x280" alt="Product 1">
-                <h3>Product Title 1</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-
-        </div>
+      {% if collection != blank %}
+        {% for product in collection.products %}
+          <div class="product-card">
+            <img
+              src="{{ product.featured_image | image_url: width: 500 }}"
+              alt="{{ product.title }}"
+              width="" height=""
+            >
+            <h3>{{ product.title }}</h3>
+            <p>{{ product.description }}</p>
+          </div>
+        {% endfor %}
+      {% endif %}
     </div>
+  </div>
 </div>
 
 {% schema %}
 {
-    "name": "Bundle Product",
-    "settings": [
-        {
-            "type": "collection",
-            "id": "collection_one",
-            "label": "Add First Collection"
-        },
-        {
-            "type": "collection",
-            "id": "collection_two",
-            "label": "Add Two Collection"
-        },
-    ],
-    "presets": [
-        {
-            "name": "Bundle Product"
-        }
-    ]
+  "name": "Bundle Product",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection_one",
+      "label": "Add First Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection_two",
+      "label": "Add Two Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundle Product"
+    }
+  ]
 }
 {% endschema %}
 
