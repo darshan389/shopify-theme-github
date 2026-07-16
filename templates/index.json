@@ -37,7 +37,7 @@
       "name": "Hero Banner",
       "settings": {
         "hero_banner_image": "shopify://shop_images/banner-image-1.jpg",
-        "slider_position": "Center",
+        "slider_position": "right",
         "hero_banner_mobile": "shopify://shop_images/hero-banner-mob.png"
       }
     },
