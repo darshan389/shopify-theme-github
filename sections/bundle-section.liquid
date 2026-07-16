@@ -37,6 +37,48 @@
   </div>
 </div>
 
+<div class="variant-picker">
+  {% for option in product.options_with_values %}
+    {% if option.name == 'Color' %}
+
+      <div class="variant-picker__title">
+        <strong>COLOR:</strong>
+        <span>{{ product.selected_or_first_available_variant.option1 }}</span>
+      </div>
+
+      <div class="variant-picker__list">
+        {% for value in option.values %}
+          {% assign variant = product.variants | where: "option1", value | first %}
+
+          <label class="variant-picker__item">
+            <input
+              type="radio"
+              name="color"
+              value="{{ value }}"
+              {% if product.selected_or_first_available_variant.option1 == value %}
+                checked
+              {% endif %}
+            >
+
+            {% if variant.image %}
+              <img
+                src="{{ variant.image | image_url: width: 120 }}"
+                alt="{{ value }}"
+                width="70"
+                height="70">
+            {% endif %}
+
+            <span class="variant-picker__name">
+              {{ value }}
+            </span>
+          </label>
+
+        {% endfor %}
+      </div>
+
+    {% endif %}
+  {% endfor %}
+</div>
 {% schema %}
 {
   "name": "Bundle Product",
