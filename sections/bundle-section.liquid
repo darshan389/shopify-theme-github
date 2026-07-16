@@ -39,7 +39,30 @@
     {% endif %}
   </div>
 </div>
+{% javascript %}
+  document.querySelectorAll('.product-card').forEach((card) => {
+  const image = card.querySelector('.product-image');
+  const swatches = card.querySelectorAll('.color-item');
 
+  swatches.forEach((swatch) => {
+    swatch.addEventListener('click', function () {
+
+      // Remove active class
+      swatches.forEach((item) => item.classList.remove('active'));
+
+      // Add active class
+      this.classList.add('active');
+
+      // Change product image
+      const newImage = this.dataset.image;
+
+      if (newImage) {
+        image.src = newImage;
+      }
+    });
+  });
+});
+{% endjavascript %}
 {% schema %}
 {
   "name": "Bundle Product",
