@@ -36,6 +36,7 @@
     </div>
   </div>
 </div>
+      {% assign product = all_products[product_handle] %}
 
 <div class="variant-picker">
   {% for option in product.options_with_values %}
@@ -180,4 +181,51 @@
             font-size: 15px;
         }
     }
+
+
+
+    .variant-picker {
+    margin-top: 20px;
+}
+
+.variant-picker__title {
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.variant-picker__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.variant-picker__item {
+    cursor: pointer;
+    text-align: center;
+}
+
+.variant-picker__item input {
+    display: none;
+}
+
+.variant-picker__item img {
+    display: block;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    transition: .3s;
+}
+
+.variant-picker__name {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+.variant-picker__item input:checked + img {
+    border-color: #2da9ff;
+    box-shadow: 0 0 0 2px #2da9ff;
+}
 {% endstylesheet %}
