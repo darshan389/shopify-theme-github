@@ -35,14 +35,16 @@
           >
             {% for option in product.options_with_values %}
               {% if option.name == 'Color' %}
-                Selected Color : {{ option.selected_value }}           
-                {% for value in option.values %}
-                  <span
-                    class="color-item"
-                    style="background-color: {{ value }};"
-                    title="{{ value }}"
-                  ></span>
-                {% endfor %}
+                <span class="color-swatches__label">Selected Color : {{ option.selected_value }}</span>
+                <div class="color-swatches__list">
+                  {% for value in option.values %}
+                    <span
+                      class="color-item{% if value == option.selected_value %} is-selected{% endif %}"
+                      style="background-color: {{ value }};"
+                      title="{{ value }}"
+                    ></span>
+                  {% endfor %}
+                </div>
               {% endif %}
             {% endfor %}
           </div>
@@ -95,6 +97,8 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 15px;
+            border: 1px solid #b39f97;
+            padding: 15px 0;
             border-radius: 15px;
         }
 
@@ -131,8 +135,8 @@
         }
 
         .custom-product-section .product-card.is-active {
-            outline: 2px solid #686868ff;
-            outline-offset: 10px;
+            outline: 2px solid #2da9ff;
+            outline-offset: 4px;
             border-radius: 8px;
         }
 
@@ -159,98 +163,93 @@
             }
         }
 
+        /* =========================
+           Variant Picker / Swatches
+           ========================= */
 
+        .custom-product-section .variant-picker {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            background: #fafafa;
+        }
 
-        .color-item {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      border: 1px solid #ddd;
-      border-radius: 50%;
-  }
-        .variant-picker {
-        margin-top: 20px;
-    }
+        .custom-product-section .color-swatches {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-    .variant-picker__title {
-        margin-bottom: 20px;
-        font-size: 16px;
-        font-weight: 600;
-    }
+        .custom-product-section .color-swatches__label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #222;
+        }
 
-    .variant-picker__list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
+        .custom-product-section .color-swatches__list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
 
-    .variant-picker__item {
-        cursor: pointer;
-        text-align: center;
-    }
+        .custom-product-section .color-item {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
 
-    .variant-picker__item input {
-        display: none;
-    }
+        .custom-product-section .color-item:hover {
+            transform: scale(1.1);
+        }
 
-    .variant-picker__item img {
-        display: block;
-        width: 70px;
-        height: 70px;
-        object-fit: cover;
-        border: 2px solid #ddd;
-        transition: .3s;
-    }
+        .custom-product-section .color-item.is-selected {
+            border-color: #2da9ff;
+            box-shadow: 0 0 0 2px #2da9ff;
+        }
 
-    .variant-picker__name {
-        display: block;
-        margin-top: 8px;
-        font-size: 13px;
-    }
+        @media (max-width: 576px) {
+            .custom-product-section .variant-picker {
+                padding: 15px;
+            }
 
-    .variant-picker__item input:checked + img {
-        border-color: #2da9ff;
-        box-shadow: 0 0 0 2px #2da9ff;
-    }
-
-    .color-swatches {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
+            .custom-product-section .color-item {
+                width: 28px;
+                height: 28px;
+            }
+        }
 {% endstylesheet %}
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.custom-product-section').forEach(function (section) {
-    var cards = section.querySelectorAll('.product-card');
-    var swatchGroups = section.querySelectorAll('.color-swatches');
+    document.querySelectorAll('.custom-product-section').forEach(function (section) {
+      var cards = section.querySelectorAll('.product-card');
+      var swatchGroups = section.querySelectorAll('.color-swatches');
 
-    function selectProduct(handle) {
+      function selectProduct(handle) {
+        cards.forEach(function (card) {
+          card.classList.toggle('is-active', card.dataset.handle === handle);
+        });
+        swatchGroups.forEach(function (group) {
+          group.style.display = group.dataset.handle === handle ? '' : 'none';
+        });
+      }
+
       cards.forEach(function (card) {
-        card.classList.toggle('is-active', card.dataset.handle === handle);
-      });
-      swatchGroups.forEach(function (group) {
-        group.style.display = group.dataset.handle === handle ? '' : 'none';
-      });
-    }
+        card.addEventListener('click', function (e) {
+          var btn = e.target.closest('.select-product-btn');
 
-    cards.forEach(function (card) {
-      card.addEventListener('click', function (e) {
-        var btn = e.target.closest('.select-product-btn');
-        var link = e.target.closest('.link');
-
-        if (btn) {
-          // "Add Bundle" click selects instead of navigating
-          e.preventDefault();
+          if (btn) {
+            e.preventDefault();
+          }
           selectProduct(card.dataset.handle);
-        } else if (!link) {
-          // clicking card area (not the image link) selects it
-          selectProduct(card.dataset.handle);
-        }
-        // clicking the product image link still navigates normally
+        });
       });
     });
   });
-});
 </script>
