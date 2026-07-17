@@ -1,7 +1,10 @@
+
 <div class="custom-product-section">
   <div class="container">
     <div class="product_img">
-      
+      {% for product in collection.products limit: 4 %}
+        <img src="{{ product.featured_image }}" alt="{{ product.title }}" width="" height="">
+      {% endfor %}
     </div>
 
     <div class="product-grid">
