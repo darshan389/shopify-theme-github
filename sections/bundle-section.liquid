@@ -34,6 +34,7 @@
             {% unless forloop.first %}style="display:none;"{% endunless %}
           >
             {% for option in product.options_with_values %}
+              Color : {{ option.selected_value }}           
               {% if option.name == 'Color' %}
                 {% for value in option.values %}
                   <span
