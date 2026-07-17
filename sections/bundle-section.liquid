@@ -1,4 +1,4 @@
-<div class="custom-product-section">
+{% comment %} <div class="custom-product-section">
   <div class="container">
     <div class="product-grid">
       {% assign collection = section.settings.collection_one %}
@@ -195,4 +195,138 @@
         border-color: #2da9ff;
         box-shadow: 0 0 0 2px #2da9ff;
     }
-{% endstylesheet %}
+{% endstylesheet %} {% endcomment %}
+
+
+<div class="custom-product-section">
+  <div class="container">
+    <div class="product-grid">
+      {% assign collection = section.settings.collection_one %}
+
+      {% if collection != blank %}
+        {% for product in collection.products limit: 4 %}
+          <div class="product-card{% if forloop.first %} is-active{% endif %}" data-handle="{{ product.handle }}">
+            <a href="{{ product.url }}" class="link">
+              <img
+                src="{{ product.featured_image | image_url: width: 500 }}"
+                alt="{{ product.title | escape }}"
+                width="500"
+                height="{{ 500 | divided_by: product.featured_image.aspect_ratio | default: 500 }}"
+                loading="lazy"
+              >
+            </a>
+            <h4>{{ product.title }}</h4>
+            <button
+              type="button"
+              class="button button--full-width button--secondary btn-bg-border select-product-btn"
+              data-handle="{{ product.handle }}"
+            >
+              Add Bundle
+            </button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="product-variants-wrapper">
+      {% if collection != blank %}
+        {% for product in collection.products limit: 4 %}
+          <div
+            class="color-swatches"
+            data-handle="{{ product.handle }}"
+            {% unless forloop.first %}style="display:none;"{% endunless %}
+          >
+            {% for option in product.options_with_values %}
+              {% if option.name == 'Color' %}
+                {% for value in option.values %}
+                  <span
+                    class="color-item"
+                    style="background-color: {{ value | replace: ' ', '' | downcase }};"
+                    title="{{ value }}"
+                  ></span>
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var section = document.querySelector('.custom-product-section');
+    if (!section) return;
+
+    var cards = section.querySelectorAll('.product-card');
+    var swatchGroups = section.querySelectorAll('.color-swatches');
+
+    function selectProduct(handle) {
+      cards.forEach(function (card) {
+        card.classList.toggle('is-active', card.dataset.handle === handle);
+      });
+      swatchGroups.forEach(function (group) {
+        group.style.display = group.dataset.handle === handle ? '' : 'none';
+      });
+    }
+
+    cards.forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        var btn = e.target.closest('.select-product-btn');
+        var link = e.target.closest('.link');
+
+        if (btn) {
+          // "Add Bundle" click selects the product instead of navigating
+          e.preventDefault();
+          selectProduct(card.dataset.handle);
+        } else if (!link) {
+          // clicking anywhere else on the card (not the image link) selects it
+          selectProduct(card.dataset.handle);
+        }
+        // clicking the image link still navigates to the product page normally
+      });
+    });
+  });
+</script>
+
+<style>
+  .product-card {
+    cursor: pointer;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .product-card.is-active {
+    outline: 2px solid #000; /* swap for your theme's accent color */
+    outline-offset: 2px;
+  }
+  .color-swatches {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .color-item {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    display: inline-block;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Product Section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection_one",
+      "label": "Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Product Section"
+    }
+  ]
+}
+{% endschema %}
