@@ -72,8 +72,9 @@
     </div>
     
     <div class="product-grid">
-      {% if collection != blank %}
-        {% for product in collection.products limit: 4 %}
+    {% assign collection1 = section.settings.collection_two %}
+      {% if collection1 != blank %}
+        {% for product in collection1.products limit: 4 %}
           <div class="product-card{% if forloop.first %} is-active{% endif %}" data-handle="{{ product.handle }}">
             <img
               src="{{ product.featured_image | image_url: width: 500 }}"
