@@ -223,35 +223,35 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.custom-product-section').forEach(function (section) {
-      var cards = section.querySelectorAll('.product-card');
-      var swatchGroups = section.querySelectorAll('.color-swatches');
+  document.querySelectorAll('.custom-product-section').forEach(function (section) {
+    var cards = section.querySelectorAll('.product-card');
+    var swatchGroups = section.querySelectorAll('.color-swatches');
 
-      function selectProduct(handle) {
-        cards.forEach(function (card) {
-          card.classList.toggle('is-active', card.dataset.handle === handle);
-        });
-        swatchGroups.forEach(function (group) {
-          group.style.display = group.dataset.handle === handle ? '' : 'none';
-        });
-      }
-
+    function selectProduct(handle) {
       cards.forEach(function (card) {
-        card.addEventListener('click', function (e) {
-          var btn = e.target.closest('.select-product-btn');
-          var link = e.target.closest('.link');
+        card.classList.toggle('is-active', card.dataset.handle === handle);
+      });
+      swatchGroups.forEach(function (group) {
+        group.style.display = group.dataset.handle === handle ? '' : 'none';
+      });
+    }
 
-          if (btn) {
-            // "Add Bundle" click selects instead of navigating
-            e.preventDefault();
-            selectProduct(card.dataset.handle);
-          } else if (!link) {
-            // clicking card area (not the image link) selects it
-            selectProduct(card.dataset.handle);
-          }
-          // clicking the product image link still navigates normally
-        });
+    cards.forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        var btn = e.target.closest('.select-product-btn');
+        var link = e.target.closest('.link');
+
+        if (btn) {
+          // "Add Bundle" click selects instead of navigating
+          e.preventDefault();
+          selectProduct(card.dataset.handle);
+        } else if (!link) {
+          // clicking card area (not the image link) selects it
+          selectProduct(card.dataset.handle);
+        }
+        // clicking the product image link still navigates normally
       });
     });
   });
+});
 </script>
