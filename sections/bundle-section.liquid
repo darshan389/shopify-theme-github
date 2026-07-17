@@ -98,7 +98,10 @@
     <div class="product-grid product-grid-2" style="margin: 20px 0 0 0;">
       {% if collection1 != blank %}
         {% for product in collection1.products limit: 4 %}
-          <div class="product-card product-card--two{% if forloop.first %} is-active{% endif %}" data-handle="{{ product.handle }}">
+          <div
+            class="product-card product-card--two{% if forloop.first %} is-active{% endif %}"
+            data-handle="{{ product.handle }}"
+          >
             <img
               src="{{ product.featured_image | image_url: width: 500 }}"
               alt="{{ product.title }}"
@@ -145,6 +148,10 @@
           </div>
         {% endfor %}
       {% endif %}
+    </div>
+
+    <div class="add_to_cart_button">
+      <button>Add To Cart</button>
     </div>
   </div>
 </div>
@@ -402,7 +409,9 @@
       swatchGroups.forEach(function (group) {
         var handle = group.dataset.handle;
         var label = group.querySelector('.color-swatches__label');
-        var imageItem = section.querySelector('.product-image-item[data-handle="' + handle + '"]:not(.product-image-item--two)');
+        var imageItem = section.querySelector(
+          '.product-image-item[data-handle="' + handle + '"]:not(.product-image-item--two)'
+        );
         var mapScript = imageItem ? imageItem.querySelector('.color-image-map') : null;
         var colorMap = {};
 
