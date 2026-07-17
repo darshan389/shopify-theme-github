@@ -6,14 +6,12 @@
       {% if collection != blank %}
         {% for product in collection.products limit: 4 %}
           <div class="product-card{% if forloop.first %} is-active{% endif %}" data-handle="{{ product.handle }}">
-            <a href="{{ product.url }}" class="link">
               <img
                 src="{{ product.featured_image | image_url: width: 500 }}"
                 alt="{{ product.title }}"
                 width=""
                 height=""
               >
-            </a>
             <h4>{{ product.title }}</h4>
             <button
               type="button"
