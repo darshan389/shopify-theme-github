@@ -20,7 +20,7 @@
               height=""
             >
 
-              {% comment %} color -> variant image map, used by JS to swap the image on swatch click {% endcomment %}
+            {% comment %} color -> variant image map, used by JS to swap the image on swatch click {% endcomment %}
             <script type="application/json" class="color-image-map">
               {
                 {% for option in product.options_with_values %}
@@ -42,7 +42,6 @@
                 {% endfor %}
               }
             </script>
-
           </div>
         {% endfor %}
       {% endif %}
@@ -70,9 +69,9 @@
         {% endfor %}
       {% endif %}
     </div>
-    
+
     <div class="product-grid" style="margin: 20px 0 0 0;">
-    {% assign collection1 = section.settings.collection_two %}
+      {% assign collection1 = section.settings.collection_two %}
       {% if collection1 != blank %}
         {% for product in collection1.products limit: 4 %}
           <div class="product-card{% if forloop.first %} is-active{% endif %}" data-handle="{{ product.handle }}">
@@ -123,7 +122,6 @@
         {% endfor %}
       {% endif %}
     </div>
-
   </div>
 </div>
 
