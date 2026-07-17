@@ -70,6 +70,29 @@
         {% endfor %}
       {% endif %}
     </div>
+    
+    <div class="product-grid">
+      {% if collection != blank %}
+        {% for product in collection.products limit: 4 %}
+          <div class="product-card{% if forloop.first %} is-active{% endif %}" data-handle="{{ product.handle }}">
+            <img
+              src="{{ product.featured_image | image_url: width: 500 }}"
+              alt="{{ product.title }}"
+              width=""
+              height=""
+            >
+            <h4>{{ product.title }}</h4>
+            <button
+              type="button"
+              class="button button--full-width button--secondary btn-bg-border select-product-btn"
+              data-handle="{{ product.handle }}"
+            >
+              Add Bundle
+            </button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
 
     <div class="variant-picker">
       {% if collection != blank %}
@@ -99,7 +122,7 @@
         {% endfor %}
       {% endif %}
     </div>
-    
+
   </div>
 </div>
 
