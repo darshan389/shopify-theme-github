@@ -25,7 +25,7 @@
       "name": "Bundle Product",
       "settings": {
         "collection_one": "product",
-        "collection_two": ""
+        "collection_two": "second-collection"
       }
     }
   },
