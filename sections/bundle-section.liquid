@@ -148,7 +148,7 @@
               {% endif %}
             {% endfor %}
           </div> {% endcomment %}
-          {% render 'custom-variant-picker', product:product %}
+          {% render 'custom-variant-picker', product:product, forloop:forloop %}
         {% endfor %}
       {% endif %}
     </div>
