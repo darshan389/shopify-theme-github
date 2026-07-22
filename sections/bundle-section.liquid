@@ -124,9 +124,9 @@
     </div>
 
     <div class="variant-picker">
-      {% comment %} {% if collection != blank %}
+      {% if collection != blank %}
         {% for product in collection.products limit: 4 %}
-          <div
+          {% comment %} <div
             class="color-swatches"
             data-handle="{{ product.handle }}"
             {% unless forloop.first %}
@@ -147,10 +147,10 @@
                 </div>
               {% endif %}
             {% endfor %}
-          </div>
+          </div> {% endcomment %}
+          {% render 'custom-variant-picker', product:product %}
         {% endfor %}
-      {% endif %} {% endcomment %}
-      {% render 'custom-variant-picker', product:product %}
+      {% endif %}
     </div>
 
     <div class="add_to_cart_button">
