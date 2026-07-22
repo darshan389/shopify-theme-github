@@ -4,6 +4,7 @@
     {% assign collection1 = section.settings.collection_two %}
 
     <div class="product_img">
+      <div class="main_product_class" style="position: relative;"></div>
       <div class="product_img__group product_img__group--one">
         {% if collection != blank %}
           {% for product in collection.products limit: 4 %}
