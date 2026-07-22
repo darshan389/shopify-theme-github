@@ -9,14 +9,14 @@
           {{- option.selected_value -}}
         </span>
       </legend>
-      {% comment %} {% render 'product-variant-options',
+      {% render 'product-variant-options',
         product: product,
         option: option,
         block: block,
         picker_type: picker_type,
         bundle: bundle,
         bundle_url: bundle_url
-      %} {% endcomment %}
+      %}
     </fieldset>
   {% endfor %}
 </variant-selects>
