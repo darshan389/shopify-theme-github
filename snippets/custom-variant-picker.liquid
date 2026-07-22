@@ -1,5 +1,8 @@
 <variant-selects
   data-section="{{ section.id }}"
+    {% unless forloop.first %}
+      style="display:none"
+    {% endunless %}
 >
   {%- for option in product.options_with_values -%}
     <fieldset data-option-name="{{ option.name }}" class="js product-form__input product-form__input--swatch">
@@ -17,7 +20,7 @@
         bundle: bundle,
         bundle_url: bundle_url
       %} {% endcomment %}
-        
+
     </fieldset>
   {% endfor %}
 </variant-selects>
