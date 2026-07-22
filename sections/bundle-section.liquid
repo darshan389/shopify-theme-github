@@ -4,72 +4,73 @@
     {% assign collection1 = section.settings.collection_two %}
 
     <div class="product_img">
-      <div class="main_product_class" style="position: relative;"></div>
-      <div class="product_img__group product_img__group--one">
-        {% if collection != blank %}
-          {% for product in collection.products limit: 4 %}
-            <div
-              class="product-image-item{% if forloop.first %} is-active{% endif %}"
-              data-handle="{{ product.handle }}"
-              {% unless forloop.first %}
-                style="display:none;"
-              {% endunless %}
-            >
-              <img
-                class="main-product-image"
-                src="{{ product.featured_image | image_url: width: 500 }}"
-                alt="{{ product.title }}"
-                width=""
-                height=""
+      <div class="main_product_class" style="position: relative;">
+        <div class="product_img__group product_img__group--one">
+          {% if collection != blank %}
+            {% for product in collection.products limit: 4 %}
+              <div
+                class="product-image-item{% if forloop.first %} is-active{% endif %}"
+                data-handle="{{ product.handle }}"
+                {% unless forloop.first %}
+                  style="display:none;"
+                {% endunless %}
               >
- 
-               {% comment %} color -> variant image map, used by JS to swap the image on swatch click {% endcomment %}
-              <script type="application/json" class="color-image-map">
-                {
-                  {% for option in product.options_with_values %}
-                    {% if option.name == 'Color' %}
-                      {% assign idx = option.position | minus: 1 %}
-                      {% for value in option.values %}
-                        {% assign variant_image = '' %}
-                        {% for variant in product.variants %}
-                          {% if variant.options[idx] == value and variant_image == blank %}
-                            {% assign variant_image = variant.featured_image | image_url: width: 500 %}
-                          {% endif %}
-                        {% endfor %}
-                        {% if variant_image == blank %}
-                          {% assign variant_image = product.featured_image | image_url: width: 500 %}
-                        {% endif %}
-                        "{{ value | escape }}": "{{ variant_image }}"{% unless forloop.last %},{% endunless %}
-                      {% endfor %}
-                    {% endif %}
-                  {% endfor %}
-                }
-              </script>
-            </div>
-          {% endfor %}
-        {% endif %}
-      </div>
+                <img
+                  class="main-product-image"
+                  src="{{ product.featured_image | image_url: width: 500 }}"
+                  alt="{{ product.title }}"
+                  width=""
+                  height=""
+                >
 
-      <div class="product_img__group product_img__group--two">
-        {% if collection1 != blank %}
-          {% for product in collection1.products limit: 4 %}
-            <div
-              class="product-image-item product-image-item--two{% if forloop.first %} is-active{% endif %}"
-              data-handle="{{ product.handle }}"
-              {% unless forloop.first %}
-                style="display:none;"
-              {% endunless %}
-            >
-              <img
-                class="main-product-image"
-                src="{{ product.featured_image | image_url: width: 500 }}"
-                alt="{{ product.title }}"
-                width=""
-                height=""
+                {% comment %} color -> variant image map, used by JS to swap the image on swatch click {% endcomment %}
+                <script type="application/json" class="color-image-map">
+                  {
+                    {% for option in product.options_with_values %}
+                      {% if option.name == 'Color' %}
+                        {% assign idx = option.position | minus: 1 %}
+                        {% for value in option.values %}
+                          {% assign variant_image = '' %}
+                          {% for variant in product.variants %}
+                            {% if variant.options[idx] == value and variant_image == blank %}
+                              {% assign variant_image = variant.featured_image | image_url: width: 500 %}
+                            {% endif %}
+                          {% endfor %}
+                          {% if variant_image == blank %}
+                            {% assign variant_image = product.featured_image | image_url: width: 500 %}
+                          {% endif %}
+                          "{{ value | escape }}": "{{ variant_image }}"{% unless forloop.last %},{% endunless %}
+                        {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  }
+                </script>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="product_img__group product_img__group--two">
+          {% if collection1 != blank %}
+            {% for product in collection1.products limit: 4 %}
+              <div
+                class="product-image-item product-image-item--two{% if forloop.first %} is-active{% endif %}"
+                data-handle="{{ product.handle }}"
+                {% unless forloop.first %}
+                  style="display:none;"
+                {% endunless %}
               >
-            </div>
-          {% endfor %}
-        {% endif %}
+                <img
+                  class="main-product-image"
+                  src="{{ product.featured_image | image_url: width: 500 }}"
+                  alt="{{ product.title }}"
+                  width=""
+                  height=""
+                >
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
       </div>
     </div>
 
@@ -156,29 +157,6 @@
     </div>
   </div>
 </div>
-
-{% schema %}
-{
-  "name": "Bundle Product",
-  "settings": [
-    {
-      "type": "collection",
-      "id": "collection_one",
-      "label": "Add First Collection"
-    },
-    {
-      "type": "collection",
-      "id": "collection_two",
-      "label": "Add Two Collection"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Bundle Product"
-    }
-  ]
-}
-{% endschema %}
 
 {% stylesheet %}
   /* =========================
@@ -368,7 +346,6 @@
     padding: 6px 0;
     border-radius: 10px;
   }
-
 {% endstylesheet %}
 
 <script>
@@ -464,3 +441,26 @@
     });
   });
 </script>
+
+{% schema %}
+{
+  "name": "Bundle Product",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection_one",
+      "label": "Add First Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection_two",
+      "label": "Add Two Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundle Product"
+    }
+  ]
+}
+{% endschema %}
