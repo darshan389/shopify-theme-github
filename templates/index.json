@@ -265,6 +265,11 @@
       "disabled": true,
       "name": "New Block Section",
       "settings": {}
+    },
+    "multiple_grid_9V96Rn": {
+      "type": "multiple-grid",
+      "name": "Multiple Grid",
+      "settings": {}
     }
   },
   "order": [
@@ -275,6 +280,7 @@
     "insta_section_hDngFX",
     "newsletter_email_iLPPbA",
     "collection_list_q4HWDz",
-    "new_block_text_LNJHtU"
+    "new_block_text_LNJHtU",
+    "multiple_grid_9V96Rn"
   ]
 }
