@@ -273,12 +273,11 @@
           "type": "grid",
           "settings": {
             "block__width_select": "full_size",
-            "Block_type_select": "text_button",
             "block_title": "",
             "block_text": "",
             "block_btn": false,
             "block_btn_text": "",
-            "block_bgcolor": "#F2E2A8"
+            "block_bgcolor": "#f2e2a8"
           }
         }
       },
