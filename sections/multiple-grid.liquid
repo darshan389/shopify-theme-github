@@ -7,7 +7,7 @@
             {% when 'grid' %}
               <div
                 class="{% if block.settings.block__width_select == "full_size" %}c-grid-1{% elsif block.settings.block__width_select == "medium_size" %} c-grid-4{% else %} c-grid-2{% endif %}"
-                style="background:{{ block.settings.block_bgcolor }} {{ block.shopify_attributes }}"
+                style="background:{{ block.settings.block_bgcolor }}" {{ block.shopify_attributes }}
               >
                 {% if block.settings.block_type_select == 'text_button' %}
                   <div class="contetnt-inner">
