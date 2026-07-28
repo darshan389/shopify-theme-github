@@ -274,7 +274,7 @@
           "settings": {
             "block__width_select": "full_size",
             "block_type_select": "text_icon",
-            "block_title": "",
+            "block_title": "123123",
             "block_text": "",
             "block_btn": false,
             "block_btn_text": "",
