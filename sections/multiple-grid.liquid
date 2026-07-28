@@ -262,7 +262,8 @@
         {
           "type": "image_picker",
           "id": "block_icon",
-          "label": "Image"
+          "label": "Image",
+          "visible_if": "{{ block.settings.block_type_select == 'text_icon' }}"
         },
         {
           "type": "checkbox",
