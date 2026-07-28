@@ -268,13 +268,14 @@
         {
           "type": "checkbox",
           "id": "block_btn",
-          "label": "Button"
+          "label": "Button",
+          "visible_if": "{{ block.settings.block_type_select == 'text_button' }}"
         },
         {
           "type": "text",
           "id": "block_btn_text",
           "label": "Button Text",
-          "visible_if": "{{ block.settings.block_type_select == 'text_button' }}"
+          "visible_if": "{{ block.settings.block_btn == true }}"
         },
         {
           "type": "color",
