@@ -325,12 +325,33 @@
             "only_text_dec3": "",
             "block_bgcolor": "#D5D6E0"
           }
+        },
+        "grid_64a7PM": {
+          "type": "grid",
+          "settings": {
+            "block__width_select": "medium_size",
+            "block_type_select": "text_icon",
+            "block_title": "Newbie perks",
+            "block_text": "5% discount, alwaysBirthday present= 10% discount",
+            "block_image": "shopify://shop_images/smile_icon_5460988f-ecae-4191-8004-1d3d00164be0.png",
+            "block_btn_text": "",
+            "block_btn_url": "",
+            "block_btn_icon": "right_arrow",
+            "only_text_title1": "",
+            "only_text_dec1": "",
+            "only_text_title2": "",
+            "only_text_dec2": "",
+            "only_text_title3": "",
+            "only_text_dec3": "",
+            "block_bgcolor": "#C3D4B6"
+          }
         }
       },
       "block_order": [
         "grid_TtAtWR",
         "grid_UrecWn",
-        "grid_j73BFT"
+        "grid_j73BFT",
+        "grid_64a7PM"
       ],
       "name": "Multiple Grid",
       "settings": {}
