@@ -278,25 +278,13 @@
             "block_text": "",
             "block_btn": false,
             "block_btn_text": "",
+            "block_btn_url": "",
             "block_bgcolor": "#f2e2a8"
-          }
-        },
-        "grid_gjLV63": {
-          "type": "grid",
-          "settings": {
-            "block__width_select": "small_size",
-            "block_type_select": "text_button",
-            "block_title": "",
-            "block_text": "",
-            "block_btn": false,
-            "block_btn_text": "",
-            "block_bgcolor": ""
           }
         }
       },
       "block_order": [
-        "grid_TtAtWR",
-        "grid_gjLV63"
+        "grid_TtAtWR"
       ],
       "name": "Multiple Grid",
       "settings": {}
