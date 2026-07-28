@@ -285,6 +285,26 @@
           "visible_if": "{{ block.settings.block_btn == true }}"
         },
         {
+          "type": "select",
+          "id": "block_btn_icon",
+          "label": "Button Icon",
+          "options": [
+            {
+              "label": "Right Arrow",
+              "value": "right_arrow",
+            },
+            {
+              "label": "Left Arrow",
+              "value": "left_arrow",
+            },
+            {
+              "label": "None",
+              "value": "none"
+            }
+          ],
+          "visible_if": "{{ block.settings.block_btn == true }}"
+        },
+        {
           "type": "color",
           "id": "block_bgcolor",
           "label": "Background"
