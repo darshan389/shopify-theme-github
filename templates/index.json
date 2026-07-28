@@ -299,12 +299,12 @@
             "block_btn_url": "",
             "block_btn_icon": "right_arrow",
             "only_text_title1": "1",
-            "only_text_dec1": "Log in to start Earning points",
+            "only_text_dec1": "<p>Log in to start Earning points</p>",
             "only_text_title2": "2",
-            "only_text_dec2": "earn points from Your purchases",
+            "only_text_dec2": "<p>earn points from Your purchases</p>",
             "only_text_title3": "3",
-            "only_text_dec3": "Receive all the exclusive perks.",
-            "block_bgcolor": "#EBC9BD"
+            "only_text_dec3": "<p>Receive all the exclusive perks.</p>",
+            "block_bgcolor": "#ebc9bd"
           }
         }
       },
