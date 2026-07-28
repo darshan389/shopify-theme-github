@@ -282,10 +282,25 @@
             "block_btn_icon": "right_arrow",
             "block_bgcolor": "#f2e2a8"
           }
+        },
+        "grid_kxkMkW": {
+          "type": "grid",
+          "settings": {
+            "block__width_select": "full_size",
+            "block_type_select": "text_icon",
+            "block_title": "",
+            "block_text": "",
+            "block_btn": false,
+            "block_btn_text": "",
+            "block_btn_url": "",
+            "block_btn_icon": "right_arrow",
+            "block_bgcolor": ""
+          }
         }
       },
       "block_order": [
-        "grid_TtAtWR"
+        "grid_TtAtWR",
+        "grid_kxkMkW"
       ],
       "name": "Multiple Grid",
       "settings": {}
