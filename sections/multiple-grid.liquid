@@ -3,6 +3,14 @@
   <section class="color-grid">
     <div class="container">
       <div class="color-grid-flex">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'grid' %}
+              
+              
+              
+          {% endcase %}
+        {% endfor %}
         <div class="c-grid-1" style="background:#F2E2A8">
           <div class="contetnt-inner">
             <h1>Sundae Muse Rewards</h1>
