@@ -273,16 +273,30 @@
           "type": "grid",
           "settings": {
             "block__width_select": "full_size",
+            "block_type_select": "text_icon",
             "block_title": "",
             "block_text": "",
             "block_btn": false,
             "block_btn_text": "",
             "block_bgcolor": "#f2e2a8"
           }
+        },
+        "grid_gjLV63": {
+          "type": "grid",
+          "settings": {
+            "block__width_select": "small_size",
+            "block_type_select": "only_text",
+            "block_title": "",
+            "block_text": "",
+            "block_btn": false,
+            "block_btn_text": "",
+            "block_bgcolor": ""
+          }
         }
       },
       "block_order": [
-        "grid_TtAtWR"
+        "grid_TtAtWR",
+        "grid_gjLV63"
       ],
       "name": "Multiple Grid",
       "settings": {}
