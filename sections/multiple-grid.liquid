@@ -1,30 +1,30 @@
 <div class="wrapper">
-
   <section class="color-grid">
     <div class="container">
       <div class="color-grid-flex">
         {% for block in section.blocks %}
           {% case block.type %}
             {% when 'grid' %}
-              
-              
-              
+              <div
+                class="{% if block.settings.block__width_select == "full_size" %}c-grid-1{% elsif block.settings.block__width_select == "medium_size" %} c-grid-4{% else %} c-grid-2{% endif %}"
+                style="background:#F2E2A8"
+              >
+                <div class="contetnt-inner">
+                  <h1>Sundae Muse Rewards</h1>
+                  <p>
+                    Become a muse and you’ll get access to exclusive offers, sales, discounts, and early access to
+                    giveaways!
+                  </p>
+                  <a href="#" class="btn-bg-border">
+                    <span>log in</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 14">
+                      <g><g><path d="M.593 7.724h16.78l.026.071c-.279.27-.558.542-.84.808-1.552 1.488-3.108 2.97-4.66 4.454l-.048.043.588.494a1689.81 1689.81 0 0 0 3.927-3.747c.728-.694 1.456-1.385 2.18-2.083.326-.314.326-.479-.005-.797C16.532 5.045 14.27 2.922 12.261 1l-.558.444c1.765 1.687 3.779 3.66 5.544 5.348.056.055.135.102.17.223H.593"></path><path fill="none" stroke="#000" stroke-miterlimit="20" stroke-width=".3" d="M.593 7.724h16.78l.026.071c-.279.27-.558.542-.84.808-1.552 1.488-3.108 2.97-4.66 4.454l-.048.043v0l.588.494a1689.81 1689.81 0 0 0 3.927-3.747c.728-.694 1.456-1.385 2.18-2.083.326-.314.326-.479-.005-.797C16.532 5.045 14.27 2.922 12.261 1v0l-.558.444v0c1.765 1.687 3.779 3.66 5.544 5.348.056.055.135.102.17.223H.593"></path></g></g>
+                    </svg>
+                  </a>
+                </div>
+              </div>
           {% endcase %}
         {% endfor %}
-        <div class="c-grid-1" style="background:#F2E2A8">
-          <div class="contetnt-inner">
-            <h1>Sundae Muse Rewards</h1>
-            <p>
-              Become a muse and you’ll get access to exclusive offers, sales, discounts, and early access to giveaways!
-            </p>
-            <a href="#" class="btn-bg-border">
-              <span>log in</span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 14">
-                <g><g><path d="M.593 7.724h16.78l.026.071c-.279.27-.558.542-.84.808-1.552 1.488-3.108 2.97-4.66 4.454l-.048.043.588.494a1689.81 1689.81 0 0 0 3.927-3.747c.728-.694 1.456-1.385 2.18-2.083.326-.314.326-.479-.005-.797C16.532 5.045 14.27 2.922 12.261 1l-.558.444c1.765 1.687 3.779 3.66 5.544 5.348.056.055.135.102.17.223H.593"></path><path fill="none" stroke="#000" stroke-miterlimit="20" stroke-width=".3" d="M.593 7.724h16.78l.026.071c-.279.27-.558.542-.84.808-1.552 1.488-3.108 2.97-4.66 4.454l-.048.043v0l.588.494a1689.81 1689.81 0 0 0 3.927-3.747c.728-.694 1.456-1.385 2.18-2.083.326-.314.326-.479-.005-.797C16.532 5.045 14.27 2.922 12.261 1v0l-.558.444v0c1.765 1.687 3.779 3.66 5.544 5.348.056.055.135.102.17.223H.593"></path></g></g>
-              </svg>
-            </a>
-          </div>
-        </div>
         <div class="c-grid-2" style="background:#EBC9BD">
           <div class="content-grid-2">
             <div class="h1">1</div>
@@ -184,89 +184,88 @@
 
 {% schema %}
 {
-    "name": "Multiple Grid",
-    "settings": [],
-    "blocks": [
+  "name": "Multiple Grid",
+  "settings": [],
+  "blocks": [
+    {
+      "name": "One-item",
+      "type": "grid",
+      "settings": [
         {
-          "name" : "One-item",
-          "type": "grid",
-          "settings": [
+          "type": "select",
+          "id": "block__width_select",
+          "label": "Block Width Select",
+          "options": [
             {
-              "type": "select",
-              "id": "block__width_select",
-              "label": "Block Width Select",
-              "options": [
-                {
-                  "label": "Full Size",
-                  "value": "full_size"
-                },
-                {
-                  "label": "Medium Size",
-                  "value": "medium_size "
-                },
-                {
-                  "label": "Small Size",
-                  "value": "small_size"
-                },
-              ]
+              "label": "Full Size",
+              "value": "full_size"
             },
             {
-              "type": "select",
-              "id": "Block_type_select",
-              "label": "Block Type Select",
-              "options": [
-                {
-                  "label": "Text & Button",
-                  "value": "text_button",                  
-                },
-                {
-                  "label": "Only Text",
-                  "value": "only_text",                  
-                },
-                {
-                  "label": "Text & icon",
-                  "value": "text_icon",                  
-                },
-              ]
+              "label": "Medium Size",
+              "value": "medium_size "
             },
             {
-              "type": "inline_richtext",
-              "id": "block_title",
-              "label": "Title"
-            },
-            {
-              "type": "richtext",
-              "id": "block_text",
-              "label": "Text"
-            },
-            {
-              "type": "image_picker",
-              "id": "block_icon",
-              "label": "Image"
-            },
-            {
-              "type": "checkbox",
-              "id": "block_btn",
-              "label": "Button"
-            },
-            {
-              "type": "text",
-              "id": "block_btn_text",
-              "label": "Button Text"
-            },
-            {
-              "type": "color_background",
-              "id": "block_bgcolor",
-              "label": "Background"
+              "label": "Small Size",
+              "value": "small_size"
             }
           ]
         },
-
-    ],
-    "presets": [
         {
-            "name": "Multiple Grid"
+          "type": "select",
+          "id": "Block_type_select",
+          "label": "Block Type Select",
+          "options": [
+            {
+              "label": "Text & Button",
+              "value": "text_button"
+            },
+            {
+              "label": "Only Text",
+              "value": "only_text"
+            },
+            {
+              "label": "Text & icon",
+              "value": "text_icon"
+            }
+          ]
+        },
+        {
+          "type": "inline_richtext",
+          "id": "block_title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "block_text",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_icon",
+          "label": "Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "block_btn",
+          "label": "Button"
+        },
+        {
+          "type": "text",
+          "id": "block_btn_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "color",
+          "id": "block_bgcolor",
+          "label": "Background"
         }
-    ]
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Multiple Grid"
+    }
+  ]
 }
 {% endschema %}
