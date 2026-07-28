@@ -180,9 +180,35 @@
     "settings": [],
     "blocks": [
         {
-            "name" : "Multi-item",
+            "name" : "One-item",
             "type": "grid",
-            "settings": []
+            "settings": [
+              {
+                "type": "inline_richtext",
+                "id": "block_title",
+                "label": "Title"
+              },
+              {
+                "type": "richtext",
+                "id": "block_text",
+                "label": "Text"
+              },
+              {
+                "type": "checkbox",
+                "id": "block_btn",
+                "label": "Button"
+              },
+              {
+                "type": "text",
+                "id": "block_btn_text",
+                "label": "Button Text"
+              },
+              {
+                "type": "color_background",
+                "id": "block_bgcolor",
+                "label": "Background"
+              }
+            ]
         }
     ],
     "presets": [
