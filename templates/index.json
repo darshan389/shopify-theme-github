@@ -306,11 +306,31 @@
             "only_text_dec3": "<p>Receive all the exclusive perks.</p>",
             "block_bgcolor": "#ebc9bd"
           }
+        },
+        "grid_j73BFT": {
+          "type": "grid",
+          "settings": {
+            "block__width_select": "full_size",
+            "block_type_select": "text_button",
+            "block_title": "",
+            "block_text": "Your membership tier will be based on points earned in 1 calendar year (January - December). Once you reach a new tier you will enjoy the perks for the remainder of the year as well as the following year.",
+            "block_btn_text": "Sign up",
+            "block_btn_url": "shopify://pages/contact",
+            "block_btn_icon": "right_arrow",
+            "only_text_title1": "",
+            "only_text_dec1": "",
+            "only_text_title2": "",
+            "only_text_dec2": "",
+            "only_text_title3": "",
+            "only_text_dec3": "",
+            "block_bgcolor": "#D5D6E0"
+          }
         }
       },
       "block_order": [
         "grid_TtAtWR",
-        "grid_UrecWn"
+        "grid_UrecWn",
+        "grid_j73BFT"
       ],
       "name": "Multiple Grid",
       "settings": {}
