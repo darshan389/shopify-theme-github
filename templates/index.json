@@ -273,12 +273,13 @@
           "type": "grid",
           "settings": {
             "block__width_select": "full_size",
-            "block_type_select": "text_icon",
+            "block_type_select": "text_button",
             "block_title": "123123",
-            "block_text": "",
+            "block_text": "<p>78965564</p>",
             "block_btn": false,
             "block_btn_text": "",
             "block_btn_url": "",
+            "block_btn_icon": "right_arrow",
             "block_bgcolor": "#f2e2a8"
           }
         }
