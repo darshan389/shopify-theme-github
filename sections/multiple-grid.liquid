@@ -242,12 +242,14 @@
         {
           "type": "inline_richtext",
           "id": "block_title",
-          "label": "Title"
+          "label": "Title",
+          "visible_if": "{{ block.settings.block_type_select != 'only_text' }}"
         },
         {
           "type": "text",
           "id": "block_text",
-          "label": "Text"
+          "label": "Text",
+          "visible_if": "{{ block.settings.block_type_select != 'only_text' }}"
         },
         {
           "type": "image_picker",
