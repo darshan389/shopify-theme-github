@@ -23,16 +23,16 @@
                   </div>
                 {% elsif block.settings.block_type_select == 'only_text' %}
                   <div class="content-grid-2">
-                    <div class="h1">1</div>
-                    <p>Log in to start Earning points</p>
+                    <div class="h1">{{ block.settings.only_text_title1 }}</div>
+                    {{ block.settings.only_text_dec1 }}
                   </div>
                   <div class="content-grid-2">
-                    <div class="h1">2</div>
-                    <p>earn points from Your purchases</p>
+                    <div class="h1">{{ block.settings.only_text_title2 }}</div>
+                    {{ block.settings.only_text_dec2 }}
                   </div>
                   <div class="content-grid-2">
-                    <div class="h1">3</div>
-                    <p>Receive all the exclusive perks.</p>
+                    <div class="h1">{{ block.settings.only_text_title3 }}</div>
+                    {{ block.settings.only_text_dec3 }}
                   </div>
                 {% else %}
                   <div class="smile-content">
