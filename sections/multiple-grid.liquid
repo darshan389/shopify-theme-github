@@ -256,22 +256,17 @@
           "visible_if": "{{ block.settings.block_type_select == 'text_icon' }}"
         },
         {
-          "type": "checkbox",
-          "id": "block_btn",
-          "label": "Button",
-          "visible_if": "{{ block.settings.block_type_select == 'text_button' }}"
-        },
-        {
           "type": "text",
           "id": "block_btn_text",
           "label": "Button Text",
-          "visible_if": "{{ block.settings.block_btn == true }}"
+          "visible_if": "{{ block.settings.block_type_select == 'text_button' }}"
         },
         {
           "type": "url",
           "id": "block_btn_url",
           "label": "Button Url",
-          "visible_if": "{{ block.settings.block_btn == true }}"
+          "visible_if": "{{ block.settings.block_type_select == 'text_button' }}"
+
         },
         {
           "type": "select",
@@ -291,7 +286,7 @@
               "value": "none"
             }
           ],
-          "visible_if": "{{ block.settings.block_btn == true }}"
+          "visible_if": "{{ block.settings.block_type_select == 'text_button' }}"
         },
         {
           "type": "color",
