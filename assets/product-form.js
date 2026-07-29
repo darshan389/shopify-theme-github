@@ -19,13 +19,13 @@ if (!customElements.get('product-form')) {
       onSubmitHandler(evt) {
         evt.preventDefault();
         if (this.submitButton.getAttribute('aria-disabled') === 'true') return;
-
+        
         this.handleErrorMessage();
         
         const config = fetchConfig('javascript');
         config.headers['X-Requested-With'] = 'XMLHttpRequest';
         delete config.headers['Content-Type'];        
-        
+
         const formData = new FormData(this.form);
         if (this.cart) {
           console.log("this is cart::",this.cart)
