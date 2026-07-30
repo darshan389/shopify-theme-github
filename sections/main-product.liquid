@@ -481,7 +481,9 @@
 
 </product-info>
 
-
+{% if product.title contains 'lemon' %}
+  This product’s title contains the word Pack.
+{% endif %}
 {% schema %}
 {
   "name": "Product",
