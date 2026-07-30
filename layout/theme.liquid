@@ -103,118 +103,34 @@
     <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
 
-    {% form 'activate_customer_password' %}
-      {{ form.errors | default_errors }}
+    {% form 'create_customer' %}
+    {{ form.errors | default_errors }}
 
-      <label for="password">Password</label>
-      <input type="password" name="customer[password]" id="password">
+    <div class="first-name">
+      <label for="FirstName">First Name</label>
+      <input type="text" name="customer[first_name]" id="FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %}>
+    </div>
 
-      <label for="password_confirmation">Confirm Password</label>
-      <input type="password" name="customer[password_confirmation]" id="password_confirmation">
+    <div class="last-name">
+      <label for="LastName">Last Name</label>
+      <input type="text" name="customer[last_name]" id="LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %}>
+    </div>
 
-      <button type="submit">Activate Account</button>
-    {% endform %}
-    <br>
-    <br>
-    <h1>Sign in to your Account</h1>
+    <div class="email">
+      <label for="Email">Email</label>
+      <input type="email" name="customer[email]" id="Email" {% if form.email %}value="{{ form.email }}"{% endif %}>
+    </div>
 
-    {%- form 'customer_login' -%}
-      {{ form.errors | default_errors }}
+    <div class="password">
+      <label for="CreatePassword">Password</label>
+      <input type="password" name="customer[password]" id="CreatePassword">
+    </div>
 
-      <div>
-        <label for="customerEmail">Email Address</label>
-        <input
-          type="email"
-          name="customer[email]"
-          id="customerEmail"
-          autocorrect="off"
-          autocapitalize="off"
-          autocomplete="email"
-        >
-      </div>
-      <div>
-        <label for="customerPassword">Password</label>
-        <input
-          type="password"
-          name="customer[password]"
-          id="customerPassword"
-        >
-      </div>
-
-      <input type="submit" value="Sign In">
-
-      <p>
-        {{ 'Create Account' | customer_register_link }}
-      </p>
-      <p>
-        <a href="#recover">Forgot your password?</a>
-      </p>
-    {%- endform -%}
-
-    <!--
-      If accounts are set as optional, the following will be shown as an option when coming from checkout, not on the default /login page.
-    -->
-    {%- if shop.checkout.guest_login -%}
-      {%- form 'guest_login' -%}
-        <input type="submit" value="Continue as Guest">
-      {%- endform -%}
-    {%- endif -%}
-
-    <!-- Use JavaScript to show/hide this form -->
-    {%- form 'recover_customer_password' -%}
-      {%- if form.posted_successfully? -%}
-        <div role="status">
-          <p>We've sent you an email with a link to update your password.</p>
-        </div>
-      {%- endif -%}
-
-      <div
-        id="recover"
-        {% unless form.errors %}
-          style="display: none;"
-        {% endunless %}
-      >
-        <p>We will send you an email to reset your password.</p>
-
-        {{ form.errors | default_errors }}
-
-        <label for="customerEmail">Email Address</label>
-        <input
-          type="email"
-          name="email"
-          id="customerEmail"
-          autocorrect="off"
-          autocapitalize="off"
-          autocomplete="email"
-        >
-
-        <input type="submit" value="Submit">
-      </div>
-    {%- endform -%}
-    <br>
-    <br>
-
-    
-{% form 'customer_login' %}
-
-  <div>
-    <label for="customerEmail">Email Address</label>
-    <input type="email"
-      name="customer[email]"
-      id="customerEmail"
-      autocorrect="off"
-      autocapitalize="off"
-      autocomplete="email">
-  </div>
-  <div>
-    <label for="customerPassword">Password</label>
-    <input type="password"
-      name="customer[password]"
-      id="customerPassword">
-  </div>
-
-  <input type="submit" value="Sign In" />
-
-{% endform %}
+    <div class="submit">
+      <input type="submit" value="Create">
+    </div>
+  {% endform %}
+<br>
+<br>
   </body>
 </html>
