@@ -191,10 +191,15 @@
   </section>
 </div>
 
-{% comment %} {%- assign my_variable = "tomato THis is demo" -%} {% endcomment %}
+{%- assign my_variable = "tomato THis is demo" -%}
 {% assign my_variable = "tomato THis is demo" %}
 {{ my_variable }}
 
+<ul>
+{%- for product in products -%}
+  <li>{{ product.title }}</li>
+{%- endfor -%}
+</ul>
 {% schema %}
 {
   "name": "Multiple Grid",
