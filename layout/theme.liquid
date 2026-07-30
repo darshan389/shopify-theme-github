@@ -89,7 +89,7 @@
     {% sections 'header-group' %}
     {{ content_for_layout }}
     {% section 'footer' %}
-
+    
     <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
@@ -102,7 +102,7 @@
     <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
-
+    
   {% form 'create_customer' %}
     {{ form.errors | default_errors }}
 
