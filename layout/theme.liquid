@@ -90,8 +90,6 @@
     {{ content_for_layout }}
     {% section 'footer' %}
 
-
-
     <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
@@ -105,24 +103,99 @@
     <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
 
-
-
     {% form 'activate_customer_password' %}
-  {{ form.errors | default_errors }}
+      {{ form.errors | default_errors }}
 
-  <label for="password">Password</label>
-  <input type="password" name="customer[password]" id="password">
+      <label for="password">Password</label>
+      <input type="password" name="customer[password]" id="password">
 
-  <label for="password_confirmation">Confirm Password</label>
-  <input type="password" name="customer[password_confirmation]" id="password_confirmation">
+      <label for="password_confirmation">Confirm Password</label>
+      <input type="password" name="customer[password_confirmation]" id="password_confirmation">
 
-  <button type="submit">Activate Account</button>
-{% endform %}
-<br><br>
-<h1>Sign in to your Account</h1>
+      <button type="submit">Activate Account</button>
+    {% endform %}
+    <br>
+    <br>
+    <h1>Sign in to your Account</h1>
 
-{%- form 'customer_login' -%}
-  {{ form.errors | default_errors }}
+    {%- form 'customer_login' -%}
+      {{ form.errors | default_errors }}
+
+      <div>
+        <label for="customerEmail">Email Address</label>
+        <input
+          type="email"
+          name="customer[email]"
+          id="customerEmail"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+        >
+      </div>
+      <div>
+        <label for="customerPassword">Password</label>
+        <input
+          type="password"
+          name="customer[password]"
+          id="customerPassword"
+        >
+      </div>
+
+      <input type="submit" value="Sign In">
+
+      <p>
+        {{ 'Create Account' | customer_register_link }}
+      </p>
+      <p>
+        <a href="#recover">Forgot your password?</a>
+      </p>
+    {%- endform -%}
+
+    <!--
+      If accounts are set as optional, the following will be shown as an option when coming from checkout, not on the default /login page.
+    -->
+    {%- if shop.checkout.guest_login -%}
+      {%- form 'guest_login' -%}
+        <input type="submit" value="Continue as Guest">
+      {%- endform -%}
+    {%- endif -%}
+
+    <!-- Use JavaScript to show/hide this form -->
+    {%- form 'recover_customer_password' -%}
+      {%- if form.posted_successfully? -%}
+        <div role="status">
+          <p>We've sent you an email with a link to update your password.</p>
+        </div>
+      {%- endif -%}
+
+      <div
+        id="recover"
+        {% unless form.errors %}
+          style="display: none;"
+        {% endunless %}
+      >
+        <p>We will send you an email to reset your password.</p>
+
+        {{ form.errors | default_errors }}
+
+        <label for="customerEmail">Email Address</label>
+        <input
+          type="email"
+          name="email"
+          id="customerEmail"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+        >
+
+        <input type="submit" value="Submit">
+      </div>
+    {%- endform -%}
+    <br>
+    <br>
+
+    
+{% form 'customer_login' %}
 
   <div>
     <label for="customerEmail">Email Address</label>
@@ -142,48 +215,6 @@
 
   <input type="submit" value="Sign In" />
 
-  <p>
-    {{ 'Create Account' | customer_register_link }}
-  </p>
-  <p>
-    <a href="#recover">Forgot your password?</a>
-  </p>
-
-{%- endform -%}
-
-<!-- If accounts are set as optional, the following will be shown as an option when coming from checkout, not on the default /login page. -->
-{%- if shop.checkout.guest_login -%}
-  {%- form 'guest_login' -%}
-    <input type="submit" value="Continue as Guest" />
-  {%- endform -%}
-{%- endif -%}
-
-<!-- Use JavaScript to show/hide this form -->
-{%- form 'recover_customer_password' -%}
-
-  {%- if form.posted_successfully? -%}
-    <div role="status">
-      <p>We've sent you an email with a link to update your password.</p>
-    </div>
-  {%- endif -%}
-
-  <div id="recover"{% unless form.errors %} style="display: none;"{% endunless %}>
-    <p>We will send you an email to reset your password.</p>
-
-    {{ form.errors | default_errors }}
-
-    <label for="customerEmail">Email Address</label>
-    <input type="email"
-      name="email"
-      id="customerEmail"
-      autocorrect="off"
-      autocapitalize="off"
-      autocomplete="email">
-
-    <input type="submit" value="Submit">
-  </div>
-
-{%- endform -%}
-<br><br>
+{% endform %}
   </body>
 </html>
