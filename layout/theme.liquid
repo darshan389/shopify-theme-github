@@ -104,5 +104,19 @@
     <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+
+
+
+    {% form 'activate_customer_password' %}
+  {{ form.errors | default_errors }}
+
+  <label for="password">Password</label>
+  <input type="password" name="customer[password]" id="password">
+
+  <label for="password_confirmation">Confirm Password</label>
+  <input type="password" name="customer[password_confirmation]" id="password_confirmation">
+
+  <button type="submit">Activate Account</button>
+{% endform %}
   </body>
 </html>
