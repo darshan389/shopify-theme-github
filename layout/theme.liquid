@@ -102,7 +102,17 @@
     <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
-    
 
+
+{% form 'customer' %}
+  <div className="email">
+    <label for="email">Email</label>
+    <input type="email" name="contact[email]" />
+  </div>
+
+  <div className="submit">
+    <input type="submit" value="Sign up" />
+  </div>
+{% endform %}
   </body>
 </html>
