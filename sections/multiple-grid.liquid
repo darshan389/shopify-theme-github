@@ -195,11 +195,20 @@
 {% assign my_variable = "tomato THis is demo" %}
 {{ my_variable }}
 
-<ul>
+{% comment %} <ul>
 {% for product in collections.first.products %}
   <li>{{ product.title }}</li>
 {% endfor %}
-</ul>
+</ul> {% endcomment %}
+
+
+Hello
+
+{%- assign name = "Tomato" -%}
+
+{{ name }}
+
+World
 {% schema %}
 {
   "name": "Multiple Grid",
