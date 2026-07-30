@@ -196,9 +196,9 @@
 {{ my_variable }}
 
 <ul>
-{%- for product in collections.first.products -%}
+{% for product in collections.first.products %}
   <li>{{ product.title }}</li>
-{%- endfor -%}
+{% endfor %}
 </ul>
 {% schema %}
 {
