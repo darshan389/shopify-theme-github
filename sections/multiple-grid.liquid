@@ -191,13 +191,9 @@
   </section>
 </div>
 
-{%- assign my_variable = "tomato THis is demo" -%}
-{% assign my_variable = "tomato THis is demo" %}
-{{ my_variable }}
 
-<p>
-Hello {{ "world" }}
-</p>
+Hello {{- "world" -}}
+
 {% schema %}
 {
   "name": "Multiple Grid",
