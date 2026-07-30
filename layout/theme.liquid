@@ -130,7 +130,7 @@
       <input type="submit" value="Create">
     </div>
   {% endform %}
-  
+
 <br>
 <br>
 
@@ -173,5 +173,15 @@
 {% endform %}
 <br />
 <br />
+{% form 'customer' %}
+<div className="email">
+  <label for="email">Email</label>
+  <input type="email" name="contact[email]" />
+</div>
+
+<div className="submit">
+  <input type="submit" value="Sign up" />
+</div>
+{% endform %}
   </body>
 </html>
