@@ -44,38 +44,39 @@
         {% for option in product.options_with_values %}
           {% assign forloop_index = forloop.index %}
           <ul style="margin: 8px;">
-            
-              {% for value in option.values %}
+            {% for value in option.values %}
+              <li>
+                <label
+                  for="size{{ forloop.index }}"
+                  data-image="{{ variant.featured_image | image_url: width:600 }}"
+                  data-price="{{ variant.price | money }}"
+                  class="variant-swatch"
+                  {% if option.name == 'Color' %}
+                    style="background-color: {{ value | downcase }}"
+                  {% endif %}
+                >
+                  <input type="radio" id="size{{ forloop.index}}" name="variant-{{ product.id }}" hidden>
+                  {% if option.name != 'Color' %}
+                    {{ value }}
+                  {% endif %}
+                </label>
+              </li>
+            {% endfor %}
+
+            {% comment %}
+              {% for variant in product.variants %}
                 <li>
                   <label
-                    for="size{{ forloop.index }}"
-                      data-image="{{ variant.featured_image | image_url: width:600 }}"
-                      data-price="{{ variant.price | money }}"
                     class="variant-swatch"
-                    {% if option.name == 'Color' %}
-                      style="background-color: {{ value | downcase }}"
-                    {% endif %}
+                    data-image="{{ variant.featured_image | image_url: width:600 }}"
+                    data-price="{{ variant.price | money }}"
+                    style="background-color: {{ variant.option1 | downcase }};"
                   >
-                    <input type="radio" id="size{{ forloop.index}}"  name="variant-{{ product.id }}" hidden>
-                    {% if option.name != 'Color' %}
-                      {{ value }}
-                    {% endif %}
+                    <input type="radio" name="variant-{{ product.id }}" hidden>
                   </label>
                 </li>
               {% endfor %}
-           
-            {% comment %} {% for variant in product.variants %}
-              <li>
-                <label
-                  class="variant-swatch"
-                  data-image="{{ variant.featured_image | image_url: width:600 }}"
-                  data-price="{{ variant.price | money }}"
-                  style="background-color: {{ variant.option1 | downcase }};"
-                >
-                  <input type="radio" name="variant-{{ product.id }}" hidden>
-                </label>
-              </li>
-            {% endfor %} {% endcomment %}
+            {% endcomment %}
           </ul>
         {% endfor %}
       </div>
