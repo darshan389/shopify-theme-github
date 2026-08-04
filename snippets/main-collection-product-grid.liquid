@@ -44,24 +44,26 @@
         {% for option in product.options_with_values %}
           {% assign forloop_index = forloop.index %}
           <ul style="margin: 8px;">
-            {% comment %} {% for value in option.values %}
-              <li>
-                <label
-                  for="size{{ forloop.index }}"
-                  data-image="{{ value.featured_image | image_url }}"
-                  data-price="{{ value.price | money }}"
-                  class="variant-swatch"
-                  {% if option.name == 'Color' %}
-                    style="background-color: {{ value | downcase }}"
-                  {% endif %}
-                >
-                  <input type="radio" id="size{{ forloop.index}}" name="variant-{{ product.id }}" hidden>
-                  {% if option.name != 'Color' %}
-                    {{ value }}
-                  {% endif %}
-                </label>
-              </li>
-            {% endfor %} {% endcomment %}
+            {% comment %}
+              {% for value in option.values %}
+                <li>
+                  <label
+                    for="size{{ forloop.index }}"
+                    data-image="{{ value.featured_image | image_url }}"
+                    data-price="{{ value.price | money }}"
+                    class="variant-swatch"
+                    {% if option.name == 'Color' %}
+                      style="background-color: {{ value | downcase }}"
+                    {% endif %}
+                  >
+                    <input type="radio" id="size{{ forloop.index}}" name="variant-{{ product.id }}" hidden>
+                    {% if option.name != 'Color' %}
+                      {{ value }}
+                    {% endif %}
+                  </label>
+                </li>
+              {% endfor %}
+            {% endcomment %}
 
             {% for value in option.values %}
               {% assign current_variant = null %}
@@ -142,38 +144,30 @@
 </div>
 
 {% javascript %}
-document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.product-card').forEach((card) => {
+      const image = card.querySelector('.main-product-image');
+      const price = card.querySelector('.product-price');
 
-  document.querySelectorAll(".product-card").forEach((card)=>{
-
-      const image = card.querySelector(".main-product-image");
-      const price = card.querySelector(".product-price");
-
-      card.querySelectorAll(".variant-swatch").forEach((swatch)=>{
-
-          swatch.addEventListener("click",function(){
-
-              card.querySelectorAll(".variant-swatch").forEach((s)=>{
-                  s.classList.remove("active");
-              });
-
-              this.classList.add("active");
-
-              if(this.dataset.image){
-                  image.src = this.dataset.image;
-              }
-
-              if(price && this.dataset.price){
-                  price.innerHTML = this.dataset.price;
-              }
-
+      card.querySelectorAll('.variant-swatch').forEach((swatch) => {
+        swatch.addEventListener('click', function () {
+          card.querySelectorAll('.variant-swatch').forEach((s) => {
+            s.classList.remove('active');
           });
 
+          this.classList.add('active');
+
+          if (this.dataset.image) {
+            image.src = this.dataset.image;
+          }
+
+          if (price && this.dataset.price) {
+            price.innerHTML = this.dataset.price;
+          }
+        });
       });
-
+    });
   });
-
-});
 {% endjavascript %}
 
 {% style %}
