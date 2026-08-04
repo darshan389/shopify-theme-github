@@ -48,7 +48,7 @@
               <li>
                 <label
                   for="size{{ forloop.index }}"
-                  data-image="{{ value.featured_image | image_url: width:600 }}"
+                  data-image="{{ value.featured_image | image_url }}"
                   data-price="{{ value.price | money }}"
                   class="variant-swatch"
                   {% if option.name == 'Color' %}
