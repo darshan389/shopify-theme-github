@@ -19,34 +19,47 @@
       {% endif %}
     {% endif %}
 
-    <div class="product-slider-image" style="height: 405px;">
-      {% for images in product.media %}
-        <a href="{{ product.url }}">
-          <img src="{{ images | image_url }}" alt="{{ product.featured_image.alt }}" width="" height="">
-        </a>
-      {% endfor %}
-    </div>
+    {% comment %}
+      <div class="product-slider-image" style="height: 405px;">
+        {% for images in product.media %}
+          <a href="{{ product.url }}">
+            <img src="{{ images | image_url }}" alt="{{ product.featured_image.alt }}" width="" height="">
+          </a>
+        {% endfor %}
+      </div>
+    {% endcomment %}
 
+    <div class="product-slider-image" style="height:405px;">
+      <a href="{{ product.url }}">
+        <img
+          class="main-product-image"
+          src="{{ product.featured_image | image_url: width:600 }}"
+          alt="{{ product.title }}"
+        >
+      </a>
+    </div>
     {% unless product.has_only_default_variant %}
       <div class="product-slide-var">
         {% for option in product.options_with_values %}
           {% assign forloop_index = forloop.index %}
           <ul style="margin: 8px;">
-            {% comment %} {% for value in option.values %}
-              <li>
-                <label
-                  for="size{{ forloop.index }}"
-                  {% if option.name == 'Color' %}
-                    style="background-color: {{ value | downcase }}"
-                  {% endif %}
-                >
-                  <input type="radio" id="size{{ forloop.index}}" name="radio-group-{{ forloop_index }}">
-                  {% if option.name != 'Color' %}
-                    {{ value }}
-                  {% endif %}
-                </label>
-              </li>
-            {% endfor %} {% endcomment %}
+            {% comment %}
+              {% for value in option.values %}
+                <li>
+                  <label
+                    for="size{{ forloop.index }}"
+                    {% if option.name == 'Color' %}
+                      style="background-color: {{ value | downcase }}"
+                    {% endif %}
+                  >
+                    <input type="radio" id="size{{ forloop.index}}" name="radio-group-{{ forloop_index }}">
+                    {% if option.name != 'Color' %}
+                      {{ value }}
+                    {% endif %}
+                  </label>
+                </li>
+              {% endfor %}
+            {% endcomment %}
             {% for variant in product.variants %}
               <li>
                 <label
