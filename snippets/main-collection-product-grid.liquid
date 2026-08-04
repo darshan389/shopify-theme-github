@@ -44,7 +44,7 @@
         {% for option in product.options_with_values %}
           {% assign forloop_index = forloop.index %}
           <ul style="margin: 8px;">
-            {% for value in option.values %}
+            {% comment %} {% for value in option.values %}
               <li>
                 <label
                   for="size{{ forloop.index }}"
@@ -61,22 +61,33 @@
                   {% endif %}
                 </label>
               </li>
-            {% endfor %}
+            {% endfor %} {% endcomment %}
 
-            {% comment %}
+            {% for value in option.values %}
+              {% assign current_variant = null %}
+
               {% for variant in product.variants %}
-                <li>
-                  <label
-                    class="variant-swatch"
-                    data-image="{{ variant.featured_image | image_url: width:600 }}"
-                    data-price="{{ variant.price | money }}"
-                    style="background-color: {{ variant.option1 | downcase }};"
-                  >
-                    <input type="radio" name="variant-{{ product.id }}" hidden>
-                  </label>
-                </li>
+                {% if variant.option1 == value %}
+                  {% assign current_variant = variant %}
+                  {% break %}
+                {% endif %}
               {% endfor %}
-            {% endcomment %}
+
+              <li>
+                <label
+                  class="variant-swatch"
+                  data-image="{% if current_variant.featured_image %}{{ current_variant.featured_image | image_url: width:600 }}{% endif %}"
+                  data-price="{{ current_variant.price | money }}"
+                  style="background-color:{{ value | downcase }}"
+                >
+                  <input
+                    type="radio"
+                    name="variant-{{ product.id }}"
+                    hidden
+                  >
+                </label>
+              </li>
+            {% endfor %}
           </ul>
         {% endfor %}
       </div>
@@ -130,18 +141,6 @@
   {% render 'add-to-cart-btn', product: product, section: section %}
 </div>
 
-{% style %}
-  .product-content .product-details .promo-price .mob .sh1{
-    display:inline-block;
-  }
-  product-form button{
-    width: 100%;
-   }
-  modal-opener button{
-    width: 100%;
-   }
-{% endstyle %}
-
 {% javascript %}
   document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.product-card').forEach(function (card) {
@@ -163,6 +162,18 @@
     });
   });
 {% endjavascript %}
+
+{% style %}
+  .product-content .product-details .promo-price .mob .sh1{
+    display:inline-block;
+  }
+  product-form button{
+    width: 100%;
+   }
+  modal-opener button{
+    width: 100%;
+   }
+{% endstyle %}
 
 {% comment %}
   {% form 'product', product, id: 'product-form-{{ product.id }}' %}
