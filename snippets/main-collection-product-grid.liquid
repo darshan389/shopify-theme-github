@@ -32,7 +32,7 @@
         {% for option in product.options_with_values %}
           {% assign forloop_index = forloop.index %}
           <ul style="margin: 8px;">
-            {% for value in option.values %}
+            {% comment %} {% for value in option.values %}
               <li>
                 <label
                   for="size{{ forloop.index }}"
@@ -46,13 +46,23 @@
                   {% endif %}
                 </label>
               </li>
+            {% endfor %} {% endcomment %}
+            {% for variant in product.variants %}
+              <li>
+                <label
+                  class="variant-swatch"
+                  data-image="{{ variant.featured_image | image_url: width:600 }}"
+                  data-price="{{ variant.price | money }}"
+                  style="background-color: {{ variant.option1 | downcase }};"
+                >
+                  <input type="radio" name="variant-{{ product.id }}" hidden>
+                </label>
+              </li>
             {% endfor %}
           </ul>
         {% endfor %}
       </div>
-
     {% endunless %}
-
   </div>
 
   <div class="product-content">
@@ -70,7 +80,7 @@
                 <div class="old-price">{{ product.compare_at_price | money }}</div>
                 — <span>{{ discount_percent }}% OFF — {{ product.price | money }}</span>
               </div>
-            {% else %}  
+            {% else %}
               <div class="sh1 desk">
                 <div class="price">{{ product.price | money }}</div>
               </div>
@@ -85,7 +95,6 @@
             — <span>{{ discount_percent }}% OFF — {{ product.price | money }}</span>
           </div>
         </div>
-
       </div>
     </div>
     {% if section.section.grid_wishlist %}
@@ -103,7 +112,7 @@
 {% style %}
   .product-content .product-details .promo-price .mob .sh1{
     display:inline-block;
-  } 
+  }
   product-form button{
     width: 100%;
    }
@@ -112,125 +121,113 @@
    }
 {% endstyle %}
 
-{%javascript %}
-  document.addEventListener("DOMContentLoaded", function () {
+{% javascript %}
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.product-card').forEach(function (card) {
+      console.log('this is demo ');
+      const image = card.querySelector('.product-image');
+      const price = card.querySelector('.product-price');
 
-  document.querySelectorAll(".product-card").forEach(function(card){
-    console.log("this is demo ")
-      const image = card.querySelector(".product-image");
-      const price = card.querySelector(".product-price");
-
-      card.querySelectorAll(".variant-swatch").forEach(function(swatch){
-
-          swatch.addEventListener("click", function(){
-
-              card.querySelectorAll(".variant-swatch").forEach(function(item){
-                  item.classList.remove("active");
-              });
-
-              this.classList.add("active");
-
-              const newImage = this.dataset.image;
-              const newPrice = this.dataset.price;
-
-              if(newImage){
-                  image.src = newImage;
-              }
-
-              if(newPrice){
-                  price.innerHTML = newPrice;
-              }
-
+      card.querySelectorAll('.variant-swatch').forEach(function (swatch) {
+        swatch.addEventListener('click', function () {
+          card.querySelectorAll('.variant-swatch').forEach(function (item) {
+            item.classList.remove('active');
           });
 
+          this.classList.add('active');
+
+          const newImage = this.dataset.image;
+          const newPrice = this.dataset.price;
+
+          if (newImage) {
+            image.src = newImage;
+          }
+
+          if (newPrice) {
+            price.innerHTML = newPrice;
+          }
+        });
       });
-
+    });
   });
-
-});
 {% endjavascript %}
 
+{% comment %}
+  {% form 'product', product, id: 'product-form-{{ product.id }}' %}
+    {% for option in product.options_with_values %}
+      <div
+        class="variant-option-group"
+        name="id"
+        {{ block.shopify_attributes }}
+        data-inventory-policy="{{ option.inventory_policy }}"
+        data-inventory-quantity="{{ option.inventory_quantity }}"
+      >
+        <label class="variant-label">{{ option.name }}</label>
+        <div class="variant-options" id="variant-{{ product.id }}">
+          {% for value in option.values %}
+            <label class="variant-option">
+              <input
+                type="radio"
+                name="options[{{ option.name }}]"
+                value="{{ value }}"
+                class="single-option-selector"
+                main-var-id="{{ value }}"
+                data-variant-id="{{ value }}"
+                data-section-name="{{ section.location.size }}"
 
-
-
-
-
-
-
-      {% comment %} {% form 'product', product, id: 'product-form-{{ product.id }}' %}
-        {% for option in product.options_with_values %}
-          <div
-            class="variant-option-group"
-            name="id"
-            {{ block.shopify_attributes }}
-            data-inventory-policy="{{ option.inventory_policy }}"
-            data-inventory-quantity="{{ option.inventory_quantity }}"
-          >
-            <label class="variant-label">{{ option.name }}</label>
-            <div class="variant-options" id="variant-{{ product.id }}">
-              {% for value in option.values %}
-                <label class="variant-option">
-                  <input
-                    type="radio"
-                    name="options[{{ option.name }}]"
-                    value="{{ value }}"
-                    class="single-option-selector"
-                    main-var-id="{{ value }}"
-                    data-variant-id="{{ value }}"
-                    data-section-name="{{ section.location.size }}"
-
-                    {% if option.selected_value == value %}
-                      checked
-                    {% endif %}
-                  >
-                  {% if option.name == 'Color' %}
-                    <span
-                      class="text color"
-                      style="background-color: {{ value | downcase }}"
-                      main-var-id="{{ value }}"
-                    ></span>
-                  {% elsif option.name == 'Size' %}
-                    <span class="text size" main-var-id="{{ value }}">{{ value }}</span>
-                  {% else %}
-                    <span class="text material" main-var-id="{{ value }}">{{ value }}</span>
-                  {% endif %}
-                </label>
-              {% endfor %}
-            </div>
-          </div>
-        {% endfor %}
-        <input
-          type="hidden"
-          name="id"
-          id="demo"
-          class="inputvalue"
-          value="{{ product.selected_or_first_available_variant.id }}"
-          id="VariantId-{{ section.id }}"
-        >
-        <input type="hidden" name="selling_plan" value="" id="selling-plan-input">
-        <button
-          type="submit"
-          id="AddToCart"
-          {% comment %} class="btn-red text-center" {% endcomment %}
-          class="add-to-cart-button btn-red text-center"
-          data-product-id="{{ product.id }}"
-          {% if product.selected_or_first_available_variant.available == false %}
-            disabled
-          {% endif %}
-          name="add"
-          style="margin-bottom: 20px;display:block;"
-          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-        >
-          {% if product.selected_or_first_available_variant.available %}
-            {% if product.selected_or_first_available_variant.inventory_policy == 'continue'
-              and product.selected_or_first_available_variant.inventory_quantity <= 0
-            %}
-              pro-order
-            {% else %}
-              {{ 'products.product.add_to_cart' | t }}
-            {% endif %}
-          {% else %}
-            {{ 'products.product.sold_out' | t }}
-          {% endif %}
-        </button>
-      {% endform %} {% endcomment %}
+                {% if option.selected_value == value %}
+                  checked
+                {% endif %}
+              >
+              {% if option.name == 'Color' %}
+                <span
+                  class="text color"
+                  style="background-color: {{ value | downcase }}"
+                  main-var-id="{{ value }}"
+                ></span>
+              {% elsif option.name == 'Size' %}
+                <span class="text size" main-var-id="{{ value }}">{{ value }}</span>
+              {% else %}
+                <span class="text material" main-var-id="{{ value }}">{{ value }}</span>
+              {% endif %}
+            </label>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+    <input
+      type="hidden"
+      name="id"
+      id="demo"
+      class="inputvalue"
+      value="{{ product.selected_or_first_available_variant.id }}"
+      id="VariantId-{{ section.id }}"
+    >
+    <input type="hidden" name="selling_plan" value="" id="selling-plan-input">
+    <button
+      type="submit"
+      id="AddToCart"
+      {% comment %} class="btn-red text-center" {% endcomment %}
+      class="add-to-cart-button btn-red text-center"
+      data-product-id="{{ product.id }}"
+      {% if product.selected_or_first_available_variant.available == false %}
+        disabled
+      {% endif %}
+      name="add"
+      style="margin-bottom: 20px;display:block;"
+      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+    >
+      {% if product.selected_or_first_available_variant.available %}
+        {% if product.selected_or_first_available_variant.inventory_policy == 'continue'
+          and product.selected_or_first_available_variant.inventory_quantity <= 0
+        %}
+          pro-order
+        {% else %}
+          {{ 'products.product.add_to_cart' | t }}
+        {% endif %}
+      {% else %}
+        {{ 'products.product.sold_out' | t }}
+      {% endif %}
+    </button>
+  {% endform %}
+{% endcomment %}
