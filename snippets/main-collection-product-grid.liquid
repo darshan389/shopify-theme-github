@@ -44,7 +44,7 @@
         {% for option in product.options_with_values %}
           {% assign forloop_index = forloop.index %}
           <ul style="margin: 8px;">
-            {% comment %}
+            
               {% for value in option.values %}
                 <li>
                   <label
@@ -60,8 +60,8 @@
                   </label>
                 </li>
               {% endfor %}
-            {% endcomment %}
-            {% for variant in product.variants %}
+           
+            {% comment %} {% for variant in product.variants %}
               <li>
                 <label
                   class="variant-swatch"
@@ -72,7 +72,7 @@
                   <input type="radio" name="variant-{{ product.id }}" hidden>
                 </label>
               </li>
-            {% endfor %}
+            {% endfor %} {% endcomment %}
           </ul>
         {% endfor %}
       </div>
