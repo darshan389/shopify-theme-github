@@ -49,11 +49,14 @@
                 <li>
                   <label
                     for="size{{ forloop.index }}"
+                      data-image="{{ variant.featured_image | image_url: width:600 }}"
+                      data-price="{{ variant.price | money }}"
+                    class="variant-swatch"
                     {% if option.name == 'Color' %}
                       style="background-color: {{ value | downcase }}"
                     {% endif %}
                   >
-                    <input type="radio" id="size{{ forloop.index}}" name="radio-group-{{ forloop_index }}">
+                    <input type="radio" id="size{{ forloop.index}}"  name="variant-{{ product.id }}" hidden>
                     {% if option.name != 'Color' %}
                       {{ value }}
                     {% endif %}
