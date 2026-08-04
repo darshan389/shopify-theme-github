@@ -146,6 +146,7 @@
     document.querySelectorAll('.product-card').forEach(function (card) {
       const image = card.querySelector('.main-product-image');
       const price = card.querySelector('.product-price');
+      console.log("this is prices html :: ",price)
 
       card.querySelectorAll('.variant-swatch').forEach(function (item) {
         item.addEventListener('click', function () {
