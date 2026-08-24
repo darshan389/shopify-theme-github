@@ -46,20 +46,7 @@
       {% comment %} {{ label_unavailable }} {% endcomment %}
     {%- endcapture -%}
     <li>
-      {%
-        render 'swatch-input',
-        id: input_id,
-        name: input_name,
-        value: value | escape,
-        swatch: value.swatch,
-        product_form_id: product_form_id,
-        checked: value.selected,
-        visually_disabled: option_disabled,
-        shape: block.settings.swatch_shape,
-        help_text: help_text,
-        additional_props: input_dataset,
-        product:product
-      %}
+      {% render 'swatch-input', id: input_id, name: input_name, value: value, swatch: value.swatch, product_form_id: product_form_id, checked: value.selected, visually_disabled: option_disabled, shape: block.settings.swatch_shape, help_text: help_text, additional_props: input_dataset, product: product %}
     </li>  
   {%- elsif picker_type == 'button' -%}
     <li style="width:33.33%;padding: 5px;">
@@ -118,3 +105,30 @@
     height: 100%;
   }
 {% endstyle %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {%
+            render 'swatch-input',
+            id: input_id,
+            name: input_name,
+            value: value | escape,
+            swatch: value.swatch,
+            product_form_id: product_form_id,
+            checked: value.selected,
+            visually_disabled: option_disabled,
+            shape: block.settings.swatch_shape,
+            help_text: help_text,
+            additional_props: input_dataset,
+            product:product
+          %}
+  to: "{% render 'swatch-input', id: input_id, name: input_name, value: value, swatch:
+    value.swatch, product_form_id: product_form_id, checked: value.selected, visually_disabled:
+    option_disabled, shape: block.settings.swatch_shape, help_text: help_text, additional_props:
+    input_dataset, product: product %}"
+  position: 1422..1721
+{% endcomment %}
