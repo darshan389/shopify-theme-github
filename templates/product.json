@@ -89,6 +89,19 @@
         "image_select": "Image_Hover"
       }
     },
+    "1795005617a8168ea8": {
+      "type": "apps",
+      "blocks": {
+        "fad_auto_discounts_fad_fbt_widget_agBKKV": {
+          "type": "shopify://apps/fad-auto-discounts/blocks/FAD-FBT-widget/4b6810b7-b33d-468c-9916-327aeb4c800b",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "fad_auto_discounts_fad_fbt_widget_agBKKV"
+      ],
+      "settings": {}
+    },
     "recently_viewed_YBe3bP": {
       "type": "recently-viewed",
       "name": "Featured Collection",
@@ -110,19 +123,6 @@
         "section_padding_top": 80,
         "section_padding_bottom": 80
       }
-    },
-    "1795005617a8168ea8": {
-      "type": "apps",
-      "blocks": {
-        "fad_auto_discounts_fad_fbt_widget_agBKKV": {
-          "type": "shopify://apps/fad-auto-discounts/blocks/FAD-FBT-widget/4b6810b7-b33d-468c-9916-327aeb4c800b",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "fad_auto_discounts_fad_fbt_widget_agBKKV"
-      ],
-      "settings": {}
     },
     "related_products_jUmXcG": {
       "type": "related-products",
@@ -210,8 +210,8 @@
   },
   "order": [
     "main",
-    "recently_viewed_YBe3bP",
     "1795005617a8168ea8",
+    "recently_viewed_YBe3bP",
     "related_products_jUmXcG",
     "insta_section_8wGXga",
     "17689862235f1c24e6"
