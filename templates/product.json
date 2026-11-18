@@ -21,7 +21,7 @@
         "fad_auto_discounts_fad_accessories_addons_frWy3G": {
           "type": "shopify://apps/fad-auto-discounts/blocks/FAD-accessories-addons/4b6810b7-b33d-468c-9916-327aeb4c800b",
           "settings": {
-            "fad_addon_id": 0
+            "fad_addon_id": 2968
           }
         },
         "title_L6ydKJ": {
@@ -106,6 +106,19 @@
         "section_padding_bottom": 80
       }
     },
+    "1795005617a8168ea8": {
+      "type": "apps",
+      "blocks": {
+        "fad_auto_discounts_fad_fbt_widget_agBKKV": {
+          "type": "shopify://apps/fad-auto-discounts/blocks/FAD-FBT-widget/4b6810b7-b33d-468c-9916-327aeb4c800b",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "fad_auto_discounts_fad_fbt_widget_agBKKV"
+      ],
+      "settings": {}
+    },
     "related_products_jUmXcG": {
       "type": "related-products",
       "name": "Related Products",
@@ -186,19 +199,6 @@
       },
       "block_order": [
         "okendo_reviews_widget_WtGzde"
-      ],
-      "settings": {}
-    },
-    "1795005617a8168ea8": {
-      "type": "apps",
-      "blocks": {
-        "fad_auto_discounts_fad_fbt_widget_agBKKV": {
-          "type": "shopify://apps/fad-auto-discounts/blocks/FAD-FBT-widget/4b6810b7-b33d-468c-9916-327aeb4c800b",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "fad_auto_discounts_fad_fbt_widget_agBKKV"
       ],
       "settings": {}
     }
